@@ -39,16 +39,15 @@ router.post('/', async (req, res, next) => {
   };
   // creates cookie
   await setTokenCookie(res, safeUser);
-git s
   return res.json({
     user: safeUser
   });
 });
 
 router.delete('/', (_req, res) => {
-    res.clearCookie('token');
-    return res.json({ message: 'success' });
-  }
+  res.clearCookie('token');
+  return res.json({ message: 'success' });
+}
 );
 
 
