@@ -47,8 +47,25 @@ router.post('/', async (req, res, next) => {
 router.delete('/', (_req, res) => {
   res.clearCookie('token');
   return res.json({ message: 'success' });
-}
-);
+});
+
+router.get('/', (req, res) => {
+  // Get the user from the request
+  const { user } = req;
+  // if the user exists return all their info
+  if (user) {
+    const safeUser = {
+      id: user.id,
+      email: user.email,
+      username: user.username,
+    };
+    return res.json({
+      user: safeUser
+    });
+  }
+  // Otherwise return nul
+  else return res.json({ user: null });
+});
 
 
 module.exports = router;
