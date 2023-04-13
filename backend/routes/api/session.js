@@ -39,7 +39,7 @@ router.post('/', async (req, res, next) => {
   };
   // creates cookie
   await setTokenCookie(res, safeUser);
-
+git s
   return res.json({
     user: safeUser
   });
