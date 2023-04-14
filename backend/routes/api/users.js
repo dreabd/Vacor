@@ -33,15 +33,17 @@ const validateSignup = [
 /*----------------------- Signs Up New Users -----------------------*/
 router.post('/', validateSignup, async (req, res) => {
   // Gets the infor from req.body
-  const { email, password, username } = req.body;
+  const { email, password, username, firstName, lastName } = req.body;
   // Hashes the password
   const hashedPassword = bcrypt.hashSync(password);
   // creates and saves a new instance of user
-  const user = await User.create({ email, username, hashedPassword });
+  const user = await User.create({ email, username, hashedPassword, firstName, lastName });
 
   // creates obj for set token cookie function
   const safeUser = {
     id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
     email: user.email,
     username: user.username,
   };
