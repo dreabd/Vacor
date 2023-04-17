@@ -15,9 +15,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ownerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: true,
+        references: {
+          model: 'Users'
+        },
       },
-      address:{
+      address: {
         type: Sequelize.STRING
       },
       city: {
@@ -52,7 +57,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    },options);
+    }, options);
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Spots');
