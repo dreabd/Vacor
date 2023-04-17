@@ -17,11 +17,11 @@ module.exports = {
         city: "Peabody",
         state: "MA",
         country: "USA",
-        lattitude: "42.536457",
-        longitude: "-70.985786",
+        lattitude:42.536457,
+        longitude: -70.985786,
         name: "Funland",
         description: " A perfect place for kids to have fun and for the adults to relax",
-        price: "1200",
+        price: 1200,
       },
       {
         ownerId: 2,
@@ -33,7 +33,7 @@ module.exports = {
         longitude: -76.085251,
         name: "Random Name",
         description: "Looking for a place where you can not expect the expected? Well we have the perfect spot for you",
-        price: "500",
+        price: 500,
       }
 
     ], {});
