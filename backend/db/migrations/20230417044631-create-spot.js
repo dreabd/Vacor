@@ -14,11 +14,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id: {
-        type: Sequelize.INTEGER
-      },
       ownerId: {
         type: Sequelize.INTEGER
+      },
+      address:{
+        type: Sequelize.STRING
       },
       city: {
         type: Sequelize.STRING
@@ -30,10 +30,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       lattitude: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DECIMAL
       },
       longitude: {
-        type: Sequelize.FLOAT
+        type: Sequelize.DECIMAL
       },
       name: {
         type: Sequelize.STRING

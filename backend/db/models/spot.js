@@ -16,11 +16,12 @@ module.exports = (sequelize, DataTypes) => {
   Spot.init({
     id: DataTypes.INTEGER,
     ownerId: DataTypes.INTEGER,
+    address: DataTypes.STRING,
     city: DataTypes.STRING,
     state: DataTypes.STRING,
     country: DataTypes.STRING,
-    lattitude: DataTypes.FLOAT,
-    longitude: DataTypes.FLOAT,
+    lattitude: DataTypes.DECIMAL,
+    longitude: DataTypes.DECIMAL,
     name: DataTypes.STRING,
     description: DataTypes.TEXT,
     price: DataTypes.DECIMAL

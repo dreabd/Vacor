@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     userId: DataTypes.INTEGER,
     spotId: DataTypes.INTEGER,
     review: DataTypes.TEXT,
-    stars: DataTypes.FLOAT
+    stars: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Review',
