@@ -67,6 +67,8 @@ router.delete('/', (_req, res) => {
   return res.json({ message: 'success' });
 });
 
+
+/* -------------------- Gets the Current User --------------------*/
 router.get('/', (req, res) => {
   // Get the user from the request
   const { user } = req;
@@ -86,6 +88,9 @@ router.get('/', (req, res) => {
   // Otherwise return nul
   else return res.json({ user: null });
 });
+
+
+
 
 
 module.exports = router;
