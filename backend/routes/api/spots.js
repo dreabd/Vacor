@@ -47,12 +47,12 @@ const validateReview = [
     .withMessage('Review text is required'),
   check('stars')
     .exists({ checkFalsy: true })
-    .isLength({ min: 1,max: 5 })
+    .isLength({ min: 1, max: 5 })
     .withMessage('Stars must be an integer from 1 to 5'),
   handleValidationErrors
 ];
 /*--- Helper Function for adding Average Review and Preview URL ---*/
-const avgRating_prevURL = (AllSpotsArr,newArr) => {
+const avgRating_prevURL = (AllSpotsArr, newArr) => {
   AllSpotsArr.forEach(spot => {
     let currentSpot = spot.toJSON()
     /*--- Getting the Average Star Rating ---*/
@@ -81,7 +81,7 @@ router.get("/", async (req, res, next) => {
   const allSpots = await Spot.findAll({ include: [Review, SpotImage] }) // Turns to an arr of Spots
   let Spots = [];
 
-  avgRating_prevURL(allSpots,Spots)
+  avgRating_prevURL(allSpots, Spots)
 
   res.json(Spots)
 })
@@ -135,8 +135,8 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
   const specificSpot = await Spot.findByPk(req.params.spotId)
 
   if (!specificSpot) {
-    res.status(404)
-    const err = { message: "Could not spot Spot"}
+    const err = { message: "Could not spot Spot" }
+    err.status = 404
     return next(err)
   }
 
@@ -159,15 +159,15 @@ router.put("/:spotId", requireAuth, validatesNewSpot, async (req, res, next) => 
   //  Check if the current user's id is equal to the owner's id
   if (user.id !== specificSpot.ownerId) {
     console.log("error")
-    res.status(400)
     const err = { message: "Spotted being Sus, You can not edit a Spots' information that does not belong to you." }
+    err.status = 400
     return next(err)
   }
 
   // Check if spot exists
   if (!specificSpot) {
-    res.status(404)
     const err = { message: "Could not spot Spot" }
+    err.status = 404
     return next(err)
   }
 
@@ -195,15 +195,15 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
   const specificSpot = await Spot.findByPk(req.params.spotId)
 
   if (user.id !== specificSpot.ownerId) {
-    res.status(401)
     const err = { message: "Spotted being Sus, You can not edit a Spots' information that does not belong to you." }
+    err.status = 401
     return next(err)
   }
 
   // Check if spot exists
   if (!specificSpot) {
-    res.status(404)
     const err = { message: "Could not spot Spot" }
+    err.status = 404
     return next(err)
   }
 
@@ -216,34 +216,34 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
 })
 
 /*-------------------- Review a Spot --------------------*/
-router.post("/:spotId/reviews", requireAuth,validateReview, async(req,res, next)=>{
-  const {user} = req
+router.post("/:spotId/reviews", requireAuth, validateReview, async (req, res, next) => {
+  const { user } = req
 
   // Checks if Spot Exists
   const specificSpot = await Spot.findByPk(req.params.spotId)
   if (!specificSpot) {
-    res.status(404)
     const err = { message: "Could not spot Spot" }
+    err.status = 404
     return next(err)
   }
   // REVIEW FROM THE CURRENT USER ALREADY EXISTS!!!!
-      // Need to write a error handler that checks if the userId is already the list of reveiws for a spot
+  // Need to write a error handler that checks if the userId is already the list of reveiws for a spot
   const specificSpotsReviews = await Review.findAll({
-    where:{
+    where: {
       spotId: req.params.spotId,
       userId: user.id
     }
   })
   console.log(specificSpotsReviews)
-  if(specificSpotsReviews){
-    res.status(500)
-    const err = {message: "Can not submit more than one review for a spot"}
+  if (specificSpotsReviews) {
+    const err = { message: "Can not submit more than one review for a spot" }
+    err.status = 500
     return next(err)
   }
 
   // Need userId, SpotId, req.body
   const spotId = parseInt(req.params.spotId)
-  const {review, stars} = req.body
+  const { review, stars } = req.body
   const newReview = await Review.create({
     userId: user.id,
     spotId,
@@ -251,30 +251,61 @@ router.post("/:spotId/reviews", requireAuth,validateReview, async(req,res, next)
     stars
   })
 
-  res.json({Status:"Work in Progress",newReview})
+  res.json({ newReview })
 })
 
 /*-------------------- Get Reviews of a Spot by SpotId --------------------*/
-router.get("/:spotId/reviews", async(req,res,next)=>{
+router.get("/:spotId/reviews", async (req, res, next) => {
   const specificSpot = await Spot.findByPk(req.params.spotId)
   if (!specificSpot) {
-    res.status(404)
     const err = { message: "Could not spot Spot" }
+    err.status = 404
     return next(err)
   }
   // REVIEW FROM THE CURRENT USER ALREADY EXISTS!!!!
-      // Need to write a error handler that checks if the userId is already the list of reveiws for a spot
+  // Need to write a error handler that checks if the userId is already the list of reveiws for a spot
   const specificSpotsReviews = await Review.findAll({
-    where:{
+    where: {
       spotId: req.params.spotId
     },
-    include:[User,ReviewImage]
+    include: [User, ReviewImage]
   })
   res.json(specificSpotsReviews)
 })
 
-/*-------------------- Get Reviews of a Spot by SpotId --------------------*/
 /*-------------------- Creating Booking of a Spot by SpotId --------------------*/
+router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
+  // Current User can not Own Spot
+  // Get the id of the user and owner of the spot throw an error if they are equal
+  const userId = req.user.id
+  const specificSpot = await Spot.findByPk(req.params.spotId)
 
+  if (userId === specificSpot.ownerId) {
+    const err = { message: "Can not book a spot you own; cause you own it...." }
+    err.status = 403
+    return next(err)
+  }
+
+  const { startDate, endDate } = req.body
+  if(!startDate || !endDate){
+    const err = {message: "Please provide a valid date"}
+    err.staus = 404
+    return next(err)
+  }
+  const spotBooking = await Booking.findAll({
+    // where: {
+    //   spotId: req.params.spotId,
+    //   startDate: startDate,
+    //   endDate: endDate
+    // }
+  })
+console.log({startDate,endDate})
+// 3
+
+
+
+
+  res.json({ Staus: "Work in Progress",spotBooking})
+})
 
 module.exports = router;
