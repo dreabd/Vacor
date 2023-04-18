@@ -234,8 +234,8 @@ router.post("/:spotId/reviews", requireAuth, validateReview, async (req, res, ne
       userId: user.id
     }
   })
-  console.log(specificSpotsReviews)
-  if (specificSpotsReviews) {
+  console.log(specificSpotsReviews.length)
+  if (specificSpotsReviews.length) {
     const err = { message: "Can not submit more than one review for a spot" }
     err.status = 500
     return next(err)
@@ -307,5 +307,10 @@ console.log({startDate,endDate})
 
   res.json({ Staus: "Work in Progress",spotBooking})
 })
+
+/*-------------------- Get Bookings of a Spot by SpotId --------------------*/
+// router.get('/:spotId/bookings', requireAuth, async(res,req,next)=>{
+
+// })
 
 module.exports = router;
