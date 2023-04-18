@@ -40,13 +40,20 @@ const validatesNewSpot = [
   handleValidationErrors
 ];
 
-
-/*-------------------- Get All Spots --------------------*/
-router.get("/", async (req, res, next) => {
-  const allSpots = await Spot.findAll({ include: [Review,SpotImage ]}) // Turns to an arr of Spots
-  let Spots = [];
-
-  allSpots.forEach(spot => {
+/*-------------- Validates Review for Spots --------------*/
+const validateReview = [
+  check('review')
+    .exists({ checkFalsy: true })
+    .withMessage('Review text is required'),
+  check('stars')
+    .exists({ checkFalsy: true })
+    .isLength({ min: 1,max: 5 })
+    .withMessage('Stars must be an integer from 1 to 5'),
+  handleValidationErrors
+];
+/*--- Helper Function for adding Average Review and Preview URL ---*/
+const avgRating_prevURL = (AllSpotsArr,newArr) => {
+  AllSpotsArr.forEach(spot => {
     let currentSpot = spot.toJSON()
     /*--- Getting the Average Star Rating ---*/
     let reviewArr = currentSpot.Reviews
@@ -58,15 +65,27 @@ router.get("/", async (req, res, next) => {
     currentSpot["averageStars"] = averageStars
 
     /*--- Checking if the there is a preview Image  */
-    if(currentSpot.SpotImages){ currentSpot["previewUrl"]= currentSpot.SpotImages[0].url}
+    if (currentSpot.SpotImages) { currentSpot["previewUrl"] = currentSpot.SpotImages[0].url }
     else currentSpot["previewUrl"] = "No Images could be found"
 
     delete currentSpot["Reviews"]
     delete currentSpot["SpotImages"]
-    Spots.push(currentSpot)
+    newArr.push(currentSpot)
   })
+  return newArr
+}
+
+
+/*-------------------- Get All Spots --------------------*/
+router.get("/", async (req, res, next) => {
+  const allSpots = await Spot.findAll({ include: [Review, SpotImage] }) // Turns to an arr of Spots
+  let Spots = [];
+
+  avgRating_prevURL(allSpots,Spots)
+
   res.json(Spots)
 })
+
 
 /*-------------------- Create New Spot --------------------*/
 router.post("/", requireAuth, validatesNewSpot, async (req, res, next) => {
@@ -114,14 +133,13 @@ router.get("/:spotId", async (req, res, next) => {
 /*-------------- Create New Image for a Spot --------------*/
 router.post("/:spotId/images", requireAuth, async (req, res, next) => {
   const specificSpot = await Spot.findByPk(req.params.spotId)
+
   if (!specificSpot) {
-    // NEED TO FIGURE OUT HOW TO HANDLE ERROR FOR THIS ONE
     res.status(404)
-    res.json({
-      message: "Could not spot Spot"
-    })
+    const err = { message: "Could not spot Spot"}
     return next(err)
   }
+
   const { url, preview } = req.body
 
   const newImage = await SpotImage.create({
@@ -132,8 +150,9 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
 
   res.json(newImage)
 })
+
 /*-------------------- Edit a Spot --------------------*/
-router.put("/:spotId", requireAuth, async (req, res, next) => {
+router.put("/:spotId", requireAuth, validatesNewSpot, async (req, res, next) => {
   const { user } = req
   const specificSpot = await Spot.findByPk(req.params.spotId)
 
@@ -141,13 +160,121 @@ router.put("/:spotId", requireAuth, async (req, res, next) => {
   if (user.id !== specificSpot.ownerId) {
     console.log("error")
     res.status(400)
-    res.json({ message: "You do not have access to edit this Spot's information" })
+    const err = { message: "Spotted being Sus, You can not edit a Spots' information that does not belong to you." }
+    return next(err)
+  }
+
+  // Check if spot exists
+  if (!specificSpot) {
+    res.status(404)
+    const err = { message: "Could not spot Spot" }
     return next(err)
   }
 
 
+  const { address, city, state, country, lat, lng, name, description, price } = req.body
+
+  if (address) specificSpot.address = address
+  if (city) specificSpot.city = city
+  if (state) specificSpot.state = state
+  if (country) specificSpot.country = country
+  if (lat) specificSpot.lattitude = lat
+  if (lng) specificSpot.longitude = lng
+  if (name) specificSpot.name = name
+  if (description) specificSpot.description = description
+  if (price) specificSpot.price = price
+
+  await specificSpot.save()
+
   res.json({ working: "In Progress", specificSpot })
 })
+/*-------------------- Delete a Spot --------------------*/
+
+router.delete("/:spotId", requireAuth, async (req, res, next) => {
+  const { user } = req
+  const specificSpot = await Spot.findByPk(req.params.spotId)
+
+  if (user.id !== specificSpot.ownerId) {
+    res.status(401)
+    const err = { message: "Spotted being Sus, You can not edit a Spots' information that does not belong to you." }
+    return next(err)
+  }
+
+  // Check if spot exists
+  if (!specificSpot) {
+    res.status(404)
+    const err = { message: "Could not spot Spot" }
+    return next(err)
+  }
+
+  specificSpot.destroy()
+
+  res.json({
+    message: "Spot Succesfully Destroyed"
+  })
+
+})
+
 /*-------------------- Review a Spot --------------------*/
+router.post("/:spotId/reviews", requireAuth,validateReview, async(req,res, next)=>{
+  const {user} = req
+
+  // Checks if Spot Exists
+  const specificSpot = await Spot.findByPk(req.params.spotId)
+  if (!specificSpot) {
+    res.status(404)
+    const err = { message: "Could not spot Spot" }
+    return next(err)
+  }
+  // REVIEW FROM THE CURRENT USER ALREADY EXISTS!!!!
+      // Need to write a error handler that checks if the userId is already the list of reveiws for a spot
+  const specificSpotsReviews = await Review.findAll({
+    where:{
+      spotId: req.params.spotId,
+      userId: user.id
+    }
+  })
+  console.log(specificSpotsReviews)
+  if(specificSpotsReviews){
+    res.status(500)
+    const err = {message: "Can not submit more than one review for a spot"}
+    return next(err)
+  }
+
+  // Need userId, SpotId, req.body
+  const spotId = parseInt(req.params.spotId)
+  const {review, stars} = req.body
+  const newReview = await Review.create({
+    userId: user.id,
+    spotId,
+    review,
+    stars
+  })
+
+  res.json({Status:"Work in Progress",newReview})
+})
+
+/*-------------------- Get Reviews of a Spot by SpotId --------------------*/
+router.get("/:spotId/reviews", async(req,res,next)=>{
+  const specificSpot = await Spot.findByPk(req.params.spotId)
+  if (!specificSpot) {
+    res.status(404)
+    const err = { message: "Could not spot Spot" }
+    return next(err)
+  }
+  // REVIEW FROM THE CURRENT USER ALREADY EXISTS!!!!
+      // Need to write a error handler that checks if the userId is already the list of reveiws for a spot
+  const specificSpotsReviews = await Review.findAll({
+    where:{
+      spotId: req.params.spotId
+    },
+    include:[User,ReviewImage]
+  })
+  res.json(specificSpotsReviews)
+})
+
+/*-------------------- Get Reviews of a Spot by SpotId --------------------*/
+/*-------------------- Creating Booking of a Spot by SpotId --------------------*/
+
 
 module.exports = router;

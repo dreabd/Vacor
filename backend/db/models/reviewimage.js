@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'ReviewImage',
+    defaultScope:{
+      attributes:{
+        exclude:["id","createdAt","updatedAt"]
+      }
+    }
   });
   return ReviewImage;
 };
