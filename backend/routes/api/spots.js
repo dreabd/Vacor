@@ -23,9 +23,11 @@ const validatesNewSpot = [
     .withMessage('Country is required'),
   check('lat')
     .exists({ checkFalsy: true })
+    .isLatLong()
     .withMessage('Latitude is not valid'),
   check('lng')
     .exists({ checkFalsy: true })
+    .isLatLong()
     .withMessage('Longitude is not valid'),
   check('name')
     .exists({ checkFalsy: true })
@@ -36,6 +38,7 @@ const validatesNewSpot = [
     .withMessage("Description is required"),
   check('price')
     .exists({ checkFalsy: true })
+    .isInt()
     .withMessage("Price per day is required"),
   handleValidationErrors
 ];
@@ -47,7 +50,7 @@ const validateReview = [
     .withMessage('Review text is required'),
   check('stars')
     .exists({ checkFalsy: true })
-    .isLength({ min: 1, max: 5 })
+    .isInt({min:1,max:5})
     .withMessage('Stars must be an integer from 1 to 5'),
   handleValidationErrors
 ];
@@ -159,7 +162,7 @@ router.put("/:spotId", requireAuth, validatesNewSpot, async (req, res, next) => 
   //  Check if the current user's id is equal to the owner's id
   if (user.id !== specificSpot.ownerId) {
     console.log("error")
-    const err = { message: "Spotted being Sus, You can not edit a Spots' information that does not belong to you." }
+    const err = { message: "Forbidden" }
     err.status = 400
     return next(err)
   }
@@ -195,7 +198,7 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
   const specificSpot = await Spot.findByPk(req.params.spotId)
 
   if (user.id !== specificSpot.ownerId) {
-    const err = { message: "Spotted being Sus, You can not edit a Spots' information that does not belong to you." }
+    const err = { message: "Forbidden" }
     err.status = 401
     return next(err)
   }
@@ -210,12 +213,12 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
   specificSpot.destroy()
 
   res.json({
-    message: "Spot Succesfully Destroyed"
+    message: "Reivew succesfully deleted"
   })
 
 })
 
-/*-------------------- Review a Spot --------------------*/
+/*-------------------- Review a Spo off of Spot Id --------------------*/
 router.post("/:spotId/reviews", requireAuth, validateReview, async (req, res, next) => {
   const { user } = req
 
@@ -236,7 +239,7 @@ router.post("/:spotId/reviews", requireAuth, validateReview, async (req, res, ne
   })
   console.log(specificSpotsReviews.length)
   if (specificSpotsReviews.length) {
-    const err = {"message": "User already has a review for this spot"}
+    const err = { "message": "User already has a review for this spot" }
     err.status = 500
     return next(err)
   }
