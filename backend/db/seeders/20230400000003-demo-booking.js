@@ -10,26 +10,26 @@ const bookingDemo = [
   {
     spotId: 1,
     userId: 3,
-    startDate: "2023-06-13",
-    endDate: "2023-06-23",
+    startDate: new Date(Date.UTC(2023,6,13)),
+    endDate: new Date(Date.UTC(2023,6,23)),
   },
   {
     spotId: 2,
     userId: 1,
-    startDate: "2023-06-13",
-    endDate: "2023-06-23",
+    startDate: new Date(Date.UTC(2023,6,13)),
+    endDate: new Date(Date.UTC(2023,6,23)),
   },
   {
     spotId: 2,
     userId: 3,
-    startDate: "2023-06-13",
-    endDate: "2023-06-23",
+    startDate: new Date(Date.UTC(2023,6,13)),
+    endDate: new Date(Date.UTC(2023,6,23)),
   },
   {
     spotId: 1,
     userId: 3,
-    startDate: "2023-06-13",
-    endDate: "2023-06-23",
+    startDate: new Date(Date.UTC(2023,6,13)),
+    endDate: new Date(Date.UTC(2023,6,23)),
   }
 ];
 module.exports = {
