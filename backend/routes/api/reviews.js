@@ -100,7 +100,7 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
       reviewId: req.params.reviewId
     }
   })
-  
+
   if (!specificReview) {
     const err = { message: "Review couldn't be found" }
     err.status = 404
@@ -136,7 +136,6 @@ router.delete("/:reviewId", requireAuth, async(req,res,next)=>{
   }
   //  Check if the current user's id is equal to the reivew's userid
   if (user.id !== specificReview.userId) {
-    console.log("error")
     const err = { message: "Forbidden" }
     err.status = 400
     return next(err)
