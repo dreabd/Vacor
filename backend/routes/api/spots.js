@@ -135,7 +135,7 @@ router.post("/:spotId/images", requireAuth, async (req, res, next) => {
   const specificSpot = await Spot.findByPk(req.params.spotId)
 
   if (!specificSpot) {
-    const err = { message: "Could not spot Spot" }
+    const err = { "message": "Spot couldn't be found" }
     err.status = 404
     return next(err)
   }
@@ -166,7 +166,7 @@ router.put("/:spotId", requireAuth, validatesNewSpot, async (req, res, next) => 
 
   // Check if spot exists
   if (!specificSpot) {
-    const err = { message: "Could not spot Spot" }
+    const err = { "message": "Spot couldn't be found" }
     err.status = 404
     return next(err)
   }
@@ -202,7 +202,7 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
 
   // Check if spot exists
   if (!specificSpot) {
-    const err = { message: "Could not spot Spot" }
+    const err = { "message": "Spot couldn't be found" }
     err.status = 404
     return next(err)
   }
@@ -222,7 +222,7 @@ router.post("/:spotId/reviews", requireAuth, validateReview, async (req, res, ne
   // Checks if Spot Exists
   const specificSpot = await Spot.findByPk(req.params.spotId)
   if (!specificSpot) {
-    const err = { message: "Could not spot Spot" }
+    const err = { "message": "Spot couldn't be found" }
     err.status = 404
     return next(err)
   }
@@ -236,7 +236,7 @@ router.post("/:spotId/reviews", requireAuth, validateReview, async (req, res, ne
   })
   console.log(specificSpotsReviews.length)
   if (specificSpotsReviews.length) {
-    const err = { message: "Can not submit more than one review for a spot" }
+    const err = {"message": "User already has a review for this spot"}
     err.status = 500
     return next(err)
   }
@@ -258,7 +258,7 @@ router.post("/:spotId/reviews", requireAuth, validateReview, async (req, res, ne
 router.get("/:spotId/reviews", async (req, res, next) => {
   const specificSpot = await Spot.findByPk(req.params.spotId)
   if (!specificSpot) {
-    const err = { message: "Could not spot Spot" }
+    const err = { "message": "Spot couldn't be found" }
     err.status = 404
     return next(err)
   }
@@ -287,8 +287,8 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
   }
 
   const { startDate, endDate } = req.body
-  if(!startDate || !endDate){
-    const err = {message: "Please provide a valid date"}
+  if (!startDate || !endDate) {
+    const err = { message: "Please provide a valid date" }
     err.staus = 404
     return next(err)
   }
@@ -299,13 +299,13 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     //   endDate: endDate
     // }
   })
-console.log({startDate,endDate})
-// 3
+  console.log({ startDate, endDate })
+  // 3
 
 
 
 
-  res.json({ Staus: "Work in Progress",spotBooking})
+  res.json({ Staus: "Work in Progress", spotBooking })
 })
 
 /*-------------------- Get Bookings of a Spot by SpotId --------------------*/
