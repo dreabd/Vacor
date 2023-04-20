@@ -40,18 +40,33 @@ router.get("/current", requireAuth, async (req, res, next) => {
 })
 
 /*-------------------- Delete a Booking --------------------*/
-router.delete("/:reviewId", requireAuth, async(req,res,next)=>{
+router.delete("/:bookingId", requireAuth, async(req,res,next)=>{
   const { user } = req
-  const specificReview = await Review.findByPk(req.params.reviewId)
+  const specificBooking = await Booking.findByPk(req.params.bookingId,{
+    include:[
+      {
+        model:Spot,
+        include: "Owner"
+      }
+    ]
+  })
 
   // Check if review exists
-  if (!specificReview) {
-    const err = { message: "Review couldn't be found" }
+  if (!specificBooking) {
+    const err = { message: "Booking couldn't be found" }
     err.status = 404
     return next(err)
   }
-  //  Check if the current user's id is equal to the reivew's userid
-  if (user.id !== specificReview.userId) {
+
+  // Checks if its too late to book
+  let today = new Date().toISOString()
+  if(today > specificBooking.startDate.toISOString()){
+    const err = { message: "Bookings that have been started can't be deleted" }
+    err.status = 404
+    return next(err)
+  }
+  // //  Check if the current user's id is equal to the reivew's userid and
+  if (user.id !== specificBooking.userId ||  user.id === specificBooking.Spot.Owner.id) {
     console.log("error")
     const err = { message: "Forbidden" }
     err.status = 400
@@ -59,10 +74,10 @@ router.delete("/:reviewId", requireAuth, async(req,res,next)=>{
   }
 
 
-  specificReview.destroy()
+  await specificBooking.destroy()
 
   res.json({
-    message: "Review succesfully deleted"
+    message: "Booking succesfully deleted"
   })
 })
 

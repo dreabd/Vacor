@@ -2,6 +2,7 @@ const express = require('express');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { User, Review, ReviewImage, Spot, SpotImage, Booking, sequelize } = require('../../db/models');
+const { Op } = require("sequelize");
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
@@ -50,7 +51,7 @@ const validateReview = [
     .withMessage('Review text is required'),
   check('stars')
     .exists({ checkFalsy: true })
-    .isInt({min:1,max:5})
+    .isInt({ min: 1, max: 5 })
     .withMessage('Stars must be an integer from 1 to 5'),
   handleValidationErrors
 ];
@@ -282,38 +283,113 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
   // Get the id of the user and owner of the spot throw an error if they are equal
   const userId = req.user.id
   const specificSpot = await Spot.findByPk(req.params.spotId)
+  // Looped throuigh bookings
 
   if (userId === specificSpot.ownerId) {
-    const err = { message: "Can not book a spot you own; cause you own it...." }
+    const err = { message: "Forbidden" }
     err.status = 403
     return next(err)
   }
 
-  const { startDate, endDate } = req.body
-  if (!startDate || !endDate) {
-    const err = { message: "Please provide a valid date" }
-    err.staus = 404
+  if (!specificSpot) {
+    const err = { "message": "Spot couldn't be found" }
+    err.status = 404
     return next(err)
   }
-  const spotBooking = await Booking.findAll({
-    // where: {
-    //   spotId: req.params.spotId,
-    //   startDate: startDate,
-    //   endDate: endDate
-    // }
+
+  let { startDate, endDate } = req.body
+  let newStartDate = new Date(startDate).toISOString()
+  let newEndDate = new Date(endDate).toISOString()
+  const startDateConflict = await Booking.findAll({
+    where: {
+      spotId: parseInt(req.params.spotId),
+      startDate: {
+        [Op.lte]: newStartDate
+      },
+      endDate: {
+        [Op.gte]: newStartDate
+      }
+    }
   })
-  console.log({ startDate, endDate })
-  // 3
+  const endDateConflict = await Booking.findAll({
+    where: {
+      spotId: parseInt(req.params.spotId),
+      startDate: {
+        [Op.lte]: newEndDate
+      },
+      endDate: {
+        [Op.gte]: newEndDate
+      }
+    }
+  })
 
+  if (startDateConflict.length) {
+    const err = { message: "Sorry, this spot is already booked for the specified dates" }
+    err.startDate = "Start date conflicts with an existing booking"
+    err.status = 403
+    return next(err)
+  }
 
+  if (endDateConflict.length) {
+    const err = { message: "Sorry, this spot is already booked for the specified dates" }
+    err.endDate = "End date conflicts with an existing booking"
+    err.status = 403
+    return next(err)
+  }
 
+  const newBooking = await Booking.create({
+    spotId: parseInt(req.params.spotId),
+    userId: userId,
+    startDate,
+    endDate
+  })
 
-  res.json({ Staus: "Work in Progress", spotBooking })
+  res.json({ Staus: "Work in Progress", alreadyBooked, newBooking })
 })
 
 /*-------------------- Get Bookings of a Spot by SpotId --------------------*/
-// router.get('/:spotId/bookings', requireAuth, async(res,req,next)=>{
+router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
+  const userId = req.user.id
+  const specificSpot = await Spot.findByPk(req.params.spotId, {
+    include: [
+      {
+        model: Booking,
+        include: User
+      }
+    ]
+  })
 
-// })
+  if (!specificSpot) {
+    const err = { "message": "Spot couldn't be found" }
+    err.status = 404
+    return next(err)
+  }
+console.log(userId === specificSpot.ownerId)
+console.log({userId, spotId:specificSpot.ownerId})
+  if (userId === specificSpot.ownerId) {
+    let ownerBooking = []
+    specificSpot.Bookings.forEach(spot=>{
+      let currentSpot = spot.toJSON()
+      ownerBooking.push(currentSpot)
+    })
+
+    return res.json({ Status: "Owner Work in Progress", ownerBooking })
+  } else {
+    let userBooking = []
+
+    specificSpot.Bookings.forEach(spot=>{
+      let currentSpot = spot.toJSON()
+      delete currentSpot.createdAt
+      delete currentSpot.updatedAt
+      delete currentSpot.User
+      delete currentSpot.userId
+      userBooking.push(currentSpot)
+    })
+
+    return res.json({ userBooking })
+  }
+
+})
+
 
 module.exports = router;
