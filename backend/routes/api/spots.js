@@ -53,6 +53,7 @@ const validateReview = [
     .withMessage('Stars must be an integer from 1 to 5'),
   handleValidationErrors
 ];
+
 /*--- Helper Function for adding Average Review and Preview URL ---*/
 const avgRating_prevURL = (AllSpotsArr, newArr) => {
   AllSpotsArr.forEach(spot => {
@@ -63,7 +64,7 @@ const avgRating_prevURL = (AllSpotsArr, newArr) => {
     reviewArr.forEach(rev => {
       spotStars.push(rev.stars)
     })
-    let averageStars = spotStars.reduce((a, b) => a + b, 0) / 2
+    let averageStars = spotStars.reduce((a, b) => a + b, 0) / spotStars.length
     currentSpot["averageStars"] = averageStars
 
     /*--- Checking if the there is a preview Image  */
@@ -76,7 +77,6 @@ const avgRating_prevURL = (AllSpotsArr, newArr) => {
   })
   return newArr
 }
-
 
 /*-------------------- Get All Spots --------------------*/
 router.get("/", async (req, res, next) => {
@@ -124,12 +124,20 @@ router.get("/current", requireAuth, async (req, res, next) => {
 router.get("/:spotId", async (req, res, next) => {
   const specificSpot = await Spot.findByPk(req.params.spotId, {
     include: [
+      { model: Review },
+      { model: SpotImage },
       { model: User, as: "Owner" },
-      { model: SpotImage }
     ],
   })
 
-  res.json(specificSpot)
+  let spotDetails = specificSpot.toJSON()
+  spotDetails.numReviews = spotDetails.Reviews.length
+  let star = []
+  spotDetails.Reviews.forEach(review => star.push(review.stars))
+  spotDetails.averageStars = star.reduce((a,b)=> a+b,0)/star.length
+  delete spotDetails.Reviews
+
+  res.json(spotDetails)
 })
 
 /*-------------- Create New Image for a Spot --------------*/
