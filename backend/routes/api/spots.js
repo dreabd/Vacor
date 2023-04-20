@@ -24,11 +24,9 @@ const validatesNewSpot = [
     .withMessage('Country is required'),
   check('lat')
     .exists({ checkFalsy: true })
-    .isLatLong()
     .withMessage('Latitude is not valid'),
   check('lng')
     .exists({ checkFalsy: true })
-    .isLatLong()
     .withMessage('Longitude is not valid'),
   check('name')
     .exists({ checkFalsy: true })
@@ -190,7 +188,7 @@ router.put("/:spotId", requireAuth, validatesNewSpot, async (req, res, next) => 
 
   await specificSpot.save()
 
-  res.json({ working: "In Progress", specificSpot })
+  res.json(specificSpot)
 })
 /*-------------------- Delete a Spot --------------------*/
 
@@ -325,14 +323,14 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
 
   if (startDateConflict.length) {
     const err = { message: "Sorry, this spot is already booked for the specified dates" }
-    err.startDate = "Start date conflicts with an existing booking"
+    err.errors = "Start date conflicts with an existing booking"
     err.status = 403
     return next(err)
   }
 
   if (endDateConflict.length) {
     const err = { message: "Sorry, this spot is already booked for the specified dates" }
-    err.endDate = "End date conflicts with an existing booking"
+    err.errors = "End date conflicts with an existing booking"
     err.status = 403
     return next(err)
   }
@@ -344,7 +342,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     endDate
   })
 
-  res.json({ Staus: "Work in Progress", alreadyBooked, newBooking })
+  res.json({ Staus: "Work in Progress", newBooking })
 })
 
 /*-------------------- Get Bookings of a Spot by SpotId --------------------*/
@@ -364,20 +362,20 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
     err.status = 404
     return next(err)
   }
-console.log(userId === specificSpot.ownerId)
-console.log({userId, spotId:specificSpot.ownerId})
+
+
   if (userId === specificSpot.ownerId) {
     let ownerBooking = []
-    specificSpot.Bookings.forEach(spot=>{
+    specificSpot.Bookings.forEach(spot => {
       let currentSpot = spot.toJSON()
       ownerBooking.push(currentSpot)
     })
 
-    return res.json({ Status: "Owner Work in Progress", ownerBooking })
+    return res.json({ ownerBooking })
   } else {
     let userBooking = []
 
-    specificSpot.Bookings.forEach(spot=>{
+    specificSpot.Bookings.forEach(spot => {
       let currentSpot = spot.toJSON()
       delete currentSpot.createdAt
       delete currentSpot.updatedAt
