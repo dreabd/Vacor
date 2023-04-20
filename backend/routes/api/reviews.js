@@ -87,7 +87,7 @@ router.put("/:reviewId", requireAuth,validateReview, async (req, res, next) => {
 
   specificReview.review = review
   specificReview.stars = stars
-  specificReview.save()
+  await specificReview.save()
 
   res.json(specificReview)
 })
@@ -142,7 +142,7 @@ router.delete("/:reviewId", requireAuth, async(req,res,next)=>{
   }
 
 
-  specificReview.destroy()
+  await specificReview.destroy()
 
   res.json({
     message: "Review succesfully deleted"
