@@ -1,11 +1,13 @@
 const express = require('express');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
+const { query } = require('express-validator/check');
 const { User, Review, ReviewImage, Spot, SpotImage, Booking, sequelize } = require('../../db/models');
 const { Op } = require("sequelize");
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+const e = require('express');
 
 const router = express.Router();
 /*----------------------- Validates Spots -----------------------*/
@@ -24,9 +26,11 @@ const validatesNewSpot = [
     .withMessage('Country is required'),
   check('lat')
     .exists({ checkFalsy: true })
+    .isNumeric({ min: -90, max: 90 })
     .withMessage('Latitude is not valid'),
   check('lng')
     .exists({ checkFalsy: true })
+    .isNumeric({ min: -180, max: 180 })
     .withMessage('Longitude is not valid'),
   check('name')
     .exists({ checkFalsy: true })
@@ -51,6 +55,35 @@ const validateReview = [
     .exists({ checkFalsy: true })
     .isInt({ min: 1, max: 5 })
     .withMessage('Stars must be an integer from 1 to 5'),
+  handleValidationErrors
+];
+
+/*-------------- Validates Review for Spots --------------*/
+const validateQuery = [
+  query('page')
+    .isInt({ min: 1 })
+    .withMessage("Page must be greater than or equal to 1"),
+  query('size')
+    .isInt({ min: 1 })
+    .withMessage('Size must be greater than or equal to 1'),
+  query('maxLat')
+    .isNumeric({ min: -90, max: 90 })
+    .withMessage('Maximum Lattitude is not valid'),
+  query('minLat')
+    .isNumeric({ min: -90, max: 90 })
+    .withMessage('Minimum Lattitude is not valid'),
+  query('maxLng')
+    .isNumeric({ min: -180, max: 180 })
+    .withMessage('Maximum Longitude is not valid'),
+  query('minLng')
+    .isNumeric({ min: -180, max: 180 })
+    .withMessage('Minimum Longitude is not valid'),
+  query('maxPrice')
+    .isNumeric({ min: 0 })
+    .withMessage('Price is not valid'),
+  query('minPrice')
+    .isNumeric({ min: 0 })
+    .withMessage('Price is not valid'),
   handleValidationErrors
 ];
 
@@ -79,13 +112,93 @@ const avgRating_prevURL = (AllSpotsArr, newArr) => {
 }
 
 /*-------------------- Get All Spots --------------------*/
-router.get("/", async (req, res, next) => {
-  const allSpots = await Spot.findAll({ include: [Review, SpotImage] }) // Turns to an arr of Spots
+router.get("/", /*validateQuery*/ async (req, res, next) => {
+  let { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query
+  let errorResult = { errors: {} };
+
+
+  const where = {}
+  const pagination = {}
+  //  Pagination
+  page = Number(page)
+  size = Number(size)
+  if (page < 1 || page > 10) page = 1
+  if (size < 1 || size > 20) size = 20
+  if (isNaN(page)) errorResult.errors.page = "Page must be greater than or equal to 1"
+  if (isNaN(size)) errorResult.errors.size = "Size must be greater than or equal to 1"
+
+  pagination.offSet = size * (page - 1)
+  pagination.limit = size
+
+  // // Query Parametes / Filters
+  /* ----- Lattitudes and Longitudes -----*/
+  if (minLat) {
+    minLat = Number(minLat)
+    if (!isNaN(minLat)) where.lattitude = { [Op.gte]: minLat }
+    else errorResult.errors.minLat = "Minimum Lattitude is not valid"
+  }
+
+  if (maxLat) {
+    maxLat = Number(maxLat)
+    if (!isNaN(maxLat)) {
+      if (where.lattitude) where.lattitude = { [Op.and]: [{ [Op.lte]: maxLat }, { [Op.gte]: minLat }] }
+      else where.lattitude = { [Op.lte]: maxLat }
+    }
+    else errorResult.errors.maxLat = "Maximum Lattitude is not valid"
+  }
+
+  if (minLng) {
+    minLng = Number(minLng)
+    if (!isNaN(minLng)) {
+      if (!isNaN(minLng)) where.longitude = { [Op.gte]: minLng }
+    }
+    else errorResult.errors.minLng = "Minimum Longitude is not valid"
+  }
+
+  if (maxLng) {
+    maxLng = Number(maxLng)
+    if (!isNaN(maxLng)) {
+      if (where.longitude) where.longitude = { [Op.and]: [{ [Op.lte]: maxLng }, { [Op.gte]: minLng }] }
+      else where.longitude = { [Op.lte]: maxLng }
+    }
+    else errorResult.errors.maxLng = "Minimum Longitude is not valid"
+
+  }
+
+  /* --------- Price --------- */
+  if (minPrice) {
+    minPrice = Number(minPrice)
+    if (minPrice >= 0 && !isNaN(minPrice)) {
+      where.price = { [Op.gte]: minPrice }
+    }
+    else errorResult.errors.minPrice = "Minimum Price is not valid"
+  }
+  if (maxPrice) {
+    maxPrice = Number(maxPrice)
+    if (maxPrice >= 0 && !isNaN(maxPrice)) {
+      if (where.price) where.price = { [Op.and]: [{ [Op.lte]: maxPrice }, { [Op.gte]: minPrice }] }
+      else where.price = { [Op.lte]: maxPrice }
+    }
+    else errorResult.errors.maxPrice = "Minimum Price is not valid"
+  }
+
+  if (Object.entries(errorResult.errors).length) {
+    const err = {}
+    err.status = 400
+    return next(errorResult)
+  }
+
+  const allSpots = await Spot.findAll({
+    ...pagination,
+    where,
+    include: [Review, SpotImage],
+
+  }) // Turns to an arr of Spots
   let Spots = [];
 
   avgRating_prevURL(allSpots, Spots)
 
-  res.json(Spots)
+  res.json({ Spots, where, page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice })
 })
 
 
@@ -134,7 +247,7 @@ router.get("/:spotId", async (req, res, next) => {
   spotDetails.numReviews = spotDetails.Reviews.length
   let star = []
   spotDetails.Reviews.forEach(review => star.push(review.stars))
-  spotDetails.averageStars = star.reduce((a,b)=> a+b,0)/star.length
+  spotDetails.averageStars = star.reduce((a, b) => a + b, 0) / star.length
   delete spotDetails.Reviews
 
   res.json(spotDetails)
@@ -244,7 +357,6 @@ router.post("/:spotId/reviews", requireAuth, validateReview, async (req, res, ne
       userId: user.id
     }
   })
-  console.log(specificSpotsReviews.length)
   if (specificSpotsReviews.length) {
     const err = { "message": "User already has a review for this spot" }
     err.status = 500
@@ -272,8 +384,7 @@ router.get("/:spotId/reviews", async (req, res, next) => {
     err.status = 404
     return next(err)
   }
-  // REVIEW FROM THE CURRENT USER ALREADY EXISTS!!!!
-  // Need to write a error handler that checks if the userId is already the list of reveiws for a spot
+
   const specificSpotsReviews = await Review.findAll({
     where: {
       spotId: req.params.spotId
