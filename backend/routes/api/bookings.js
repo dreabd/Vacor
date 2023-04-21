@@ -96,6 +96,12 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
   console.log(newStartDate)
   console.log(newEndDate)
 
+  // Booking does not exist
+  if (!specificBooking) {
+    const err = { message: "Booking couldn't be found" }
+    err.status = 404
+    return next(err)
+  }
 
   // Booking does not belong to user
   if (req.user.id !== specificBooking.userId) {
@@ -104,12 +110,6 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
     return next(err)
   }
 
-  // Booking does not exist
-  if (!specificBooking) {
-    const err = { message: "Booking couldn't be found" }
-    err.status = 404
-    return next(err)
-  }
 
   // Booking Conflict
   const startDateConflict = await Booking.findAll({
@@ -167,7 +167,7 @@ router.put("/:bookingId", requireAuth, async (req, res, next) => {
   specificBooking.startDate = newStartDate
   specificBooking.endDate = newEndDate
   await specificBooking.save()
-  res.json({specificBooking})
+  res.json(specificBooking)
 
 
 })

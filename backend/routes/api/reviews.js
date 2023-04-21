@@ -70,6 +70,13 @@ router.put("/:reviewId", requireAuth,validateReview, async (req, res, next) => {
   const {review,stars}= req.body
   const specificReview = await Review.findByPk(req.params.reviewId)
 
+  // Check if review exists
+  if (!specificReview) {
+    const err = { message: "Review couldn't be found" }
+    err.status = 404
+    return next(err)
+  }
+
   //  Check if the current user's id is equal to the reivew's userid
   if (user.id !== specificReview.userId) {
     console.log("error")
@@ -78,12 +85,6 @@ router.put("/:reviewId", requireAuth,validateReview, async (req, res, next) => {
     return next(err)
   }
 
-  // Check if review exists
-  if (!specificReview) {
-    const err = { message: "Review couldn't be found" }
-    err.status = 404
-    return next(err)
-  }
 
   specificReview.review = review
   specificReview.stars = stars
@@ -121,7 +122,12 @@ router.post("/:reviewId/images", requireAuth, async (req, res, next) => {
     url
   })
 
-  res.json({newImage,reviewImage,length:reviewImage.length})
+  let sentObj = newImage.toJSON()
+  delete sentObj.reviewId
+  delete sentObj.createdAt
+  delete sentObj.updatedAt
+
+  res.json(sentObj)
 })
 /*-------------------- Delete a Review --------------------*/
 router.delete("/:reviewId", requireAuth, async(req,res,next)=>{

@@ -120,12 +120,11 @@ router.get("/", /*validateQuery*/ async (req, res, next) => {
   const where = {}
   const pagination = {}
   //  Pagination
-  page = Number(page)
-  size = Number(size)
-  if (page < 1 || page > 10) page = 1
-  if (size < 1 || size > 20) size = 20
-  if (isNaN(page)) errorResult.errors.page = "Page must be greater than or equal to 1"
-  if (isNaN(size)) errorResult.errors.size = "Size must be greater than or equal to 1"
+
+  if (Number(page) < 1 || Number(page) > 10) page = 1
+  if (Number(size) < 1 || Number(size) > 20) size = 20
+  // if (isNaN(Number(page))) errorResult.errors.page = "Page must be greater than or equal to 1"
+  // if (isNaN(Number(size))) errorResult.errors.size = "Size must be greater than or equal to 1"
 
   pagination.offSet = size * (page - 1)
   pagination.limit = size
@@ -243,6 +242,12 @@ router.get("/:spotId", async (req, res, next) => {
     ],
   })
 
+  if (!specificSpot) {
+    const err = { "message": "Spot couldn't be found" }
+    err.status = 404
+    return next(err)
+  }
+  
   let spotDetails = specificSpot.toJSON()
   spotDetails.numReviews = spotDetails.Reviews.length
   let star = []
@@ -279,18 +284,18 @@ router.put("/:spotId", requireAuth, validatesNewSpot, async (req, res, next) => 
   const { user } = req
   const specificSpot = await Spot.findByPk(req.params.spotId)
 
+  // Check if spot exists
+  if (!specificSpot) {
+    const err = { "message": "Spot couldn't be found" }
+    err.status = 404
+    return next(err)
+  }
+
   //  Check if the current user's id is equal to the owner's id
   if (user.id !== specificSpot.ownerId) {
     console.log("error")
     const err = { message: "Forbidden" }
     err.status = 400
-    return next(err)
-  }
-
-  // Check if spot exists
-  if (!specificSpot) {
-    const err = { "message": "Spot couldn't be found" }
-    err.status = 404
     return next(err)
   }
 
@@ -317,18 +322,19 @@ router.delete("/:spotId", requireAuth, async (req, res, next) => {
   const { user } = req
   const specificSpot = await Spot.findByPk(req.params.spotId)
 
-  if (user.id !== specificSpot.ownerId) {
-    const err = { message: "Forbidden" }
-    err.status = 401
-    return next(err)
-  }
-
   // Check if spot exists
   if (!specificSpot) {
     const err = { "message": "Spot couldn't be found" }
     err.status = 404
     return next(err)
   }
+
+  if (user.id !== specificSpot.ownerId) {
+    const err = { message: "Forbidden" }
+    err.status = 401
+    return next(err)
+  }
+
 
   await specificSpot.destroy()
 
@@ -373,12 +379,13 @@ router.post("/:spotId/reviews", requireAuth, validateReview, async (req, res, ne
     stars
   })
 
-  res.json({ newReview })
+  res.json(newReview)
 })
 
 /*-------------------- Get Reviews of a Spot by SpotId --------------------*/
 router.get("/:spotId/reviews", async (req, res, next) => {
   const specificSpot = await Spot.findByPk(req.params.spotId)
+
   if (!specificSpot) {
     const err = { "message": "Spot couldn't be found" }
     err.status = 404
@@ -402,17 +409,18 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
   const specificSpot = await Spot.findByPk(req.params.spotId)
   // Looped throuigh bookings
 
+  if (!specificSpot) {
+    const err = { "message": "Spot couldn't be found" }
+    err.status = 404
+    return next(err)
+  }
+
   if (userId === specificSpot.ownerId) {
     const err = { message: "Forbidden" }
     err.status = 403
     return next(err)
   }
 
-  if (!specificSpot) {
-    const err = { "message": "Spot couldn't be found" }
-    err.status = 404
-    return next(err)
-  }
 
   let { startDate, endDate } = req.body
   let newStartDate = new Date(startDate).toISOString()
@@ -484,15 +492,15 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
 
 
   if (userId === specificSpot.ownerId) {
-    let ownerBooking = []
+    let Bookings = []
     specificSpot.Bookings.forEach(spot => {
       let currentSpot = spot.toJSON()
-      ownerBooking.push(currentSpot)
+      Bookings.push(currentSpot)
     })
 
-    return res.json({ ownerBooking })
+    return res.json({ Bookings })
   } else {
-    let userBooking = []
+    let Bookings = []
 
     specificSpot.Bookings.forEach(spot => {
       let currentSpot = spot.toJSON()
@@ -500,10 +508,10 @@ router.get("/:spotId/bookings", requireAuth, async (req, res, next) => {
       delete currentSpot.updatedAt
       delete currentSpot.User
       delete currentSpot.userId
-      userBooking.push(currentSpot)
+      Bookings.push(currentSpot)
     })
 
-    return res.json({ userBooking })
+    return res.json({ Bookings })
   }
 
 })
