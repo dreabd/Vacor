@@ -8,7 +8,11 @@ function ProfileButton({ user }) {
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
 
+
   const openMenu = () => {
+
+    // console.log("This is the state of show menu:",showMenu)
+
     if (showMenu) return;
     setShowMenu(true);
   };
@@ -16,11 +20,20 @@ function ProfileButton({ user }) {
   useEffect(() => {
     if (!showMenu) return;
 
+    // console.log("Currently in use effect")
+    // console.log("ulClassName:",ulClassName)
+    // console.log("ulRef:",ulRef)
+
     const closeMenu = (e) => {
+
+      // console.log(e.target)
+
       if (!ulRef.current.contains(e.target)) {
         setShowMenu(false);
       }
     };
+
+    // console.log(closeMenu)
 
     document.addEventListener('click', closeMenu);
 
