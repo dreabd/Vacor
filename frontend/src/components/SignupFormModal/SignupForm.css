@@ -1,0 +1,30 @@
+.signupForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 2rem ;
+  gap: 1rem;
+  width: 30rem;
+  height: 25rem;
+  background-color: white;
+}
+
+.signupForm > *{
+  display: flex;
+  flex-direction: column;
+}
+
+.signupForm > button{
+  display: flex;
+  flex-direction: center;
+  align-items: center;
+  width: 10rem;
+  height: 2rem;
+
+}
+
+.signupText{
+  padding: 1rem 0rem 1rem 1rem;
+  color: white;
+
+}
