@@ -7,6 +7,7 @@
   width: 30rem;
   height: 10rem;
   background-color: white;
+  cursor: pointer;
 }
 
 .loginForm > *{
@@ -20,7 +21,7 @@
   align-items: center;
   width: 10rem;
   height: 2rem;
-  
+
 }
 
 .logInText{
