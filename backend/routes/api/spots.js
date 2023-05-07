@@ -247,7 +247,7 @@ router.get("/:spotId", async (req, res, next) => {
     err.status = 404
     return next(err)
   }
-  
+
   let spotDetails = specificSpot.toJSON()
   spotDetails.numReviews = spotDetails.Reviews.length
   let star = []
