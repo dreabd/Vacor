@@ -61,7 +61,7 @@ export const thunkGetSpot = (spotId) => async (dispatch) => {
 }
 
 
-// -----------------Intial State------------------
+// -----------------Initial State------------------
 const initialState = { allSpots: {}, singleSpot: {} }
 
 
@@ -71,7 +71,7 @@ const spotsReducer = (state = initialState, action) => {
     case GET_ALL_SPOTS:
       return { ...state, allSpots: { ...action.spots } };
     case GET_SPOT:
-      return {...state,singleSpot:{...action.spot}}
+      return {...state, singleSpot:{...action.spot}}
     default:
       return state
   }

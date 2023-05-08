@@ -56,7 +56,7 @@ const SpotComponent = (SpotData) => {
 
       {checkForImages(images)}
 
-      <h1> Hosted By  </h1>
+      <h1> Hosted By {SpotData.Owner && SpotData.Owner.firstName} {SpotData.Owner && SpotData.Owner.lastName} </h1>
 
       <div className="description-and-price-container">
         <div className="desription-conatiner">

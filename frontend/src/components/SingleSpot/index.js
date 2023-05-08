@@ -16,7 +16,6 @@ import "./SingleSpot.css"
 function SingleSpot() {
   // need to check if they are logged in
   const { spotId } = useParams()
-  const [owner,setOwner] = useState("")
 
   const loggedIn = useSelector(state => state.session.user)
   const singleSpot = useSelector(state => state.spots.singleSpot)
@@ -30,7 +29,6 @@ function SingleSpot() {
 
   }, [dispatch, spotId])
 
-  console.log(owner)
   return (
     <>
       {SpotComponent(singleSpot)}
