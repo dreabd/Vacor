@@ -34,14 +34,29 @@ function LoginFormModal() {
       });
   };
 
-  // console.log(errors)
+  const signInDemoUser = (e) => {
+    const demoUser = {
+      credential: "demo@user.io",
+      password: "password"
+    }
+    const { credential, password } = demoUser
+    return dispatch(sessionActions.login({ credential, password }))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setErrors(data.errors);
+        }
+      });
+  }
+
   return (
     <div className="login-modal">
-      <div className="logInText">
-        <h1>Log In</h1>
-      </div>
 
       <form className="loginForm" onSubmit={handleSubmit}>
+        <div className="logInText">
+          <h2>Log In</h2>
+        </div>
         {errors.credential && (
           <p className="login-error">{errors.credential}</p>
         )}
@@ -64,7 +79,17 @@ function LoginFormModal() {
           />
         </label>
         <button disabled={Object.values(errors).length} className="login-button" type="submit">Log In</button>
-
+        <button style={{
+          background: "none",
+          color: "inherit",
+          border: "none",
+          padding: "0",
+          font: "inherit",
+          cursor: "pointer",
+          outline: "inherit",
+          display: "flex",
+          alignItems: "center"
+        }} onClick={signInDemoUser}>Demo User</button>
       </form>
     </div>
   );

@@ -43,23 +43,33 @@ function ProfileButton({ user }) {
   return (
     <>
       <button
-      className="profileButton"
-      onClick={openMenu}
-      style={{
-        background:"transparent",
-        fontSize:"18px",
-      }}
+        className="profileButton"
+        onClick={openMenu}
+        style={{
+          background: "transparent",
+          fontSize: "18px",
+        }}
       >
-      <i class="fa-solid fa-bars"></i><i className="fas fa-user-circle" />
+        <i class="fa-solid fa-bars"></i><i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
             <li>Hello {user.username}</li>
             <li>{user.email}</li>
-            <li><NavLink style={{cursor:"pointer",color:"black",textDecoration:"none"}} exact to="/spots/current">Manage Spots</NavLink></li>
+            <li><NavLink style={{ cursor: "pointer", color: "black", textDecoration: "none" }} exact to="/spots/current">Manage Spots</NavLink></li>
             <li>
-              <button style={{cursor:"pointer"}}onClick={logout}>Log Out</button>
+              <button style={{
+                background: "none",
+                color: "inherit",
+                border: "none",
+                padding: "0",
+                font: "inherit",
+                cursor: "pointer",
+                outline: "inherit",
+                display: "flex",
+                alignItems: "center"
+              }} onClick={logout}>Log Out</button>
             </li>
           </>
         ) : (
