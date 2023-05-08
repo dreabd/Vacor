@@ -3,9 +3,9 @@ import React from "react";
 import "./spot-card.css";
 
 function SpotCards({ spots }) {
-  console.log("These are all the spots in spot cards:", Object.values(spots))
+  // console.log("These are all the spots in spot cards:", Object.values(spots))
   const spotCardCreater = Object.values(spots).map(spot => {
-    console.log(spot)
+    // console.log(spot)
     return (
 
       <div key={spot.id}>
