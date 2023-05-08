@@ -9,6 +9,9 @@ import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 const SpotForm = () => {
   const loggedIn = useSelector(state => state.session.user)
   const ownerId = loggedIn.id
+  const dispatch = useDispatch()
+
+  // ------- State Variables -------
   const [country, setCountry] = useState("")
   const [address, setAddress] = useState("")
   const [city, setCity] = useState("")
@@ -22,6 +25,28 @@ const SpotForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
+    // ------- Checking if its new Spot is valid -------
+    const err={}
+
+    if(!country.length) err["country"] = "Country is requred"
+    if(!address.length) err["address"] = "Address is requred"
+    if(!state.length) err["state"] = "State is requred"
+    if(!city.length) err["city"] = "City is requred"
+
+    if(descpt.length < 30) err["description"] = "Description needs a minimum of 30 characters"
+    if(!name.length) err["name"] = "Name is required"
+
+    if(!price.length) err["price"] = "Price is required"
+    if(parseInt(price) < 0) err["price"] = "Please provide a valid price"
+
+    const validURL = [".png",".jpg",".jpeg"]
+    if(preview.length) err["preview"] ="Preview is required"
+    if(!validURL.includes(preview.substring(preview.length-5))) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
+    
+
+
+
+    // ------- For Posting the new Spot -------
     const newSpot = {
       country,
       address,
@@ -35,6 +60,7 @@ const SpotForm = () => {
       ownerId
     }
 
+    // ------- For Posting the Spot Images -------
     const SpotImages = []
     photos.forEach(photo => {
       const spotImg = {
@@ -46,7 +72,8 @@ const SpotForm = () => {
 
     console.log({ SpotImages })
 
-    // Reseting the inputs
+
+    // -------Reseting the inputs-------
     setCountry("")
     setAddress("")
     setCity("")
@@ -57,7 +84,6 @@ const SpotForm = () => {
     setPhotos([])
     setPreview("")
     setValidationErrors({})
-
   }
 
   if (!loggedIn) return <Redirect to="/" />
