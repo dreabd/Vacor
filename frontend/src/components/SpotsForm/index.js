@@ -3,8 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./SpotForm.css";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
-
-
+import { thunkPostNewSpot,thunkPostSpotImage } from "../../store/spots";
 
 const SpotForm = () => {
   const loggedIn = useSelector(state => state.session.user)
@@ -49,20 +48,25 @@ const SpotForm = () => {
     if (parseInt(price) < 0) err["price"] = "Please provide a valid price"
 
     const validURL = [".png", ".jpg", ".jpeg"]
-    if (!preview.length) err["preview"] = "Preview is required"
-    if (!validURL.includes(preview.substring(preview.length - 5))) err["previewImage"] = "Image URL must end in .png, .jpg, or .jpeg"
-    if (photo1.length && !validURL.includes(photo1.substring(photo1.length - 5))) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
-    if (photo2.length && !validURL.includes(photo2.substring(photo2.length - 5))) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
-    if (photo3.length && !validURL.includes(photo3.substring(photo3.length - 5))) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
-    if (photo4.length && !validURL.includes(photo4.substring(photo4.length - 5))) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
 
-    console.log(err)
+    const urlValidator = (url)=>{
+      return (((!validURL.includes(url.substring(url.length - 4) || !validURL.includes(url.substring(url.length - 5))))))
+    }
+
+    if (!preview.length) err["preview"] = "Preview is required"
+    if (urlValidator(preview)) err["previewImage"] = "Image URL must end in .png, .jpg, or .jpeg"
+    if (photo1.length && urlValidator(photo1)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
+    if (photo2.length && urlValidator(photo2)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
+    if (photo3.length && urlValidator(photo3)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
+    if (photo4.length && urlValidator(photo4)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
+
+    // console.log(err)
     setValidationErrors(err)
 
   }, [country, address, city, state, descpt, name, price, preview, photo1, photo2, photo3, photo4])
 
   // ---------Submit Functionality--------
-  const onSubmit = e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true)
 
@@ -84,8 +88,8 @@ const SpotForm = () => {
       city,
       state,
       country,
-      lattitude: Math.random() * 180,
-      longitude: Math.random() * 180,
+      lat: Math.round(Math.random() * 90),
+      lng: Math.round(Math.random() * 90),
       name,
       description: descpt,
       price,
@@ -93,13 +97,23 @@ const SpotForm = () => {
     }
 
     // ------ Dispatching all the thunks that need be dispatched ------
+
     // Thunk for creating a new spot
-    // ---- pass in the newspot for the thunk
+    const newSpotRes = await dispatch(thunkPostNewSpot(newSpot))
+    // pass in the newspot for the thunk
+    if(newSpotRes.errors){
+      return setValidationErrors(newSpotRes.errors)
+    }
     // ---- need to return the id of the new spot
+    const newSpotID = newSpotRes.id
 
     // Thunk for adding all the images
-    // --- Most likely will use a loop over the spotimages and dispatch all of those requests
+    spotImages.forEach(spotImage => dispatch(thunkPostSpotImage(newSpotID,spotImage)))
 
+
+
+    // --- Most likely will use a loop over the spotimages and dispatch all of those requests
+    // --- need grab the spot id from the new created spot
     // if there are errors then set validation errors to thsoe errors
 
 
@@ -121,7 +135,6 @@ const SpotForm = () => {
     setPreview("")
     setValidationErrors({})
     setSubmitted(false)
-
     // ------------IF THERE ARE NO ERRS ANYWHERE Redirect to New Spot-------------
 
   }
