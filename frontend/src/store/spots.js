@@ -145,6 +145,7 @@ const spotsReducer = (state = initialState, action) => {
     case POST_NEW_SPOT:
       return {...state, singleSpot:{...action.newSpot}}
       case POST_SPOT_IMAGE:
+        // Need to adjsut the return of thise
         return {...state}
     default:
       return state

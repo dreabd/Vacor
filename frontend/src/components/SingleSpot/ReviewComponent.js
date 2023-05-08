@@ -1,11 +1,13 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
-function ReivewComponent(spotReviews, loggedIn) {
-
+function ReivewComponent(spotReviews, loggedIn, spotId, isOwner) {
+  const reviewers = []
 
 
   const reviews = spotReviews.map(review => {
 
+    reviewers.push(review.userId)
+    // if they reviewed already so if they are loggedin
     const options = {
       year: "numeric",
       month: "long",
@@ -31,12 +33,25 @@ function ReivewComponent(spotReviews, loggedIn) {
     )
   })
 
+  function checksForReviewButton() {
+    if (loggedIn && !isOwner && !reviewers.includes(loggedIn.id)) {
+      return (
+        <NavLink exact to={`/spots/${spotId}/reviews`}><button>Post Your Review</button></NavLink>
+      )
+    }
+  } return "Be the first person to post a review!"
+
+
+  // { loggedIn && isOwner ? <p>Be the first person to post a review!</p> : reviewers.includes(loggedIn.id) ? <p>Sorry You Can Not Review Again</p> : (<NavLink exact to={`/spots/${spotId}/reviews`}><button>Post Your Review</button></NavLink>) }
+
+
+
   return (
     <div className="spot-reviews-container">
       <div className="star-review-num-post-review-container">
         <i className="fa-solid fa-star"></i>
-        <p>{spotReviews.length}</p>
-        {loggedIn ? <button> Create new Review</button> : null}
+        <p>{spotReviews.length ? spotReviews.length : "New"}</p>
+        {checksForReviewButton()}
       </div>
       {reviews}
     </div>

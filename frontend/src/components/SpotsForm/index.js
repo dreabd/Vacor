@@ -2,13 +2,14 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./SpotForm.css";
-import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory,Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import { thunkPostNewSpot,thunkPostSpotImage } from "../../store/spots";
 
 const SpotForm = () => {
   const loggedIn = useSelector(state => state.session.user)
   const ownerId = loggedIn?.id
   const dispatch = useDispatch()
+  const history = useHistory()
 
   // ------- State Variables -------
   const [country, setCountry] = useState("")
@@ -109,34 +110,12 @@ const SpotForm = () => {
 
     // Thunk for adding all the images
     spotImages.forEach(spotImage => dispatch(thunkPostSpotImage(newSpotID,spotImage)))
-
-
-
     // --- Most likely will use a loop over the spotimages and dispatch all of those requests
     // --- need grab the spot id from the new created spot
     // if there are errors then set validation errors to thsoe errors
 
-
-
-    // -------Reseting the inputs-------
-    setCountry("")
-    setAddress("")
-    setCity("")
-    setState("")
-    setDescpt("")
-    setName("")
-    setPrice("")
-
-    setPhoto1("")
-    setPhoto2("")
-    setPhoto3("")
-    setPhoto4("")
-
-    setPreview("")
-    setValidationErrors({})
-    setSubmitted(false)
-    // ------------IF THERE ARE NO ERRS ANYWHERE Redirect to New Spot-------------
-
+    // // ------------IF THERE ARE NO ERRS ANYWHERE Redirect to New Spot-------------
+    history.push(`/spots/${newSpotID}`);
   }
 
 

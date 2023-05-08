@@ -73,7 +73,7 @@ const SpotComponent = (SpotData) => {
               {SpotData.averageStars}
             </p>
             <p>
-              {SpotData.numReviews}
+              {SpotData.numReviews ? SpotData.numReviews:"New"}
             </p>
           </div>
 
