@@ -6,6 +6,7 @@ import spotsReducer from "./spots";
 const rootReducer = combineReducers({
   session: sessionReducer,
   spots: spotsReducer,
+  reviews: 
 });
 
 

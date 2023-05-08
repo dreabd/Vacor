@@ -14,6 +14,7 @@ const normalize = (data) => {
 
 // -----------------Type Variables------------------
 const GET_ALL_SPOTS = "spots/getAllSpots"
+const GET_SPOT = "spots/getSpot"
 
 
 
@@ -25,6 +26,13 @@ const getAllSpots = (spots) => {
   }
 }
 
+const getSpot = (spot) => {
+  return {
+    type: GET_SPOT,
+    spot
+  }
+}
+
 // -----------------Thunk Action Creators------------------
 export const thunkGetAllSpots = () => async (dispatch) => {
   const res = await csrfFetch('/api/spots')
@@ -33,6 +41,22 @@ export const thunkGetAllSpots = () => async (dispatch) => {
     const data = await res.json()
     dispatch(getAllSpots(normalize(data.Spots)))
     return data
+  } else{
+    const err = await res.json()
+    return err
+  }
+}
+
+export const thunkGetSpot = (spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`)
+
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(getSpot(data))
+    return data
+  } else{
+    const err = await res.json()
+    return err
   }
 }
 
@@ -46,6 +70,8 @@ const spotsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_SPOTS:
       return { ...state, allSpots: { ...action.spots } };
+    case GET_SPOT:
+      return {...state,singleSpot:{...action.spot}}
     default:
       return state
   }
