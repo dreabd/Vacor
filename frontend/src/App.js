@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Switch } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import LandingPage from "./components/LandingPage";
@@ -16,7 +16,15 @@ function App() {
     <>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Switch></Switch>}
-      <LandingPage />
+      <Switch>
+        <Route exact path="/">
+          <LandingPage className="spot-card-container" />
+        </Route>
+
+        <Route exact path ="/spots/:spotId">
+        </Route>
+      </Switch>
+
     </>
   );
 }

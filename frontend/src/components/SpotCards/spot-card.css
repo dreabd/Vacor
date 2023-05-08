@@ -1,0 +1,24 @@
+.spot-image-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 3rem;
+  align-items: center;
+}
+.spot-image{
+  width: 13rem;
+  height: 13rem;
+  overflow:hidden;
+}
+.spot-data-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.first-row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: none;
+}

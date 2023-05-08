@@ -15,10 +15,7 @@ function LandingPage() {
   }, [dispatch])
 
   return (
-    <>
-      <h1>I am Part of the Landing Page</h1>
       <SpotCards spots={spots}/>
-    </>
   )
 }
 
