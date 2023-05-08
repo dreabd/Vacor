@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import React from "react";
 import "./spot-card.css";
 
@@ -9,11 +9,15 @@ function SpotCards({ spots }) {
     return (
 
       <div key={spot.id}>
-        <img
-          className="spot-image"
-          src={spot.previewUrl}
-          alt={`${spot.name}`}>
-        </img>
+        {/* Need to wrap the image in a link tag so that it is a clickable image */}
+        <Link exact to={`/spots/${spot.id}`}>
+          <img
+            className="spot-image"
+            src={spot.previewUrl}
+            alt={`${spot.name}`}>
+          </img>
+        </Link>
+
         <div className="spot-data-container">
           <div className="first-row">
             <p>{spot.city},{spot.state}</p>
@@ -22,10 +26,12 @@ function SpotCards({ spots }) {
               {spot.averageStars}
             </p>
           </div>
+
           <div className="second-row">
-            <p>{spot.price}/night</p>
+            <p className="price-per-night">{spot.price}/night</p>
           </div>
         </div>
+
       </div>
 
     )
