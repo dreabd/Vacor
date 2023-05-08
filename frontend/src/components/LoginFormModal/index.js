@@ -34,7 +34,7 @@ function LoginFormModal() {
       });
   };
 
-  console.log(errors)
+  // console.log(errors)
   return (
     <div className="login-modal">
       <div className="logInText">

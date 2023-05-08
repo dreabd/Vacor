@@ -4,6 +4,7 @@ import * as sessionActions from '../../store/session';
 import OpenModalMenuItem from './OpenModalMenuItem';
 import LoginFormModal from '../LoginFormModal';
 import SignupFormModal from '../SignupFormModal';
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -41,15 +42,22 @@ function ProfileButton({ user }) {
 
   return (
     <>
-      <button className="profileButton" onClick={openMenu} style={{ background: "transparent", border: "none" }}>
-        <i className="fas fa-user-circle" />
+      <button
+      className="profileButton"
+      onClick={openMenu}
+      style={{
+        background:"transparent",
+        fontSize:"18px",
+      }}
+      >
+      <i class="fa-solid fa-bars"></i><i className="fas fa-user-circle" />
       </button>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
+            <li>Hello {user.username}</li>
             <li>{user.email}</li>
+            <li><NavLink style={{cursor:"pointer",color:"black",textDecoration:"none"}} exact to="/spots/current">Manage Spots</NavLink></li>
             <li>
               <button style={{cursor:"pointer"}}onClick={logout}>Log Out</button>
             </li>

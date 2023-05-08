@@ -43,8 +43,8 @@ function SignupFormModal() {
 
   return (
     <>
-      <h1 className="signupText">Sign Up</h1>
       <form className="signupForm"onSubmit={handleSubmit}>
+      <h1 className="signupText">Sign Up</h1>
         <label>
           Email
           <input

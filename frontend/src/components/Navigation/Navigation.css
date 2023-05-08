@@ -1,7 +1,60 @@
-.hidden{
-  display: none;
+
+.profileButton >*{
+  padding: 6px;
+  color: rgba(0, 0, 0, 0.382);
 }
 
 .profileButton{
+  border: 2px solid rgba(0, 0, 0, 0.382);
+  border-radius: 1.6rem;
   cursor: pointer;
+}
+
+.nav-ul{
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid grey ;
+  padding: 1rem 1rem;
+}
+
+.home-link{
+  color: #FF5A5F;
+  font-size: 2.4rem;
+  text-decoration: none;
+}
+
+.newSpot-profile-container{
+  font-size: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.profile-dropdown {
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-right: 40px ;
+  padding-bottom: 10px;
+  list-style-type: none;
+  position: absolute;
+  top: 72px;
+  right: 0px;
+  background-color: white;
+  min-width: 1rem;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.profile-dropdown > *{
+  border-bottom: 1px solid black;
+}
+
+.hidden{
+  display: none;
 }
