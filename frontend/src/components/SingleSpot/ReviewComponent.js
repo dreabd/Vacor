@@ -1,4 +1,7 @@
 import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import ReviewForm from "../ReviewForm";
+
 
 function ReivewComponent(spotReviews, loggedIn, spotId, isOwner) {
   const reviewers = []
@@ -36,10 +39,14 @@ function ReivewComponent(spotReviews, loggedIn, spotId, isOwner) {
   function checksForReviewButton() {
     if (loggedIn && !isOwner && !reviewers.includes(loggedIn.id)) {
       return (
-        <NavLink exact to={`/spots/${spotId}/reviews`}><button>Post Your Review</button></NavLink>
+        <OpenModalMenuItem
+        itemText="Post Your Review"
+        // onItemClick={closeMenu}
+        modalComponent={<ReviewForm/>}
+        />
       )
-    }
-  } return "Be the first person to post a review!"
+    } return (<p>Be the first person to post a review!</p>)
+  }
 
 
   // { loggedIn && isOwner ? <p>Be the first person to post a review!</p> : reviewers.includes(loggedIn.id) ? <p>Sorry You Can Not Review Again</p> : (<NavLink exact to={`/spots/${spotId}/reviews`}><button>Post Your Review</button></NavLink>) }

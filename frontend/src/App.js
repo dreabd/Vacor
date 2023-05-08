@@ -28,6 +28,10 @@ function App() {
             <SpotForm />
           </Route>
 
+          <Route exact path="/spots/current">
+            <h1> I am the Manage Spots placeholder</h1>
+          </Route>
+
           <Route exact path="/spots/:spotId">
             <SingleSpot />
           </Route>

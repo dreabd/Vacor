@@ -21,7 +21,7 @@ function SingleSpot() {
   const singleSpot = useSelector(state => state.spots.singleSpot)
   const spotReviews = useSelector(state => Object.values(state.reviews.spot))
 
-  const isOwner = loggedIn.id === singleSpot?.Owner?.id
+  const isOwner = loggedIn?.id === singleSpot?.Owner?.id
 
 
   const dispatch = useDispatch()
