@@ -197,7 +197,7 @@ router.get("/", /*validateQuery*/ async (req, res, next) => {
 
   avgRating_prevURL(allSpots, Spots)
 
-  res.json({ Spots, where, page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice })
+  res.json({Spots})
 })
 
 
@@ -469,7 +469,7 @@ router.post("/:spotId/bookings", requireAuth, async (req, res, next) => {
     endDate
   })
 
-  res.json({ Staus: "Work in Progress", newBooking })
+  res.json({ newBooking })
 })
 
 /*-------------------- Get Bookings of a Spot by SpotId --------------------*/
