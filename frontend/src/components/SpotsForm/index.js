@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./SpotForm.css";
@@ -9,6 +8,7 @@ import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 const SpotForm = () => {
   const loggedIn = useSelector(state => state.session.user)
+  const ownerId = loggedIn.id
   const [country, setCountry] = useState("")
   const [address, setAddress] = useState("")
   const [city, setCity] = useState("")
@@ -17,13 +17,55 @@ const SpotForm = () => {
   const [name, setName] = useState("")
   const [price, setPrice] = useState("")
   const [photos, setPhotos] = useState([])
+  const [preview, setPreview] = useState("")
+  const [validationErrors, setValidationErrors] = useState({})
+
+  const onSubmit = e => {
+    e.preventDefault();
+    const newSpot = {
+      country,
+      address,
+      city,
+      state,
+      lattitude: Math.random() * 180,
+      longitude: Math.random() * 180,
+      description: descpt,
+      name,
+      price,
+      ownerId
+    }
+
+    const SpotImages = []
+    photos.forEach(photo => {
+      const spotImg = {
+        url: photo,
+        preview: false,
+      }
+      SpotImages.push(spotImg)
+    })
+
+    console.log({ SpotImages })
+
+    // Reseting the inputs
+    setCountry("")
+    setAddress("")
+    setCity("")
+    setState("")
+    setDescpt("")
+    setName("")
+    setPrice("")
+    setPhotos([])
+    setPreview("")
+    setValidationErrors({})
+
+  }
 
   if (!loggedIn) return <Redirect to="/" />
 
   return (
     <div className="create-new-spot-container">
 
-      <form className="new-spot-form">
+      <form onSubmit={onSubmit} className="new-spot-form">
 
         <div className="location-info-container">
           <h2> Create a new Spot</h2>
@@ -105,9 +147,9 @@ const SpotForm = () => {
           <p>Submit a link to at least one photo to public to your spot</p>
           <input
             type="text"
-            placeholder="Image URL"
-            value={photos}
-            onChange={e => setPhotos([...photos, e.target.value])}
+            placeholder="Preview Image URL"
+            value={preview}
+            onChange={e => setPreview(e.target.value)}
           />
 
           <input
@@ -138,6 +180,9 @@ const SpotForm = () => {
             onChange={e => setPhotos([...photos, e.target.value])}
           />
         </div>
+
+
+        <button type="submit">Create</button>
 
 
       </form>

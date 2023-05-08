@@ -28,7 +28,7 @@ function SpotCards({ spots }) {
           </div>
 
           <div className="second-row">
-            <p className="price-per-night">{spot.price}/night</p>
+            <p className="price-per-night"><span style={{fontWeight:"bold"}}>{spot.price}</span>/night</p>
           </div>
         </div>
 
