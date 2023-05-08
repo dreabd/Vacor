@@ -2,30 +2,48 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2rem 2rem ;
-  gap: 1rem;
-  width: 30rem;
-  height: 10rem;
+  padding: 3rem 2rem ;
+  gap: .5rem;
+  width: 20rem;
+  height: auto;
   background-color: white;
-  cursor: pointer;
+  border-bottom-left-radius: 10%;
+  border-bottom-right-radius: 10%;
+
 }
 
 .loginForm > *{
   display: flex;
   flex-direction: column;
+  padding: 4px;
 }
 
-.loginForm > button{
-  display: flex;
-  flex-direction: center;
-  align-items: center;
-  width: 10rem;
-  height: 2rem;
 
+
+.login-button{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 3rem;
 }
 
 .logInText{
-  padding: 1rem 0rem 1rem 1rem;
-  color: white;
+  display: flex;
+  justify-content: center;
+  color: black;
+  border-top-right-radius: 10%;
+}
 
+.login-modal{
+  background: white;
+  border-radius: 5%;
+
+}
+
+.login-error{
+  padding: none ;
+  display: flex;
+  justify-content: center;
+  color: #FF5A5F;
 }

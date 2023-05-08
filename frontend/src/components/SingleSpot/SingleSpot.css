@@ -1,0 +1,28 @@
+.single-spot-image-container{
+  display: grid;
+  width: 1000px;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px
+}
+
+
+/* making Images all one the same size */
+.mainImage{
+  width: 30rem;
+  height: 20rem;
+  overflow: hidden;
+}
+
+.single-spot-other-images> *{
+  width: 16rem;
+  height: 10rem;
+  padding: 2px 2px;
+}
+
+/* -------------------------------------------- */
+
+.single-spot-other-images{
+  display: grid;
+  width: 50%;
+  grid-template-columns: 1fr 1fr;
+}

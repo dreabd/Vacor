@@ -1,5 +1,5 @@
 // frontend/src/components/LoginFormModal/index.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
@@ -11,6 +11,15 @@ function LoginFormModal() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
+
+  useEffect(() => {
+    let errors = {}
+
+    if (credential.length < 4) errors["credentials"] = "Credentials need to have at least 4 characters"
+    if (password.length < 6) errors["password"] = "Password needs to have more than 6 characters"
+
+    setErrors(errors)
+  }, [credential, password])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,12 +34,17 @@ function LoginFormModal() {
       });
   };
 
+  console.log(errors)
   return (
-    <>
-    <div className="logInText">
-      <h1>Log In</h1>
-    </div>
+    <div className="login-modal">
+      <div className="logInText">
+        <h1>Log In</h1>
+      </div>
+
       <form className="loginForm" onSubmit={handleSubmit}>
+        {errors.credential && (
+          <p className="login-error">{errors.credential}</p>
+        )}
         <label>
           Username or Email
           <input
@@ -49,12 +63,10 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-        <button type="submit">Log In</button>
+        <button disabled={Object.values(errors).length} className="login-button" type="submit">Log In</button>
+
       </form>
-    </>
+    </div>
   );
 }
 

@@ -13,65 +13,36 @@ const normalize = (data) => {
 
 
 // -----------------Type Variables------------------
-const GET_ALL_SPOTS = "spots/getAllSpots"
-const GET_SPOT = "spots/getSpot"
-
-
+const GET_SPOT_REVIEWS = "reviews/getSpotReviews"
 
 // -----------------Action Creators------------------
-const getAllSpots = (spots) => {
+const getSpotReviews = (reviews) => {
   return {
-    type: GET_ALL_SPOTS,
-    spots
-  }
-}
-
-const getSpot = (spot) => {
-  return {
-    type: GET_SPOT,
-    spot
+    type: GET_SPOT_REVIEWS,
+    reviews
   }
 }
 
 // -----------------Thunk Action Creators------------------
-export const thunkGetAllSpots = () => async (dispatch) => {
-  const res = await csrfFetch('/api/spots')
+export const thunkGetSpotReviews = (spotId) => async (dispatch) =>{
+  const res = await csrfFetch(`/api/spots/${spotId}/reviews`)
 
-  if (res.ok) {
+  if(res.ok){
     const data = await res.json()
-    dispatch(getAllSpots(normalize(data.Spots)))
+    dispatch(getSpotReviews(normalize(data)))
     return data
-  } else{
-    const err = await res.json()
-    return err
-  }
-}
-
-export const thunkGetSpot = (spotId) => async (dispatch) => {
-  const res = await csrfFetch(`/api/spots/${spotId}`)
-
-  if (res.ok) {
-    const data = await res.json()
-    dispatch(getSpot(data))
-    return data
-  } else{
-    const err = await res.json()
-    return err
   }
 }
 
 
 // -----------------Intial State------------------
-const initialState = { allSpots: {}, singleSpot: {} }
-
+const initialState = { spot: {}, user: {} }
 
 // -----------------Reducer------------------
 const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_ALL_SPOTS:
-      return { ...state, allSpots: { ...action.spots } };
-    case GET_SPOT:
-      return {...state,singleSpot:{...action.spot}}
+    case GET_SPOT_REVIEWS:
+      return {...state, spot:{...action.reviews}}
     default:
       return state
   }
