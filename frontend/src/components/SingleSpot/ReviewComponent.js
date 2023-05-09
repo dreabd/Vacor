@@ -40,9 +40,10 @@ function ReivewComponent(spotReviews, loggedIn, spotId, isOwner) {
     if (loggedIn && !isOwner && !reviewers.includes(loggedIn.id)) {
       return (
         <OpenModalMenuItem
-        itemText="Post Your Review"
-        // onItemClick={closeMenu}
-        modalComponent={<ReviewForm/>}
+          itemText="Post Your Review"
+          // onItemClick={closeMenu}
+          spotId={spotId}
+          modalComponent={<ReviewForm spotId={spotId}/>}
         />
       )
     } return (<p>Be the first person to post a review!</p>)

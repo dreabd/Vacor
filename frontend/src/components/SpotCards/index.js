@@ -22,7 +22,7 @@ function SpotCards({ spots }) {
           <div className="first-row">
             <p>{spot.city},{spot.state}</p>
             <p>
-              <i className="fa-solid fa-star"></i>
+              <i className="fa-solid fa-star empty"></i>
               {spot.averageStars}
             </p>
           </div>

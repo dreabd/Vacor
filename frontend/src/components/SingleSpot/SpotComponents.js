@@ -69,7 +69,7 @@ const SpotComponent = (SpotData) => {
               <span className="price-span">{SpotData.price}</span>/night
             </p>
             <p>
-              <i className="fa-solid fa-star"></i>
+              <i className="fa fa-star empty"></i>
               {SpotData.averageStars}
             </p>
             <p>
