@@ -1,10 +1,14 @@
 import React from "react";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./SpotForm.css";
 import { useHistory, Redirect } from "react-router-dom/cjs/react-router-dom.min";
+
 import { thunkPostNewSpot, thunkPostSpotImage } from "../../store/spots";
-// {singeSpot,spotId,update}
+
+import "./SpotForm.css";
+
+
 const SpotForm = ({ singleSpot, spotId, update }) => {
 
   const loggedIn = useSelector(state => state.session.user)
@@ -12,18 +16,17 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  console.log(update ? `${singleSpot.country}` : "")
   // ------- State Variables -------
-  const [country, setCountry] = useState(update ? `${singleSpot.country}` : "")
-  const [address, setAddress] = useState(update ? `${singleSpot.address}` : "")
-  const [city, setCity] = useState(update ? `${singleSpot.city}` : "")
-  const [state, setState] = useState(update ? `${singleSpot.country}` : "")
+  const [country, setCountry] = useState(singleSpot?.country || "")
+  const [address, setAddress] = useState(singleSpot?.address || "")
+  const [city, setCity] = useState(singleSpot?.city || "")
+  const [state, setState] = useState(singleSpot?.country || "")
 
-  const [descpt, setDescpt] = useState(update ? `${singleSpot.description}` : "")
+  const [descpt, setDescpt] = useState(singleSpot?.description || "")
 
-  const [name, setName] = useState(update ? `${singleSpot.name}` : "")
+  const [name, setName] = useState(singleSpot?.name || "")
 
-  const [price, setPrice] = useState(update ? `${singleSpot.price}` : "")
+  const [price, setPrice] = useState(singleSpot?.price || "")
 
   const [preview, setPreview] = useState("")
 
@@ -67,7 +70,7 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
     // console.log(err)
     setValidationErrors(err)
 
-  }, [country, address, city, state, descpt, name, price, preview, photo1, photo2, photo3, photo4])
+  }, [singleSpot,country, address, city, state, descpt, name, price, preview, photo1, photo2, photo3, photo4])
 
   // ---------Submit Functionality--------
   const onSubmit = async (e) => {
@@ -133,8 +136,8 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
     // // ------------IF THERE ARE NO ERRS ANYWHERE Redirect to New Spot-------------
   }
 
-
   if (!loggedIn) return <Redirect to="/" />
+
   return (
     <div className="create-new-spot-container">
 
