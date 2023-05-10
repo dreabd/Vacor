@@ -1,9 +1,28 @@
 import { NavLink, Link } from "react-router-dom";
 import React from "react";
 import "./spot-card.css";
+import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
+import DeleteSpotModal from "../DeleteSpotModal";
 
-function SpotCards({ spots }) {
+
+function SpotCards({ setManaging, managing, spots }) {
+  console.log("Managing in the spotcard:", managing)
   // console.log("These are all the spots in spot cards:", Object.values(spots))
+  const updateAndDeleteButts = (spotId) => {
+    return (
+      <div className="update-delete-button-container">
+        <NavLink exact to={`/spots/${spotId}/edit`}>
+          <button className="spot-update-button">Update</button>
+        </NavLink>
+        <OpenModalMenuItem
+          itemText="Delete"
+          spotId={spotId}
+          modalComponent={<DeleteSpotModal spotId={spotId} />}
+        />
+      </div>
+    )
+  }
+
   const spotCardCreater = Object.values(spots).map(spot => {
     // console.log(spot)
     return (
@@ -28,9 +47,11 @@ function SpotCards({ spots }) {
           </div>
 
           <div className="second-row">
-            <p className="price-per-night"><span style={{fontWeight:"bold"}}>{spot.price}</span>/night</p>
+            <p className="price-per-night"><span style={{ fontWeight: "bold" }}>{spot.price}</span>/night</p>
           </div>
         </div>
+
+        {managing && updateAndDeleteButts(spot.id)}
 
       </div>
 

@@ -227,9 +227,15 @@ router.get("/current", requireAuth, async (req, res, next) => {
   const currentUserSpots = await Spot.findAll({
     where: {
       ownerId: user.id
-    }
+    },
+    include: [Review, SpotImage],
   })
-  res.json({ Spots: currentUserSpots })
+  let Spots = []
+  avgRating_prevURL(currentUserSpots,Spots)
+
+
+
+  res.json({Spots})
 })
 
 /*---------------- Get Details of a Spot ----------------*/
