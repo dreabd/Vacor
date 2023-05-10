@@ -6,13 +6,13 @@ import DeleteSpotModal from "../DeleteSpotModal";
 
 
 function SpotCards({ setManaging, managing, spots }) {
-  console.log("Managing in the spotcard:", managing)
+  // console.log("Managing in the spotcard:", managing)
   // console.log("These are all the spots in spot cards:", Object.values(spots))
   const updateAndDeleteButts = (spotId) => {
     return (
       <div className="update-delete-button-container">
         <NavLink exact to={`/spots/${spotId}/edit`}>
-          <button className="spot-update-button">Update</button>
+          <button className="spot-update-button"> Update</button>
         </NavLink>
         <OpenModalMenuItem
           itemText="Delete"
@@ -21,6 +21,16 @@ function SpotCards({ setManaging, managing, spots }) {
         />
       </div>
     )
+  }
+
+  const createNewSpotButton = () => {
+    return (
+      <div className="create-new-spot-button-container">
+        <h2>Manage Your Spots</h2>
+        <NavLink style={{ textDecoration: "none", cursor: "pointer" }} exact to="/spots/new"> Create New Spot</NavLink>
+      </div>
+    )
+
   }
 
   const spotCardCreater = Object.values(spots).map(spot => {
@@ -60,6 +70,7 @@ function SpotCards({ setManaging, managing, spots }) {
 
   return (
     <>
+      {managing && createNewSpotButton()}
       <div className="spot-image-container">
         {spotCardCreater}
       </div>
