@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
-import { thunkPostNewSpot, thunkPostSpotImage } from "../../store/spots";
+import { thunkPostNewSpot, thunkPostSpotImage,thunkPutSpot } from "../../store/spots";
 
 import "./SpotForm.css";
 
@@ -110,6 +110,12 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
 
     if (update) {
       // Thunk for updating a spot
+      const updatedSpot = await dispatch(thunkPutSpot(spotId,newSpot))
+      
+      if(updatedSpot.errors) {
+        return setValidationErrors(updatedSpot)
+      }
+      history.push(`/spots/${spotId}`);
 
     } else {
       // Thunk for creating a new spot

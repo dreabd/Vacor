@@ -5,7 +5,7 @@ import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteSpotModal from "../DeleteSpotModal";
 
 
-function SpotCards({ setManaging, managing, spots }) {
+function SpotCards({ setDeleted,deleted, managing, spots }) {
   // console.log("Managing in the spotcard:", managing)
   // console.log("These are all the spots in spot cards:", Object.values(spots))
   const updateAndDeleteButts = (spotId) => {
@@ -16,8 +16,8 @@ function SpotCards({ setManaging, managing, spots }) {
         </NavLink>
         <OpenModalMenuItem
           itemText="Delete"
-          spotId={spotId}
-          modalComponent={<DeleteSpotModal spotId={spotId} />}
+          deleted={deleted}
+          modalComponent={<DeleteSpotModal setDeleted={setDeleted} spotId={spotId} />}
         />
       </div>
     )

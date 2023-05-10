@@ -8,16 +8,18 @@ import SpotCards from '../SpotCards';
 const ManageSpots = () => {
   const dispatch = useDispatch()
   const [managing,setManaging] = useState(false)
+  const [deleted,setDeleted] = useState(false)
 
   const spots = useSelector(state => state.spots.allSpots)
 
   useEffect(() => {
     dispatch(thunkGetUserSpots())
     setManaging(true)
-  }, [dispatch])
+    setDeleted(false)
+  }, [deleted,dispatch])
 
   return (
-      <SpotCards setManaging={setManaging} managing={managing}spots={spots}/>
+      <SpotCards setDeleted={setDeleted} setManaging={setManaging} managing={managing}spots={spots}/>
   )
 }
 
