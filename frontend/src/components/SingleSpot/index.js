@@ -16,6 +16,8 @@ import "./SingleSpot.css"
 function SingleSpot() {
   // need to check if they are logged in
   const { spotId } = useParams()
+  const [deleted,setDeleted] = useState(false)
+  
 
   const loggedIn = useSelector(state => state.session.user)
   const singleSpot = useSelector(state => state.spots.singleSpot)
@@ -28,13 +30,21 @@ function SingleSpot() {
   useEffect(() => {
     dispatch(thunkGetSpot(spotId))
     dispatch(thunkGetSpotReviews(spotId))
+    setDeleted(false)
 
-  }, [dispatch, spotId])
+  }, [dispatch, spotId,deleted])
 
+  const reviewProps ={
+    spotReviews,
+    loggedIn,
+    spotId,
+    isOwner,
+    setDeleted
+  }
   return (
     <>
       {SpotComponent(singleSpot,isOwner)}
-      {ReivewComponent(spotReviews,loggedIn,spotId,isOwner)}
+      <ReivewComponent {...reviewProps}/>
     </>
   )
 }

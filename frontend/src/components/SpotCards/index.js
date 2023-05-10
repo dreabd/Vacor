@@ -2,7 +2,7 @@ import { NavLink, Link } from "react-router-dom";
 import React from "react";
 import "./spot-card.css";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
-import DeleteSpotModal from "../DeleteSpotModal";
+import DeleteForm from "../DeleteForm";
 
 
 function SpotCards({ setDeleted,deleted, managing, spots }) {
@@ -17,7 +17,7 @@ function SpotCards({ setDeleted,deleted, managing, spots }) {
         <OpenModalMenuItem
           itemText="Delete"
           deleted={deleted}
-          modalComponent={<DeleteSpotModal setDeleted={setDeleted} spotId={spotId} />}
+          modalComponent={<DeleteForm setDeleted={setDeleted} spotId={spotId} />}
         />
       </div>
     )

@@ -30,7 +30,7 @@ const UpdateSpot = ()=>{
   }
 
   // console.log(props)
-
+  if(!Object.values(singleSpot).length) return null
   return(
     <div>
       <h1>I will update you {spotId} </h1>
