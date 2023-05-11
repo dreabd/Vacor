@@ -11,6 +11,8 @@ import "./SpotForm.css";
 
 const SpotForm = ({ singleSpot, spotId, update }) => {
 
+  console.log("This is the spot inside of spotform",singleSpot)
+
   const loggedIn = useSelector(state => state.session.user)
   const ownerId = loggedIn?.id
   const dispatch = useDispatch()
@@ -111,7 +113,7 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
     if (update) {
       // Thunk for updating a spot
       const updatedSpot = await dispatch(thunkPutSpot(spotId,newSpot))
-      
+
       if(updatedSpot.errors) {
         return setValidationErrors(updatedSpot)
       }

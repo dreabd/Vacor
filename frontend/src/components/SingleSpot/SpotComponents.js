@@ -1,8 +1,6 @@
-import { useTransition } from "react"
-
-const SpotComponent = (SpotData) => {
-  const owner = SpotData.Owner
-  const images = SpotData.SpotImages
+const SpotComponent = ({singleSpot}) => {
+  const owner = singleSpot.Owner
+  const images = singleSpot.SpotImages
 
   function checkForImages(images) {
     if (!images) {
@@ -51,34 +49,36 @@ const SpotComponent = (SpotData) => {
 
   return (
     <div className="single-spot-contianer">
-      <h2>{SpotData.name}</h2>
-      <p>{SpotData.city} {SpotData.state}, {SpotData.country}</p>
+      <h2>{singleSpot.name}</h2>
+      <p>{singleSpot.city} {singleSpot.state}, {singleSpot.country}</p>
 
       {checkForImages(images)}
 
-      <h1> Hosted By {SpotData.Owner && SpotData.Owner.firstName} {SpotData.Owner && SpotData.Owner.lastName} </h1>
+      <h1> Hosted By {singleSpot.Owner && singleSpot.Owner.firstName} {singleSpot.Owner && singleSpot.Owner.lastName} </h1>
 
       <div className="description-and-price-container">
         <div className="desription-conatiner">
-          <p>{SpotData.description}</p>
+          <p>{singleSpot.description}</p>
         </div>
         <div className="price-container">
 
           <div className="price-container-top">
             <p>
-              <span className="price-span">{SpotData.price}</span>/night
+              <span className="price-span">{singleSpot.price}</span>/night
             </p>
             <p>
               <i className="fa fa-star empty"></i>
-              {SpotData.averageStars}
+              {singleSpot.averageStars}
             </p>
             <p>
-              {SpotData.numReviews ? SpotData.numReviews:"New"}
+              {singleSpot.numReviews ? singleSpot.numReviews:"New"}
             </p>
           </div>
 
           <div className="price-container-bot">
-            <button className="reserve-button">
+            <button
+            className="reserve-button"
+            onClick={ e => alert("Feature Coming Soon")}>
               Reserve
             </button>
           </div>

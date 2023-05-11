@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import StarRating from "./StarRating";
 import { useModal } from "../../context/Modal";
-import { thunkPostNewReview } from "../../store/reviews";
-
+import { thunkGetSpotReviews,thunkPostNewReview } from "../../store/reviews";
+import { thunkGetSpot } from "../../store/spots";
 
 import "./ReviewForm.css"
 
-function ReviewForm({ update,updatedReview,spotId }) {
+function ReviewForm({ /*setUpdated,*/spotId }) {
+
   const dispatch = useDispatch()
   const { closeModal } = useModal();
 
@@ -33,28 +34,22 @@ function ReviewForm({ update,updatedReview,spotId }) {
   const onSubmit = async e => {
     e.preventDefault();
 
-    console.log(spotId)
+    // console.log(spotId)
     const newReview = {
       review,
       stars
     }
 
-
-
     console.log(newReview)
 
     const response = await dispatch(thunkPostNewReview(spotId,newReview))
+    dispatch(thunkGetSpotReviews(spotId))
+    dispatch(thunkGetSpot(spotId))
     if(response.errors){
       setErrors(response.errors)
-      return validationErrors
+      return
     }
-
-
-
-    // Thunk action that submits the review
-    // -need spot id for this to work
-
-
+    // setUpdated(true)
     closeModal()
   }
 

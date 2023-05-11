@@ -1,14 +1,11 @@
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import ReviewForm from "../ReviewForm";
-import { compose } from "redux";
 import DeleteForm from "../DeleteForm";
 
 
-function ReivewComponent({spotReviews, loggedIn, spotId, isOwner,setDeleted}) {
+function ReivewComponent({/*setUpdated,*/spotReviews, loggedIn, spotId, isOwner,setDeleted}) {
+
   const reviewers = []
-
-
 
   const editReviewButton = (userId, reviewId) => {
     if (loggedIn.id === userId) {
@@ -37,7 +34,7 @@ function ReivewComponent({spotReviews, loggedIn, spotId, isOwner,setDeleted}) {
     return (
       <div className="review-container">
         <div className="user-container">
-          <h3 className="user-name">{review.User?.firstName} {review.User?.lastName}</h3>
+          <h3 className="user-name">{review?.User?.firstName} {review?.User?.lastName}</h3>
         </div>
 
         <div className="created-at-container">
@@ -62,7 +59,7 @@ function ReivewComponent({spotReviews, loggedIn, spotId, isOwner,setDeleted}) {
           itemText="Post Your Review"
           // onItemClick={closeMenu}
           spotId={spotId}
-          modalComponent={<ReviewForm spotId={spotId} />}
+          modalComponent={<ReviewForm /*setUpdated={setUpdated}*/ spotId={spotId} />}
         />
       )
     } return (<p>Be the first person to post a review!</p>)

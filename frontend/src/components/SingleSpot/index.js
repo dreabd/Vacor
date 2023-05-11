@@ -17,11 +17,12 @@ function SingleSpot() {
   // need to check if they are logged in
   const { spotId } = useParams()
   const [deleted,setDeleted] = useState(false)
-  
+  // const [updated,setUpdated] = useState(false)
 
   const loggedIn = useSelector(state => state.session.user)
   const singleSpot = useSelector(state => state.spots.singleSpot)
-  const spotReviews = useSelector(state => Object.values(state.reviews.spot))
+  const spotReviewsSlice = useSelector(state => state.reviews.spot)
+  const spotReviews = Object.values(spotReviewsSlice)
 
   const isOwner = loggedIn?.id === singleSpot?.Owner?.id
 
@@ -31,19 +32,29 @@ function SingleSpot() {
     dispatch(thunkGetSpot(spotId))
     dispatch(thunkGetSpotReviews(spotId))
     setDeleted(false)
+    // setUpdated(false)
 
-  }, [dispatch, spotId,deleted])
+  }, [dispatch, spotId,deleted/*,updated*/])
 
   const reviewProps ={
     spotReviews,
     loggedIn,
     spotId,
     isOwner,
-    setDeleted
+    setDeleted,
+    // setUpdated
   }
+
+  // console.log("This is the spot reviews in the spot details component",spotReviews)
+  const spotProps= {
+    singleSpot,
+    isOwner
+  }
+
+
   return (
     <>
-      {SpotComponent(singleSpot,isOwner)}
+      <SpotComponent {...spotProps}/>
       <ReivewComponent {...reviewProps}/>
     </>
   )
