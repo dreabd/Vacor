@@ -2,13 +2,14 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: .8rem;
   margin: 3rem;
   align-items: center;
+  /* justify-content: center; */
 }
 .spot-image{
-  width: 20rem;
-  height: 13rem;
+  width: 13.75rem;
+  height: 10rem;
   overflow: hidden;
   border-radius: 5%
 }

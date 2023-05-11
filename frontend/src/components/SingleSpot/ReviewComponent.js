@@ -8,7 +8,7 @@ function ReivewComponent({/*setUpdated,*/spotReviews, loggedIn, spotId, isOwner,
   const reviewers = []
 
   const editReviewButton = (userId, reviewId) => {
-    if (loggedIn.id === userId) {
+    if (loggedIn?.id === userId) {
       return (
         <OpenModalMenuItem
           itemText="Delete"
