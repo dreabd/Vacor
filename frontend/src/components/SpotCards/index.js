@@ -2,25 +2,35 @@ import { NavLink, Link } from "react-router-dom";
 import React from "react";
 import "./spot-card.css";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
-import DeleteSpotModal from "../DeleteSpotModal";
+import DeleteForm from "../DeleteForm";
 
 
-function SpotCards({ setManaging, managing, spots }) {
-  console.log("Managing in the spotcard:", managing)
+function SpotCards({ setDeleted,deleted, managing, spots }) {
+  // console.log("Managing in the spotcard:", managing)
   // console.log("These are all the spots in spot cards:", Object.values(spots))
   const updateAndDeleteButts = (spotId) => {
     return (
       <div className="update-delete-button-container">
         <NavLink exact to={`/spots/${spotId}/edit`}>
-          <button className="spot-update-button">Update</button>
+          <button className="spot-update-button"> Update</button>
         </NavLink>
         <OpenModalMenuItem
           itemText="Delete"
-          spotId={spotId}
-          modalComponent={<DeleteSpotModal spotId={spotId} />}
+          deleted={deleted}
+          modalComponent={<DeleteForm setDeleted={setDeleted} spotId={spotId} />}
         />
       </div>
     )
+  }
+
+  const createNewSpotButton = () => {
+    return (
+      <div className="create-new-spot-button-container">
+        <h2>Manage Your Spots</h2>
+        <NavLink style={{ textDecoration: "none", cursor: "pointer" }} exact to="/spots/new"> Create New Spot</NavLink>
+      </div>
+    )
+
   }
 
   const spotCardCreater = Object.values(spots).map(spot => {
@@ -60,6 +70,7 @@ function SpotCards({ setManaging, managing, spots }) {
 
   return (
     <>
+      {managing && createNewSpotButton()}
       <div className="spot-image-container">
         {spotCardCreater}
       </div>

@@ -19,6 +19,10 @@ const GET_CURRENT_USER_SPOTS = "spots/getUserSpots"
 
 const POST_NEW_SPOT = "spots/postNewSpot"
 const POST_SPOT_IMAGE = "spots/postSpotImage"
+
+const PUT_SPOT = "spots/putSpot"
+
+const DELETE_SPOT = "spots/deleteSpot"
 // -----------------Action Creators------------------
 const getAllSpots = (spots) => {
   return {
@@ -48,11 +52,26 @@ const postNewSpot = (newSpot) => {
   }
 }
 
-const postSpotImage = (spotImage,spotId) => {
+const postSpotImage = (spotImage, spotId) => {
   return {
     type: POST_NEW_SPOT,
     spotImage,
     spotId
+  }
+}
+
+
+const putSpot = (updatedSpot) => {
+  return {
+    type: POST_NEW_SPOT,
+    updatedSpot
+  }
+}
+
+const deleteSpot = (deletedSpotId) => {
+  return {
+    type: DELETE_SPOT,
+    deletedSpotId
   }
 }
 // -----------------Thunk Action Creators------------------
@@ -120,7 +139,7 @@ export const thunkPostSpotImage = (spotId, spotImage) => async (dispatch) => {
   if (res.ok) {
     console.log("I am in post spot image")
     const data = await res.json()
-    dispatch(postSpotImage(data,spotId))
+    dispatch(postSpotImage(data, spotId))
     return data.id
   } else {
     const err = await res.json()
@@ -128,7 +147,29 @@ export const thunkPostSpotImage = (spotId, spotImage) => async (dispatch) => {
   }
 }
 
+export const thunkPutSpot = (spotId, newSpot) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "PUT",
+    body: JSON.stringify(newSpot)
+  })
 
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(putSpot(data))
+    return data
+  } else {
+    const err = await res.json()
+    return err
+  }
+}
+
+
+export const thunkDeleteSpot = (spotId) => async (dispatch) => {
+  const res = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "DELETE"
+  })
+  if (res.ok) dispatch(deleteSpot(spotId))
+}
 // -----------------Initial State------------------
 const initialState = { allSpots: {}, singleSpot: {} }
 
@@ -145,7 +186,8 @@ const spotsReducer = (state = initialState, action) => {
     case POST_NEW_SPOT:
       return {...state, singleSpot:{...action.newSpot}}
       case POST_SPOT_IMAGE:
-        return {...state,SpotImages:[...state.singleSpot.SpotImages,action.spotImage]}
+        // Need to adjsut the return of thise
+        return {...state}
     default:
       return state
   }

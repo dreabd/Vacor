@@ -1,13 +1,25 @@
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import ReviewForm from "../ReviewForm";
+import DeleteForm from "../DeleteForm";
 
 
-function ReivewComponent(spotReviews, loggedIn, spotId, isOwner) {
+function ReivewComponent({/*setUpdated,*/spotReviews, loggedIn, spotId, isOwner,setDeleted}) {
+
   const reviewers = []
 
+  const editReviewButton = (userId, reviewId) => {
+    if (loggedIn.id === userId) {
+      return (
+        <OpenModalMenuItem
+          itemText="Delete"
+          modalComponent={<DeleteForm  setDeleted={setDeleted} userId={userId} reviewId={reviewId}/>}
+        />
+      )
+    } return (null)
+  }
 
   const reviews = spotReviews.map(review => {
+    // console.log(review)
 
     reviewers.push(review.userId)
     // if they reviewed already so if they are loggedin
@@ -22,19 +34,23 @@ function ReivewComponent(spotReviews, loggedIn, spotId, isOwner) {
     return (
       <div className="review-container">
         <div className="user-container">
-          <h3 className="user-name">{review.User.firstName} {review.User.lastName}</h3>
+          <h3 className="user-name">{review?.User?.firstName} {review?.User?.lastName}</h3>
         </div>
 
         <div className="created-at-container">
-          <p className="created-at">{convertedTime}</p>
+          <p className="created-at">{review?.createdAt ? convertedTime:null}</p>
         </div>
+
 
         <div className="review-text-container">
           <p className="review-text">{review.review}</p>
         </div>
+
+        {editReviewButton(review.userId,review.id)}
       </div>
     )
   })
+
 
   function checksForReviewButton() {
     if (loggedIn && !isOwner && !reviewers.includes(loggedIn.id)) {
@@ -43,7 +59,7 @@ function ReivewComponent(spotReviews, loggedIn, spotId, isOwner) {
           itemText="Post Your Review"
           // onItemClick={closeMenu}
           spotId={spotId}
-          modalComponent={<ReviewForm spotId={spotId}/>}
+          modalComponent={<ReviewForm /*setUpdated={setUpdated}*/ spotId={spotId} />}
         />
       )
     } return (<p>Be the first person to post a review!</p>)

@@ -1,27 +1,34 @@
 import React from "react";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./SpotForm.css";
-import { useHistory,Redirect } from "react-router-dom/cjs/react-router-dom.min";
-import { thunkPostNewSpot,thunkPostSpotImage } from "../../store/spots";
+import { useHistory, Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
-const SpotForm = () => {
+import { thunkPostNewSpot, thunkPostSpotImage,thunkPutSpot } from "../../store/spots";
+
+import "./SpotForm.css";
+
+
+const SpotForm = ({ singleSpot, spotId, update }) => {
+
+  console.log("This is the spot inside of spotform",singleSpot)
+
   const loggedIn = useSelector(state => state.session.user)
   const ownerId = loggedIn?.id
   const dispatch = useDispatch()
   const history = useHistory()
 
   // ------- State Variables -------
-  const [country, setCountry] = useState("")
-  const [address, setAddress] = useState("")
-  const [city, setCity] = useState("")
-  const [state, setState] = useState("")
+  const [country, setCountry] = useState(singleSpot?.country || "")
+  const [address, setAddress] = useState(singleSpot?.address || "")
+  const [city, setCity] = useState(singleSpot?.city || "")
+  const [state, setState] = useState(singleSpot?.country || "")
 
-  const [descpt, setDescpt] = useState("")
+  const [descpt, setDescpt] = useState(singleSpot?.description || "")
 
-  const [name, setName] = useState("")
+  const [name, setName] = useState(singleSpot?.name || "")
 
-  const [price, setPrice] = useState("")
+  const [price, setPrice] = useState(singleSpot?.price || "")
 
   const [preview, setPreview] = useState("")
 
@@ -35,6 +42,7 @@ const SpotForm = () => {
 
   // ------- Checking if its new Spot is valid -------
   useEffect(() => {
+
     const err = {}
 
     if (!country.length) err["country"] = "Country is requred"
@@ -50,21 +58,21 @@ const SpotForm = () => {
 
     const validURL = [".png", ".jpg", ".jpeg"]
 
-    const urlValidator = (url)=>{
+    const urlValidator = (url) => {
       return (((!validURL.includes(url.substring(url.length - 4) || !validURL.includes(url.substring(url.length - 5))))))
     }
 
-    if (!preview.length) err["preview"] = "Preview is required"
-    if (urlValidator(preview)) err["previewImage"] = "Image URL must end in .png, .jpg, or .jpeg"
-    if (photo1.length && urlValidator(photo1)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
-    if (photo2.length && urlValidator(photo2)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
-    if (photo3.length && urlValidator(photo3)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
-    if (photo4.length && urlValidator(photo4)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
+    if (!update && !preview.length) err["preview"] = "Preview is required"
+    if (!update && urlValidator(preview)) err["previewImage"] = "Image URL must end in .png, .jpg, or .jpeg"
+    if (!update && photo1.length && urlValidator(photo1)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
+    if (!update && photo2.length && urlValidator(photo2)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
+    if (!update && photo3.length && urlValidator(photo3)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
+    if (!update && photo4.length && urlValidator(photo4)) err["Image"] = "Image URL must end in .png, .jpg, or .jpeg"
 
     // console.log(err)
     setValidationErrors(err)
 
-  }, [country, address, city, state, descpt, name, price, preview, photo1, photo2, photo3, photo4])
+  }, [singleSpot,country, address, city, state, descpt, name, price, preview, photo1, photo2, photo3, photo4])
 
   // ---------Submit Functionality--------
   const onSubmit = async (e) => {
@@ -85,6 +93,7 @@ const SpotForm = () => {
 
     // ------- For Posting the new Spot -------
     const newSpot = {
+      ...singleSpot,
       address,
       city,
       state,
@@ -97,36 +106,53 @@ const SpotForm = () => {
       ownerId
     }
 
+
+
     // ------ Dispatching all the thunks that need be dispatched ------
 
-    // Thunk for creating a new spot
-    const newSpotRes = await dispatch(thunkPostNewSpot(newSpot))
-    // pass in the newspot for the thunk
-    if(newSpotRes.errors){
-      return setValidationErrors(newSpotRes.errors)
-    }
-    // ---- need to return the id of the new spot
-    const newSpotID = newSpotRes.id
+    if (update) {
+      // Thunk for updating a spot
+      const updatedSpot = await dispatch(thunkPutSpot(spotId,newSpot))
 
-    // Thunk for adding all the images
-    spotImages.forEach(spotImage => dispatch(thunkPostSpotImage(newSpotID,spotImage)))
-    // --- Most likely will use a loop over the spotimages and dispatch all of those requests
-    // --- need grab the spot id from the new created spot
-    // if there are errors then set validation errors to thsoe errors
+      if(updatedSpot.errors) {
+        return setValidationErrors(updatedSpot)
+      }
+      history.push(`/spots/${spotId}`);
+
+    } else {
+      // Thunk for creating a new spot
+      const newSpotRes = await dispatch(thunkPostNewSpot(newSpot))
+      // pass in the newspot for the thunk
+      if (newSpotRes.errors) {
+        return setValidationErrors(newSpotRes.errors)
+      }
+      // ---- need to return the id of the new spot
+      const newSpotID = newSpotRes.id
+
+      // Thunk for adding all the images
+      spotImages.forEach(spotImage => dispatch(thunkPostSpotImage(newSpotID, spotImage)))
+      // --- Most likely will use a loop over the spotimages and dispatch all of those requests
+      // --- need grab the spot id from the new created spot
+      // if there are errors then set validation errors to thsoe errors
+      history.push(`/spots/${newSpotID}`);
+    }
+
+
+
+
 
     // // ------------IF THERE ARE NO ERRS ANYWHERE Redirect to New Spot-------------
-    history.push(`/spots/${newSpotID}`);
   }
 
-
   if (!loggedIn) return <Redirect to="/" />
+
   return (
     <div className="create-new-spot-container">
 
       <form onSubmit={onSubmit} className="new-spot-form">
 
         <div className="location-info-container">
-          <h2> Create a new Spot</h2>
+          {update ? <h2> Update your Spot</h2> : <h2> Create a new Spot</h2>}
           <h4> Where's your place located </h4>
           <p> Guest will only get your exact address once they booked a reservation</p>
           <label className="new-spot-input-container" htmlFor="">

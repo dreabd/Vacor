@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import StarRating from "./StarRating";
 import { useModal } from "../../context/Modal";
-
+import { thunkGetSpotReviews,thunkPostNewReview } from "../../store/reviews";
+import { thunkGetSpot } from "../../store/spots";
 
 import "./ReviewForm.css"
 
-function ReviewForm({ spotId }) {
+function ReviewForm({ /*setUpdated,*/spotId }) {
+
   const dispatch = useDispatch()
   const { closeModal } = useModal();
-
 
   // --------- State Variables -----------
   const [stars, setStars] = useState(0)
   const [review, setReview] = useState("")
-  const [errors, setErrors] = useState({});
+  const [validationErrors, setErrors] = useState({});
 
 
   const onChange = number => setStars(number)
@@ -30,10 +31,10 @@ function ReviewForm({ spotId }) {
   },[stars,review])
 
   // ------Submit Functionality------
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault();
 
-    console.log(spotId)
+    // console.log(spotId)
     const newReview = {
       review,
       stars
@@ -41,19 +42,14 @@ function ReviewForm({ spotId }) {
 
     console.log(newReview)
 
-    /*
-    const respone = dispatch(postNewReview(spotId,newReview))
+    const response = await dispatch(thunkPostNewReview(spotId,newReview))
+    dispatch(thunkGetSpotReviews(spotId))
+    dispatch(thunkGetSpot(spotId))
     if(response.errors){
       setErrors(response.errors)
-      return err
+      return
     }
-
-
-    */
-    // Thunk action that submits the review
-    // -need spot id for this to work
-
-
+    // setUpdated(true)
     closeModal()
   }
 
@@ -63,6 +59,7 @@ function ReviewForm({ spotId }) {
       className="new-review-container"
     >
       <h3>How was your stay</h3>
+      {}
       <textarea
         className="new-review-input"
         id="" cols="30"
@@ -73,7 +70,7 @@ function ReviewForm({ spotId }) {
       ></textarea>
       <p className="star-rating-container"><StarRating onChange={onChange}stars={stars}/> Stars</p>
 
-      <button disabled={Object.values(errors).length}className="submit-reivew-button">Submit Your Review!</button>
+      <button disabled={Object.values(validationErrors).length}className="submit-reivew-button">Submit Your Review!</button>
     </form>
 
   )
