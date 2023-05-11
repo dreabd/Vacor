@@ -11,7 +11,7 @@ function SpotCards({ setDeleted, deleted, managing, spots }) {
   const updateAndDeleteButts = (spotId) => {
     return (
       <div className="update-delete-button-container">
-        <NavLink exact to={`/spots/${spotId}/edit`}>
+        <NavLink style={{textDecoration:"none"}}exact to={`/spots/${spotId}/edit`}>
           <button className="spot-update-button"> Update</button>
         </NavLink>
         <OpenModalMenuItem
@@ -36,8 +36,8 @@ function SpotCards({ setDeleted, deleted, managing, spots }) {
   const spotCardCreater = Object.values(spots).map(spot => {
     // console.log(spot)
     return (
-
-      <div key={spot.id}>
+      <div className="spot-card">
+         <div key={spot.id}>
         {/* Need to wrap the image in a link tag so that it is a clickable image */}
         {/* <div title={`${spot.name}`}></div> */}
         <div title={`${spot.name}`} >
@@ -59,18 +59,20 @@ function SpotCards({ setDeleted, deleted, managing, spots }) {
             <p>{spot.city},{spot.state}</p>
             <p>
               <i className="fa-solid fa-star empty"></i>
-              {spot.averageStars || "New"}
+              {spot.averageStars?.toFixed(2) || "New"}
             </p>
           </div>
 
           <div className="second-row">
-            <p className="price-per-night"><span style={{ fontWeight: "bold" }}>{spot.price}</span>/night</p>
+            <p className="price-per-night"><span className="price-span"style={{ fontWeight: "bold" }}>${spot.price}</span>/night</p>
           </div>
         </div>
 
         {managing && updateAndDeleteButts(spot.id)}
 
       </div>
+      </div>
+
 
     )
   })

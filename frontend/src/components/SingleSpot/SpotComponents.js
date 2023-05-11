@@ -1,4 +1,4 @@
-const SpotComponent = ({singleSpot}) => {
+const SpotComponent = ({ singleSpot }) => {
   const owner = singleSpot.Owner
   const images = singleSpot.SpotImages
 
@@ -9,8 +9,8 @@ const SpotComponent = ({singleSpot}) => {
     else {
       const urlArr = []
 
-      for(let i = 0; i < 5; i++){
-        if(images[i]) urlArr.push(images[i].url)
+      for (let i = 0; i < 5; i++) {
+        if (images[i]) urlArr.push(images[i].url)
         else urlArr.push("https://s7200.pcdn.co/wp-content/uploads/2021/02/property-placeholder-1.jpg")
       }
 
@@ -48,38 +48,42 @@ const SpotComponent = ({singleSpot}) => {
 
 
   return (
-    <div className="single-spot-contianer">
-      <h2>{singleSpot.name}</h2>
-      <p>{singleSpot.city} {singleSpot.state}, {singleSpot.country}</p>
+    <div className="single-spot-container">
+      <div className="header-container">
+        <h2>{singleSpot.name}</h2>
+        <p>{singleSpot.city} {singleSpot.state}, {singleSpot.country}</p>
+      </div>
 
       {checkForImages(images)}
 
-      <h1> Hosted By {singleSpot.Owner && singleSpot.Owner.firstName} {singleSpot.Owner && singleSpot.Owner.lastName} </h1>
 
       <div className="description-and-price-container">
         <div className="desription-conatiner">
+          <h2 className="host-text"> Hosted By {singleSpot.Owner && singleSpot.Owner.firstName} {singleSpot.Owner && singleSpot.Owner.lastName} </h2>
           <p>{singleSpot.description}</p>
         </div>
         <div className="price-container">
 
           <div className="price-container-top">
-            <p>
-              <span className="price-span">{singleSpot.price}</span>/night
+            <p className="price-per-night">
+              <span style={{ fontSize: "20px", fontWeight: "bold" }}>${singleSpot.price}</span>/night
             </p>
-            <p>
-              <i className="fa fa-star empty"></i>
-              {singleSpot.averageStars?.toFixed(2)}
-            </p>
-            {singleSpot.numReviews && ""}
-            <p>
-              {singleSpot.numReviews ? singleSpot.numReviews == 1 ? `· #${singleSpot.numReviews} Review` : `· #${singleSpot.numReviews} Reviews`:"New"}
-            </p>
+            <div className="stars-review-num">
+              <p>
+                <i className="fa fa-star empty"></i>
+                {singleSpot.averageStars?.toFixed(2)}
+              </p>
+              {/* {singleSpot.numReviews && ""} */}
+              <p>
+                {singleSpot.numReviews ? singleSpot.numReviews == 1 ? `· #${singleSpot.numReviews} review` : `· #${singleSpot.numReviews} reviews` : "New"}
+              </p>
+            </div>
           </div>
 
           <div className="price-container-bot">
             <button
-            className="reserve-button"
-            onClick={ e => alert("Feature Coming Soon")}>
+              className="reserve-button"
+              onClick={e => alert("Feature Coming Soon")}>
               Reserve
             </button>
           </div>

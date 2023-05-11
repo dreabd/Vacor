@@ -14,19 +14,19 @@ function ReivewComponent({/*setUpdated,*/spotReviews, loggedIn, spotId, isOwner,
       return (
         <OpenModalMenuItem
           itemText="Delete"
-          modalComponent={<DeleteForm setDeleted={setDeleted} userId={userId} reviewId={reviewId} />}
+          modalComponent={<DeleteForm className="modal-button" setDeleted={setDeleted} userId={userId} reviewId={reviewId} />}
         />
       )
     } return (null)
   }
 
-  console.log("Reversed",spotReviews.toReversed())
-  console.log("Regular",spotReviews)
+  console.log("Reversed", spotReviews.toReversed())
+  console.log("Regular", spotReviews)
   console.log(spotReviews.reverse() === spotReviews)
 
 
   const reviews = []
-  spotReviews.forEach( review => {
+  spotReviews.forEach(review => {
     reviewers.push(review.userId)
 
     // if they reviewed already so if they are loggedin
@@ -41,7 +41,7 @@ function ReivewComponent({/*setUpdated,*/spotReviews, loggedIn, spotId, isOwner,
     const component = (
       <div className="review-container">
         <div className="user-container">
-          <h3 className="user-name">{review?.User?.firstName} {review?.User?.lastName}</h3>
+          <h4 className="user-name">{review?.User?.firstName} {review?.User?.lastName}</h4>
         </div>
 
         <div className="created-at-container">
@@ -96,13 +96,15 @@ function ReivewComponent({/*setUpdated,*/spotReviews, loggedIn, spotId, isOwner,
 
 
   function checksForReviewButton() {
+    if(!loggedIn) return null
     if (loggedIn && !isOwner && !reviewers.includes(loggedIn.id)) {
       return (
         <OpenModalMenuItem
           itemText="Post Your Review"
           // onItemClick={closeMenu}
           spotId={spotId}
-          modalComponent={<ReviewForm /*setUpdated={setUpdated}*/ spotId={spotId} />}
+          modalComponent={<ReviewForm /*setUpdated={setUpdated}*/
+          className="modal-button" spotId={spotId} />}
         />
       )
     } return (<p>Be the first person to post a review!</p>)
@@ -115,12 +117,16 @@ function ReivewComponent({/*setUpdated,*/spotReviews, loggedIn, spotId, isOwner,
   return (
     <div className="spot-reviews-container">
       <div className="star-review-num-post-review-container">
-        <i className="fa-solid fa-star"></i>
-        {/* <p>{spotReviews.length || "New"}</p> */}
-        <p>
-          { spotReviews.length ? spotReviews.length == 1 ? `#${spotReviews.length} Review` : `#${spotReviews.length} Reviews`:"New"}
-        </p>
-        {checksForReviewButton()}
+        <div className="spot-star-review-container">
+          <i className="fa-solid fa-star"></i>
+          {/* <p>{spotReviews.length || "New"}</p> */}
+          <p>
+            {spotReviews.length ? spotReviews.length == 1 ? `#${spotReviews.length} Review` : `#${spotReviews.length} Reviews` : "New"}
+          </p>
+        </div>
+        <div className="modal-button">
+          {checksForReviewButton()}
+        </div>
       </div>
       {reviews}
     </div>

@@ -152,7 +152,7 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
       <form onSubmit={onSubmit} className="new-spot-form">
 
         <div className="location-info-container">
-          {update ? <h2> Update your Spot</h2> : <h2> Create a New Spot</h2>}
+          {update ? <h2> Update your Spot</h2> : <h2> Create a new Spot</h2>}
           <h4> Where's your place located </h4>
           <p> Guest will only get your exact address once they booked a reservation</p>
           <label className="new-spot-input-container" htmlFor="">
@@ -202,6 +202,17 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
           </label>
         </div>
 
+        <div className="set-name-container">
+          <h4>Create a title for your spot</h4>
+          <p>Catch guests' attention with a spot title that highlights what make your place special</p>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Name of your spot"
+          />
+          {submit && validationErrors.name && <p className="errors">{validationErrors.name}</p>}
+        </div>
 
         <div className="set-description-container">
           <h4>Describe you place to guests</h4>
@@ -217,19 +228,6 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
           ></textarea>
           {submit && validationErrors.description && <p className="errors">{validationErrors.description}</p>}
 
-        </div>
-
-
-        <div className="set-name-container">
-          <h4>Create a title for your spot</h4>
-          <p>Catch guests' attention with a spot title that highlights what make your place special</p>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Name of your spot"
-          />
-          {submit && validationErrors.name && <p className="errors">{validationErrors.name}</p>}
         </div>
 
         <div className="set-price-container">
@@ -296,7 +294,7 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
         </div>
 
 
-        <button disabled={Object.values(validationErrors).length}type="submit">Create Spot</button>
+        <button type="submit">Create</button>
 
 
       </form>

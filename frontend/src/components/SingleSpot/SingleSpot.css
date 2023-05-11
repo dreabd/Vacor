@@ -1,28 +1,162 @@
+.single-spot-container, .spot-reviews-container{
+  padding: 1rem 2rem;
+}
 .single-spot-image-container{
   display: grid;
-  width: 1000px;
+  width: 100%;
   grid-template-columns: 1fr 1fr;
-  gap: 8px
 }
-
 
 /* making Images all one the same size */
-.mainImage{
-  width: 30rem;
-  height: 20rem;
+.single-spot-main-image{
+  padding: 1px 1px;
+  width: 31rem;
+  height: 20.17rem;
   overflow: hidden;
 }
-
+.mainImage{
+  max-width: 100%;
+  width: 35rem;
+  height: 340px;
+}
+.single-spot-other-images{
+  width: 30rem;
+}
 .single-spot-other-images> *{
-  width: 16rem;
+  width: 14.3rem;
   height: 10rem;
-  padding: 2px 2px;
+  padding: 1px 1px;
 }
 
-/* -------------------------------------------- */
+/* -------------------Turns the other 4 images into a grid------------------------- */
 
 .single-spot-other-images{
   display: grid;
   width: 50%;
   grid-template-columns: 1fr 1fr;
 }
+
+/*  Header container */
+.header-container{
+  /* font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-left: 2px;
+  margin-bottom: 8px;
+}
+
+.host-text{
+  padding: 1rem 0rem;
+}
+
+/* Description and Price Container */
+.description-and-price-container {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas:
+  "descpt price";
+  border-bottom: 1px solid black;
+  gap: 2rem;
+}
+
+.descritption-container{
+  grid-area: descpt;
+}
+
+.price-container{
+  padding: 0rem 1rem;
+  grid-area: price;
+  border: 3px solid black;
+  border-radius: 25px;
+  height:8rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.price-container-top{
+  padding: 1rem 1rem;
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr ;
+  grid-template-areas:
+  "price-container stars-reviews";
+}
+
+.price-per-night{
+  grid-area: price-container;
+}
+
+
+.stars-review-num{
+  grid-area: stars-reviews;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+}
+
+.price-container-bot .reserve-button{
+  width: 100%;
+}
+
+.reserve-button{
+  cursor: pointer;
+  margin-bottom: 10px;
+  padding: 10px 7.25rem;
+  background-color: #FF5A5F;
+  color:white;
+  border: 1px solid black;
+  box-shadow: 4px 4px 0px black;
+}
+.reserve-button:hover{
+  background-color: #ff5a60c9;
+  color:rgb(255, 255, 255);
+}
+
+
+.reserve-button:active{
+  background-color: white;
+  color:#FF5A5F;
+  border: 1px solid black;
+  box-shadow: 2px 2px 0px black;
+}
+
+.star-review-num-post-review-container{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.spot-star-review-container{
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  padding-bottom: 8px;
+}
+.spot-star-review-container>*{
+  font-size: 1.2rem;
+}
+
+/* .modal-button >*{
+  border:1px solid red
+
+} */
+
+.review-container{
+  display: flex;
+  flex-direction: column;
+  padding: .5rem 0rem;
+  gap: 4px;
+}
+
+.created-at-container{
+  color: grey;
+  font-size: 14px;
+}
+
