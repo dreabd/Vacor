@@ -68,10 +68,11 @@ const SpotComponent = ({singleSpot}) => {
             </p>
             <p>
               <i className="fa fa-star empty"></i>
-              {singleSpot.averageStars}
+              {singleSpot.averageStars?.toFixed(2)}
             </p>
+            {singleSpot.numReviews && ""}
             <p>
-              {singleSpot.numReviews ? singleSpot.numReviews:"New"}
+              {singleSpot.numReviews ? singleSpot.numReviews == 1 ? `· #${singleSpot.numReviews} Review` : `· #${singleSpot.numReviews} Reviews`:"New"}
             </p>
           </div>
 
