@@ -22,7 +22,7 @@ function SingleSpot() {
   const loggedIn = useSelector(state => state.session.user)
   const singleSpot = useSelector(state => state.spots.singleSpot)
   const spotReviewsSlice = useSelector(state => state.reviews.spot)
-  const spotReviews = Object.values(spotReviewsSlice)
+  const spotReviews = Object.values(spotReviewsSlice).reverse()
 
   const isOwner = loggedIn?.id === singleSpot?.Owner?.id
 

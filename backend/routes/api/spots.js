@@ -404,7 +404,7 @@ router.get("/:spotId/reviews", async (req, res, next) => {
     },
     include: [User, ReviewImage]
   })
-  res.json(specificSpotsReviews)
+  res.json(specificSpotsReviews.reverse())
 })
 
 /*-------------------- Creating Booking of a Spot by SpotId --------------------*/
