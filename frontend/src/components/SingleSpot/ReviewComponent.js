@@ -20,8 +20,8 @@ function ReivewComponent({/*setUpdated,*/spotReviews, loggedIn, spotId, isOwner,
     } return (null)
   }
 
-  console.log("Reversed", spotReviews.toReversed())
-  console.log("Regular", spotReviews)
+  // console.log("Reversed", spotReviews.toReversed())
+  // console.log("Regular", spotReviews)
   // console.log(spotReviews.reverse() === spotReviews)
 
 
