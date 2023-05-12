@@ -36,11 +36,9 @@ module.exports = {
       },
       lattitude: {
         type: Sequelize.DECIMAL,
-        unique: true,
       },
       longitude: {
         type: Sequelize.DECIMAL,
-        unique: true,
       },
       name: {
         type: Sequelize.STRING
