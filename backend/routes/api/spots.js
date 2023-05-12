@@ -101,7 +101,10 @@ const avgRating_prevURL = (AllSpotsArr, newArr) => {
     currentSpot["averageStars"] = averageStars
 
     /*--- Checking if the there is a preview Image  */
-    if (currentSpot.SpotImages) { currentSpot["previewUrl"] = currentSpot.SpotImages[0].url }
+    if (currentSpot.SpotImages) {
+      // console.log(currentSpot.SpotImages.find(image => image.preview = true))
+      currentSpot["previewUrl"] = currentSpot.SpotImages.find(image => image.preview = true)
+    }
     else currentSpot["previewUrl"] = "No Images could be found"
 
     delete currentSpot["Reviews"]

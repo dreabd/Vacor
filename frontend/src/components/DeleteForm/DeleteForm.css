@@ -15,3 +15,44 @@
   width: 100%;
   padding: 1rem;
 }
+
+
+.confirm-delete-button{
+  background-color: #FF5A5F;
+  color:white;
+  border: 1px solid black;
+  box-shadow: 2px 2px 0px black;
+}
+
+.confirm-delete-button:hover{
+  background-color: #ff5a60c9;
+  color:rgb(255, 255, 255);
+}
+
+
+.confirm-delete-button:active{
+  background-color: white;
+  color:#FF5A5F;
+  border: 1px solid black;
+  box-shadow: 1px 1px 0px black;
+}
+
+.cancel-delete-button{
+  background-color: darkgrey;
+  color:white;
+  border: 1px solid black;
+  box-shadow: 2px 2px 0px black;
+}
+
+.cancel-delete-button:hover{
+  background-color: rgb(211, 208, 208);
+  color:rgb(255, 255, 255);
+}
+
+
+.cancel-delete-button:active{
+  background-color:white;
+  color:darkgray;
+  border: 1px solid black;
+  box-shadow: 1px 1px 0px black;
+}

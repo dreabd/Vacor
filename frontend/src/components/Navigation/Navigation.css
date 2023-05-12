@@ -1,30 +1,30 @@
-.profileButton >*{
+.profileButton>* {
   padding: 6px;
   color: rgba(0, 0, 0, 0.382);
 }
 
-.profileButton{
+.profileButton {
   border: 2px solid rgba(0, 0, 0, 0.382);
   border-radius: 1.6rem;
   cursor: pointer;
 }
 
-.nav-ul{
+.nav-ul {
   list-style-type: none;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px solid grey ;
+  border-bottom: 1px solid grey;
   padding: 1rem 1rem;
 }
 
-.home-link{
+.home-link {
   color: #FF5A5F;
   font-size: 2.4rem;
   text-decoration: none;
 }
 
-.newSpot-profile-container{
+.newSpot-profile-container {
   font-size: 1rem;
   display: flex;
   justify-content: center;
@@ -33,22 +33,27 @@
 }
 
 .profile-dropdown {
-  gap: 8px;
+  gap: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* align-items: center; */
   padding-bottom: 10px;
   list-style-type: none;
-  padding: 8px 8px;
+  padding: 10px 20px;
   position: absolute;
   top: 54px;
   right: 12px;
   background-color: white;
   min-width: 1rem;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   z-index: 1;
 }
 
-.hidden{
+.hidden {
   display: none;
+}
+
+.log-out-button:hover {
+  background: #909493;
 }

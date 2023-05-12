@@ -26,12 +26,16 @@ function SpotCards({ setDeleted, deleted, managing, spots }) {
   const createNewSpotButton = () => {
     return (
       <div className="create-new-spot-button-container">
-        <h2>Manage Your Spots</h2>
-        <NavLink style={{ textDecoration: "none", cursor: "pointer" }} exact to="/spots/new"> Create New Spot</NavLink>
+        <h3>Manage Your Spots</h3>
+        <NavLink style={{ textDecoration: "none", cursor: "pointer" }} exact to="/spots/new">
+          <button className="create-new-spot-button">Create New Spot</button>
+        </NavLink>
       </div>
     )
 
   }
+
+  console.log(spots)
 
   const spotCardCreater = Object.values(spots).map(spot => {
     // console.log(spot)
@@ -45,7 +49,7 @@ function SpotCards({ setDeleted, deleted, managing, spots }) {
           <Link exact to={`/spots/${spot.id}`}>
             <img
               className="spot-image"
-              src={spot.previewUrl}
+              src={spot.previewUrl?.url}
               alt={`${spot.name}`}>
             </img>
           </Link>

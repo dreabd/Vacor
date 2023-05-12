@@ -58,19 +58,35 @@ function ProfileButton({ user }) {
         {user ? (
           <>
             <li>Hello {user.username}</li>
-            <li>{user.email}</li>
-            <li><NavLink style={{ cursor: "pointer", color: "black", textDecoration: "none" }} exact to="/spots/current">Manage Spots</NavLink></li>
+            <li style={{
+              // width: "100%",
+              paddingBottom: "4px",
+              color: "black",
+              textDecoration: "none",
+              borderBottom: '1px solid black'
+            }}>{user.email}</li>
+
+            <li style={{borderBottom: '1px solid black'}}
+            ><NavLink style={{
+              width: "100%",
+              color: "black",
+              textDecoration: "none",
+            }} exact to="/spots/current">Manage Spots</NavLink></li>
             <li>
-              <button style={{
-                background: "none",
-                color: "inherit",
-                border: "none",
-                padding: "0",
+              <button className="log-out-button" style={{
+                background: "#D9DDDC.",
+                color: "black",
+                border: "1px solid black",
+                padding: "4px 10px",
                 font: "inherit",
                 cursor: "pointer",
                 outline: "inherit",
                 display: "flex",
-                alignItems: "center"
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: "100%",
+                borderRadius: "25px",
               }} onClick={logout}>Log Out</button>
             </li>
           </>

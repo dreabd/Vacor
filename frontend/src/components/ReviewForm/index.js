@@ -70,7 +70,7 @@ function ReviewForm({ /*setUpdated,*/spotId }) {
       ></textarea>
       <p className="star-rating-container"><StarRating onChange={onChange}stars={stars}/> Stars</p>
 
-      <button disabled={Object.values(validationErrors).length}className="submit-reivew-button">Submit Your Review!</button>
+      <button disabled={Object.values(validationErrors).length} className="submit-reivew-button">Submit Your Review!</button>
     </form>
 
   )

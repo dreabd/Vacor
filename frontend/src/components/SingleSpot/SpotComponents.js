@@ -75,7 +75,7 @@ const SpotComponent = ({ singleSpot }) => {
               </p>
               {/* {singleSpot.numReviews && ""} */}
               <p>
-                {singleSpot.numReviews ? singleSpot.numReviews == 1 ? `· #${singleSpot.numReviews} review` : `· #${singleSpot.numReviews} reviews` : "New"}
+                {singleSpot.numReviews ? singleSpot.numReviews == 1 ? ` · ${singleSpot.numReviews} review` : `· ${singleSpot.numReviews} reviews` : "New"}
               </p>
             </div>
           </div>

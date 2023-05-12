@@ -24,6 +24,8 @@ function SingleSpot() {
   const spotReviewsSlice = useSelector(state => state.reviews.spot)
   const spotReviews = Object.values(spotReviewsSlice).reverse()
 
+  const avgStars = singleSpot.averageStars?.toFixed(2)
+  console.log(avgStars)
   const isOwner = loggedIn?.id === singleSpot?.Owner?.id
 
 
@@ -42,6 +44,7 @@ function SingleSpot() {
     spotId,
     isOwner,
     setDeleted,
+    avgStars
     // setUpdated
   }
 

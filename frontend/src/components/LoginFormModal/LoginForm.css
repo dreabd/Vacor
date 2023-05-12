@@ -25,12 +25,31 @@ h2{
 
 
 
-.login-button{
+.login-button,
+.sign-up-button{
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  height: 3rem;
+  height: 2rem;
+  background: #FF5A5F;
+  /* padding: 1px 1px; */
+  color: white;
+  width: 100%;
+  border: 1px solid black;
+  box-shadow: 3px 3px 3px black ;
+}
+
+.login-button:disabled,
+.sign-up-button:disabled{
+  background: rgb(193, 193, 193);
+}
+
+.login-button:active,
+.sign-up-button:active{
+  color: #FF5A5F;
+  background: white;
+  box-shadow: 1px 1px 1px black ;
 }
 
 .logInText{

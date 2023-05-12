@@ -28,8 +28,8 @@ const DeleteForm = ({ spotId,setDeleted,reviewId }) => {
     <div className="delete-spot-container">
       <h2>Confirm Delete</h2>
       {reviewId ? <p>Are you sure you want to delete this review?</p> : <p>Are you sure you want to remove this post from the listings?</p>}
-      <button onClick={reviewId ? deleteReview: deleteSpot }> Yes (Delete {reviewId ? "Review" : "Spot"})</button>
-      <button onClick={closeModal}> No (Keep {reviewId ? "Review" : "Spot"})</button>
+      <button className="confirm-delete-button" onClick={reviewId ? deleteReview: deleteSpot }> Yes (Delete {reviewId ? "Review" : "Spot"})</button>
+      <button className="cancel-delete-button" onClick={closeModal}> No (Keep {reviewId ? "Review" : "Spot"})</button>
     </div>
   )
 }

@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
-import { thunkPostNewSpot, thunkPostSpotImage,thunkPutSpot } from "../../store/spots";
+import { thunkPostNewSpot, thunkPostSpotImage, thunkPutSpot } from "../../store/spots";
 
 import "./SpotForm.css";
 
 
 const SpotForm = ({ singleSpot, spotId, update }) => {
 
-  console.log("This is the spot inside of spotform",singleSpot)
+  console.log("This is the spot inside of spotform", singleSpot)
 
   const loggedIn = useSelector(state => state.session.user)
   const ownerId = loggedIn?.id
@@ -45,10 +45,10 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
 
     const err = {}
 
-    if (!country.length) err["country"] = "Country is requred"
-    if (!address.length) err["address"] = "Address is requred"
-    if (!state.length) err["state"] = "State is requred"
-    if (!city.length) err["city"] = "City is requred"
+    if (!country.length) err["country"] = "Country is required"
+    if (!address.length) err["address"] = "Address is required"
+    if (!state.length) err["state"] = "State is required"
+    if (!city.length) err["city"] = "City is required"
 
     if (descpt.length < 30) err["description"] = "Description needs a minimum of 30 characters"
     if (!name.length) err["name"] = "Name is required"
@@ -72,7 +72,7 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
     // console.log(err)
     setValidationErrors(err)
 
-  }, [singleSpot,country, address, city, state, descpt, name, price, preview, photo1, photo2, photo3, photo4])
+  }, [singleSpot, country, address, city, state, descpt, name, price, preview, photo1, photo2, photo3, photo4])
 
   // ---------Submit Functionality--------
   const onSubmit = async (e) => {
@@ -112,9 +112,9 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
 
     if (update) {
       // Thunk for updating a spot
-      const updatedSpot = await dispatch(thunkPutSpot(spotId,newSpot))
+      const updatedSpot = await dispatch(thunkPutSpot(spotId, newSpot))
 
-      if(updatedSpot.errors) {
+      if (updatedSpot.errors) {
         return setValidationErrors(updatedSpot)
       }
       history.push(`/spots/${spotId}`);
@@ -152,11 +152,11 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
       <form onSubmit={onSubmit} className="new-spot-form">
 
         <div className="location-info-container">
-          {update ? <h2> Update your Spot</h2> : <h2> Create a new Spot</h2>}
+          {update ? <h2> Update your Spot</h2> : <h2> Create a New Spot</h2>}
           <h4> Where's your place located </h4>
           <p> Guest will only get your exact address once they booked a reservation</p>
           <label className="new-spot-input-container" htmlFor="">
-            <span>
+            <span className="span-validation-container">
               Country {submit && validationErrors.country && <p className="errors">{validationErrors.country}</p>}
             </span>
 
@@ -168,7 +168,7 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
           </label>
           <label className="new-spot-input-container" htmlFor="">
 
-            <span>
+            <span className="span-validation-container">
               Street Address {submit && validationErrors.address && <p className="errors">{validationErrors.address}</p>}
             </span>
             <input
@@ -178,31 +178,33 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
               onChange={(e) => setAddress(e.target.value)}
             />
           </label>
-          <label className="new-spot-input-container" htmlFor="">
-            <span>
-              City {submit && validationErrors.city && <p className="errors">{validationErrors.city}</p>}
-            </span>
-            <input
-              type="text"
-              placeholder="City"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
-            />
-          </label>
-          <label className="new-spot-input-container" htmlFor="">
-            <span>
-              State {submit && validationErrors.state && <p className="errors">{validationErrors.state}</p>}
-            </span>
-            <input
-              type="text"
-              placeholder="State"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
-            />
-          </label>
+          <span className="city-state-container">
+            <label className="new-spot-input-container" htmlFor="">
+              <span className="span-validation-container">
+                City {submit && validationErrors.city && <p className="errors">{validationErrors.city}</p>}
+              </span>
+              <input
+                type="text"
+                placeholder="City"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              />
+            </label>
+            <label className="new-spot-input-container" htmlFor="">
+              <span className="span-validation-container">
+                State {submit && validationErrors.state && <p className="errors">{validationErrors.state}</p>}
+              </span>
+              <input
+                type="text"
+                placeholder="State"
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+              />
+            </label>
+          </span>
         </div>
 
-        <div className="set-name-container">
+        <div className="set-name-container new-spot-input-container">
           <h4>Create a title for your spot</h4>
           <p>Catch guests' attention with a spot title that highlights what make your place special</p>
           <input
@@ -214,51 +216,52 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
           {submit && validationErrors.name && <p className="errors">{validationErrors.name}</p>}
         </div>
 
-        <div className="set-description-container">
+        <div className="set-description-container new-spot-input-container">
           <h4>Describe you place to guests</h4>
           <p>Mention the best features of your space, any special amentities like
             fast wif or parking, and what you love about the neighborhood. </p>
           <textarea
             type="textarea"
-            placeholder="description"
+            placeholder="Description"
             rows="5"
             cols="33"
             value={descpt}
+            className="description-input-container"
             onChange={(e) => setDescpt(e.target.value)}
           ></textarea>
           {submit && validationErrors.description && <p className="errors">{validationErrors.description}</p>}
 
         </div>
 
-        <div className="set-price-container">
+        <div className="set-price-container new-spot-input-container">
           <h4>Set a base price for your spot</h4>
           <p>Competitive pricing can help your listing stand out and rank higher
             in search results.</p>
 
           {submit && validationErrors.price && <p className="errors">{validationErrors.price}</p>}
-          <span>$ </span>
-          <input
-            placeholder="Price Per Night(USD)"
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-          />
+          <span className="price-dollar-sign-span" >$
+            <input
+              placeholder="Price Per Night(USD)"
+              type="number"
+              className=""
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+          </span>
         </div>
 
-        <div className="set-spot-images-container">
+        <div className="set-spot-images-container new-spot-input-container">
           <h4>Liven up your spot with photos</h4>
           <p>Submit a link to at least one photo to public to your spot</p>
 
-          <label htmlFor="">
-            {submit && validationErrors.preview && <p className="errors">{validationErrors.preview}</p>}
-            {submit && validationErrors.previewImage && <p className="errors">{validationErrors.previewImage}</p>}
-            <input
-              type="text"
-              placeholder="Preview Image URL"
-              value={preview}
-              onChange={e => setPreview(e.target.value)}
-            />
-          </label>
+          {submit && validationErrors.preview && <p className="errors">{validationErrors.preview}</p>}
+          {submit && validationErrors.previewImage && <p className="errors">{validationErrors.previewImage}</p>}
+          <input
+            type="text"
+            placeholder="Preview Image URL"
+            value={preview}
+            onChange={e => setPreview(e.target.value)}
+          />
 
           {submit && validationErrors.Image && <p className="errors">{validationErrors.Image}</p>}
           <input
@@ -294,7 +297,7 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
         </div>
 
 
-        <button type="submit">Create</button>
+        <button className="create-update-spot-button" type="submit">Create</button>
 
 
       </form>

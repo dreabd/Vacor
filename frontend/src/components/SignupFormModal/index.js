@@ -1,4 +1,4 @@
-import React, { useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as sessionActions from "../../store/session";
@@ -13,26 +13,32 @@ function SignupFormModal() {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [validationErrors,setValidationErrors] = useState({})
+  // const [validationErrors,setValidationErrors] = useState({})
   const [errors, setErrors] = useState({});
+  const [submit, setSubmitted] = useState(false)
   const { closeModal } = useModal();
 
   const history = useHistory()
 
 
-  useEffect(()=>{
+  useEffect(() => {
     const errs = {}
 
-    if(!email.length) errs["email"] = "Email is required"
-    if(!username.length) errs["username"] = "Username is required"
-    if(!firstName.length) errs["firstName"] = "First name is required"
-    if(!lastName.length) errs["lastName"] = "Last name is required"
-    if(!password.length) errs["password"] = "Password is required"
-    if(!confirmPassword.length) errs["confirmPassword"] = "Confirm password is required"
+    if (!email.length) errs["email"] = "Email is required"
+    if (!username.length) errs["username"] = "Username is required"
+    if (username.length < 4) errs["username"] = "Username is required"
+    if (!firstName.length) errs["firstName"] = "First name is required"
+    if (!lastName.length) errs["lastName"] = "Last name is required"
+    if (!password.length) errs["password"] = "Password is required"
+    if (password.length < 6) errs["password"] = "Password is required"
+    if (!confirmPassword.length) errs["confirmPassword"] = "Confirm password is required"
 
 
-    setValidationErrors(errs)
-  },[email,username,firstName,password,confirmPassword])
+    // console.log(validationErrors)
+    setErrors(errs)
+  }, [email, username, firstName, password, confirmPassword])
+
+  console.log(errors)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +58,7 @@ function SignupFormModal() {
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) {
+            setSubmitted(true)
             setErrors(data.errors);
           }
         });
@@ -66,7 +73,7 @@ function SignupFormModal() {
       <form className="signupForm" onSubmit={handleSubmit}>
         <h2 className="signupText">Sign Up</h2>
         <label>
-          <span>Email {errors.email && <span className="errors">{errors.email}</span>}</span>
+          <span>Email {submit && errors.email && <span className="errors">{errors.email}</span>}</span>
           <input
             placeholder="Email"
             type="text"
@@ -76,7 +83,7 @@ function SignupFormModal() {
           />
         </label>
         <label>
-          <span>Username {errors.username && <span className="errors">{errors.username}</span>}</span>
+          <span>Username {submit && errors.username && <span className="errors">{errors.username}</span>}</span>
           <input
             placeholder="Username"
             type="text"
@@ -88,7 +95,7 @@ function SignupFormModal() {
         <label>
           <span>
             First Name
-            {errors.firstName && <span className="errors">{errors.firstName}</span>}
+            {submit && errors.firstName && <span className="errors">{errors.firstName}</span>}
           </span>
           <input
             placeholder="First Name"
@@ -101,7 +108,7 @@ function SignupFormModal() {
         <label>
           <span>
             Last Name
-            {errors.lastName && <span className="errors">{errors.lastName}</span>}
+            {submit && errors.lastName && <span className="errors">{errors.lastName}</span>}
           </span>
           <input
             placeholder="Last Name"
@@ -113,7 +120,7 @@ function SignupFormModal() {
         </label>
         <label>
           <span>
-            Password {errors.password && <span className="errors">{errors.password}</span>}
+            Password {submit && errors.password && <span className="errors">{errors.password}</span>}
           </span>
           <input
             placeholder="Password"
@@ -125,7 +132,7 @@ function SignupFormModal() {
         </label>
         <label>
           <span> Confirm Password</span>
-          {errors.confirmPassword && (<span className="errors">{errors.confirmPassword}</span>)}
+          {submit && errors.confirmPassword && (<span className="errors">{errors.confirmPassword}</span>)}
           <input
             placeholder="Confirm Password"
             type="password"
@@ -134,7 +141,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        <button disable={Object.values(validationErrors)}type="submit">Sign Up</button>
+        <button className="sign-up-button" disabled={Object.values(errors).length} type="submit">Sign Up</button>
       </form>
     </>
   );

@@ -3,10 +3,6 @@ import { useEffect, useState } from "react";
 const StarRating = ({ stars,onChange }) => {
   const [starRating, setStarRating] = useState(stars)
 
-  // useEffect(() => {
-  //   setStarRating(stars)
-  // }, [starRating])
-
   const starIcon = (number) => {
     const props = {};
     props.onMouseEnter = () => setStarRating(number);

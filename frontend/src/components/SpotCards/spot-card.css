@@ -1,19 +1,23 @@
-.spot-image-container, .create-new-spot-button-container{
+.spot-image-container,
+.create-new-spot-button-container {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  gap: .8rem;
-  margin: 3rem;
+  gap: 1rem;
+  margin: 2rem 3rem;
   align-items: center;
   /* justify-content: center; */
 }
-.spot-image{
+
+
+.spot-image {
   width: 13.75rem;
   height: 10rem;
   overflow: hidden;
   border-radius: 5%
 }
-.spot-data-container{
+
+.spot-data-container {
   display: flex;
   flex-direction: column;
   font-size: 13px;
@@ -21,7 +25,7 @@
   padding: 12px 0px;
 }
 
-.first-row{
+.first-row {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -29,20 +33,20 @@
 }
 
 
-.price-span{
+.price-span {
   font-size: 12px;
 }
 
 
-.update-delete-button-container{
+.update-delete-button-container {
   display: flex;
   flex-direction: row;
-  gap:20px;
+  gap: 20px;
   align-items: center;
   font-size: 1.2rem;
 }
 
-.spot-update-button{
+.spot-update-button {
   background: none;
   color: black;
   border: none;
@@ -52,21 +56,55 @@
   display: flex;
   font-size: 12px;
   background: rgba(0, 0, 0, 0.137);
-  padding: 3px 3px;
+  padding: 3px 24px;
   box-shadow: 2px 2px 0px black
 }
 
-.update-delete-button-container > li{
+.update-delete-button-container>li {
   list-style-type: none;
   font-size: 12px;
   /* border: 1px solid red; */
   background: rgba(0, 0, 0, 0.137);
-  padding: 3px 3px;
+  padding: 3px 24px;
   box-shadow: 2px 2px 0px black
 }
 
-.create-new-spot-button-container{
+.create-new-spot-button {
+  background: none;
+  color: black;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  display: flex;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.137);
+  padding: 3px 24px;
+  box-shadow: 2px 2px 0px black
+}
+.update-delete-button-container>li:hover,
+.spot-update-button:hover,
+.create-new-spot-button:hover,
+.delete-modal-button:hover,
+.post-modal-button:hover{
+  background: rgba(137, 134, 134, 0.137);
+}
+
+.update-delete-button-container>li:active,
+.spot-update-button:active,
+.create-new-spot-button:active,
+.delete-modal-button:active,
+.post-modal-button,
+.create-update-spot-button{
+  color: white;
+  background-color: #FF5A5F;
+  /* border: 1px solid black; */
+  /* box-shadow: 1px 1px 0px black; */
+}
+
+.create-new-spot-button-container {
   display: flex;
   flex-direction: column;
   align-items: baseline;
+  gap: 8px;
 }
