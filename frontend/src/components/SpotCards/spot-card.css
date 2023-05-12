@@ -1,4 +1,4 @@
-.spot-image-container{
+.spot-image-container, .create-new-spot-button-container{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -65,6 +65,8 @@
   box-shadow: 2px 2px 0px black
 }
 
-.update-delete-button-container > *{
-
+.create-new-spot-button-container{
+  display: flex;
+  flex-direction: column;
+  align-items: baseline;
 }
