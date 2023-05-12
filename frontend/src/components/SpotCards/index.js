@@ -35,7 +35,7 @@ function SpotCards({ setDeleted, deleted, managing, spots }) {
 
   }
 
-  console.log(spots)
+  // console.log(spots)
 
   const spotCardCreater = Object.values(spots).map(spot => {
     // console.log(spot)
