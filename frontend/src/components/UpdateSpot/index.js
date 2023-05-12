@@ -39,7 +39,6 @@ const UpdateSpot = () => {
   if (singleSpot.id != spotId) return null
   return (
     <div>
-      <h1>I will update you {spotId} </h1>
       <SpotForm {...props} />
     </div>
   )
