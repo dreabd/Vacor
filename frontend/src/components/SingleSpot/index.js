@@ -25,7 +25,7 @@ function SingleSpot() {
   const spotReviews = Object.values(spotReviewsSlice).reverse()
 
   const avgStars = singleSpot.averageStars?.toFixed(2)
-  console.log(avgStars)
+  // console.log(avgStars)
   const isOwner = loggedIn?.id === singleSpot?.Owner?.id
 
 
