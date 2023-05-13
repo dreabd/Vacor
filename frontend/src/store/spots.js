@@ -137,7 +137,7 @@ export const thunkPostSpotImage = (spotId, spotImage) => async (dispatch) => {
   })
 
   if (res.ok) {
-    console.log("I am in post spot image")
+    // console.log("I am in post spot image")
     const data = await res.json()
     dispatch(postSpotImage(data, spotId))
     return data.id

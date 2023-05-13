@@ -11,7 +11,7 @@ import "./SpotForm.css";
 
 const SpotForm = ({ singleSpot, spotId, update }) => {
 
-  console.log("This is the spot inside of spotform", singleSpot)
+  // console.log("This is the spot inside of spotform", singleSpot)
 
   const loggedIn = useSelector(state => state.session.user)
   const ownerId = loggedIn?.id
@@ -53,7 +53,7 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
     if (descpt.length < 30) err["description"] = "Description needs a minimum of 30 characters"
     if (!name.length) err["name"] = "Name is required"
 
-    if (!price.length) err["price"] = "Price is required"
+    if (!parseInt(price)) err["price"] = "Price is required"
     if (parseInt(price) < 0) err["price"] = "Please provide a valid price"
 
     const validURL = [".png", ".jpg", ".jpeg"]
@@ -78,6 +78,7 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setSubmitted(true)
+
 
     if (Object.values(validationErrors).length) return validationErrors
 
@@ -113,19 +114,25 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
     if (update) {
       // Thunk for updating a spot
       const updatedSpot = await dispatch(thunkPutSpot(spotId, newSpot))
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) {
+          setValidationErrors(data.errors);
+        }
+      })
 
-      if (updatedSpot.errors) {
-        return setValidationErrors(updatedSpot)
-      }
       history.push(`/spots/${spotId}`);
 
     } else {
       // Thunk for creating a new spot
       const newSpotRes = await dispatch(thunkPostNewSpot(newSpot))
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) {
+            setValidationErrors(data.errors);
+          }
+        })
       // pass in the newspot for the thunk
-      if (newSpotRes.errors) {
-        return setValidationErrors(newSpotRes.errors)
-      }
       // ---- need to return the id of the new spot
       const newSpotID = newSpotRes.id
 

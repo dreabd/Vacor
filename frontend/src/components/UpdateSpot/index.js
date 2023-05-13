@@ -20,7 +20,7 @@ const UpdateSpot = () => {
   // ------ Dispatches ------
   const dispatch = useDispatch()
   useEffect(() => {
-    console.log("I am dispatching ")
+    // console.log("I am dispatching ")
     dispatch(thunkGetSpot(spotId))
       .then(setUpdate(true))
 
@@ -33,7 +33,7 @@ const UpdateSpot = () => {
     update
   }
 
-  console.log("This is the spot inside fo update spot route",singleSpot)
+  // console.log("This is the spot inside fo update spot route",singleSpot)
 
   // console.log(props)
   if (singleSpot.id != spotId) return null

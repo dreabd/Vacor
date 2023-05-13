@@ -40,7 +40,7 @@ function ReviewForm({ /*setUpdated,*/spotId }) {
       stars
     }
 
-    console.log(newReview)
+    // console.log(newReview)
 
     const response = await dispatch(thunkPostNewReview(spotId,newReview))
     dispatch(thunkGetSpotReviews(spotId))

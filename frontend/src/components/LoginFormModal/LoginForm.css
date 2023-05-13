@@ -23,6 +23,10 @@ h2{
   padding: 4px;
 }
 
+.loginForm > label > input{
+  padding: 4px;
+}
+
 
 
 .login-button,
