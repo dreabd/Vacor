@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
-import { thunkPostNewSpot, thunkPostSpotImage, thunkPutSpot } from "../../store/spots";
+import { thunkPostNewSpot, thunkPostSpotImage, thunkPutSpot, thunkGetSpot } from "../../store/spots";
+
 
 import "./SpotForm.css";
 
@@ -99,8 +100,8 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
       city,
       state,
       country,
-      lat: Math.round(Math.random() * 90),
-      lng: Math.round(Math.random() * 90),
+      lat: 1,
+      lng: 1,
       name,
       description: descpt,
       price,
@@ -114,18 +115,26 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
     if (update) {
       // Thunk for updating a spot
       const updatedSpot = await dispatch(thunkPutSpot(spotId, newSpot))
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data && data.errors) {
-          setValidationErrors(data.errors);
-        }
-      })
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) {
+            setValidationErrors(data.errors);
+          }
+        })
 
       history.push(`/spots/${spotId}`);
 
     } else {
       // Thunk for creating a new spot
-      const newSpotRes = await dispatch(thunkPostNewSpot(newSpot))
+      await dispatch(thunkPostNewSpot(newSpot))
+        .then((newSpot) => {
+          spotImages.forEach(spotImage => dispatch(thunkPostSpotImage(newSpot.id, spotImage)))
+          return newSpot.id
+        })
+        .then((newSpotID) => {
+          dispatch(thunkGetSpot(newSpotID))
+          history.push(`/spots/${newSpotID}`);
+        })
         .catch(async (res) => {
           const data = await res.json();
           if (data && data.errors) {
@@ -134,14 +143,15 @@ const SpotForm = ({ singleSpot, spotId, update }) => {
         })
       // pass in the newspot for the thunk
       // ---- need to return the id of the new spot
-      const newSpotID = newSpotRes.id
+      // const newSpotID = newSpotRes.id
 
-      // Thunk for adding all the images
-      spotImages.forEach(spotImage => dispatch(thunkPostSpotImage(newSpotID, spotImage)))
+      // console.log(newSpotRes)
+      // // Thunk for adding all the images
+      // spotImages.forEach(spotImage => dispatch(thunkPostSpotImage(newSpotID, spotImage)))
       // --- Most likely will use a loop over the spotimages and dispatch all of those requests
       // --- need grab the spot id from the new created spot
       // if there are errors then set validation errors to thsoe errors
-      history.push(`/spots/${newSpotID}`);
+
     }
 
 
