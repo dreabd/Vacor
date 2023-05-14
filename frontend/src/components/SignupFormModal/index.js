@@ -38,7 +38,7 @@ function SignupFormModal() {
     setErrors(errs)
   }, [email, username, firstName, password, confirmPassword])
 
-  console.log(errors)
+//   console.log(errors)
 
   const handleSubmit = (e) => {
     e.preventDefault();
