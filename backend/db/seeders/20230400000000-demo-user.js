@@ -10,6 +10,7 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     options.tableName = 'Users';
     return queryInterface.bulkInsert(options, [
+      // Owners
       {
         firstName:'Demo',
         lastName:'Lition',
@@ -22,15 +23,67 @@ module.exports = {
         lastName:'Fakez',
         email: 'user1@user.io',
         username: 'FakeUser1',
-        hashedPassword: bcrypt.hashSync('password2')
+        hashedPassword: bcrypt.hashSync('password')
       },
       {
-        firstName:'User',
-        lastName:'Fakes',
-        email: 'user2@user.io',
-        username: 'FakeUser2',
-        hashedPassword: bcrypt.hashSync('password3')
-      }
+        firstName:'John',
+        lastName:'Smith',
+        email: 'jsmith@gmail.com',
+        username: 'classicwhiteguy',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        firstName:'Brandi',
+        lastName:'Yu',
+        email: 'byu@gmail.com',
+        username: 'brandiyum',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        firstName:'Ezequiel',
+        lastName:'Leonard',
+        email: 'eleon@gmail.com',
+        username: 'eztiger',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      // Civ's
+      {
+        firstName:'Charmaine',
+        lastName:'Mathis',
+        email: 'cmathis@gmail.com',
+        username: 'cmathis',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        firstName:'Ramon',
+        lastName:'Roy',
+        email: 'rroy@gmail.com',
+        username: 'royourboy',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        firstName:'Angel',
+        lastName:'Vega',
+        email: 'avega@gmail.com',
+        username: 'angel_vega',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        firstName:'Amelia',
+        lastName:'Ferrel',
+        email: 'aferrel@gmail.com',
+        username: 'aferrel',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      {
+        firstName:'Brittany',
+        lastName:'Crueger',
+        email: 'bcruegar@gmail.com',
+        username: 'bcougar',
+        hashedPassword: bcrypt.hashSync('password')
+      },
+      //
+
     ], {});
   },
 
