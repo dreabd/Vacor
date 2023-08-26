@@ -6,84 +6,61 @@ let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;  // define your schema in options object
 }
+let spots = [
+    {
+      ownerId: 1,
+      address: "578 Lamp Ave",
+      city: "Cambridge",
+      state: "CA",
+      country: "USA",
+      lattitude: 33.5823032,
+      longitude: -117.6792358,
+      name: "Castle in the Sky -- An Enchanted Getaway",
+      description: "With Disney-inspired architecture and peaceful forested location, the Castle in the Sky is the enchanted mountain getaway you've always dreamt of. Relax by the koi pond, or enjoy the mountain scenery from the Keep or many viewing decks. The Castle not only provides the rustic cabin feel but also shares the comforts of a modern home: highspeed Wifi, TV streaming, smart thermostats, and more. We are excited to share our home with you and hope you will join us for an unforgettable experience!",
+      price: 499,
+    },
+    {
+      ownerId: 2,
+      address: "578 Lamp Ave",
+      city: "Cambridge",
+      state: "CA",
+      country: "USA",
+      lattitude: 33.376419,
+      longitude: -117.251144,
+      name: `Tranquil, Private, Spa Casita, Outside of Town`,
+      description: `The entire home and spa is yours for a relaxing getaway. It's nestled on a 50-acre avocado grove; 10-15 minutes (approx. 5-6 mi) from Fallbrook; 30 min from Temecula's wine country, 40 min from the beach. It is off the beaten path, a unique one of a kind experience, well worth the drive. Great Views! You won't want to leave! Private, peaceful, pristine chaparral, surrounded by avocados! The stars are amazing. A comfortable "nature" experience all rolled into a get-away`,
+      price: 239,
+    },
+    {
+      ownerId: 3,
+      address: "63140 Pole Rd",
+      city: "Joshua Tree",
+      state: "CA",
+      country: "USA",
+      lattitude: 34.2293921,
+      longitude: -116.286943,
+      name: `Newly restored, expertly curated desert dream home in North Joshua Tree outfitted with 2 bedrooms and spectacular views out every window. The perfect getaway for a romantic trip, work trip, or an intimate small group of friends.
 
+      Jackalope Cabin is a 1955 homestead that has been lovingly restored and thoughtfully remodeled to evoke American Southwest and Rustic Scandinavian cabin vibes. The 2 bedroom house sleeps 4 guests. Jackalope Cabin is the perfect haven for those seeking a romantic getawa`,
+      price: 259,
+    },
+    {
+      ownerId: 4,
+      address: "1012 Robinhood Blvd",
+      city: "Big Bear",
+      state: "CA",
+      country: "USA",
+      lattitude: 34.259288,
+      longitude: -116.862141,
+      name: `Walk to Oktoberfest, Hot Tub, Poker Room, Dogs ok`,
+      description: `NOW PET-FRIENDLY! Rainbow Forest Retreat offers an entire cabin with 1800 sq ft of ample space and plenty of outdoor living. Forest views with a warm mountain decor. Kitchen is fully equipped. Cabin is close proximity to a variety of restaurants, two ski resorts and village. You can enjoy relaxing with a huge selection of movies and Smart TV. Light the wood burning stove and get cozy! For entertainment, pick from playing pool, Wii, (safe) axe throwing, board games or enjoy the poker room.`,
+      price: 239,
+    },
+]
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     options.tableName = 'Spots';
-    return queryInterface.bulkInsert(options, [
-      {
-        ownerId: 1,
-        address: "123 Champion Rd",
-        city: "Peabody",
-        state: "MA",
-        country: "USA",
-        lattitude:42.536457,
-        longitude: -70.985786,
-        name: "Funland",
-        description: " A perfect place for kids to have fun and for the adults to relax",
-        price: 1200,
-      },
-      {
-        ownerId: 2,
-        address: "578 Lamp Ave",
-        city: "Cambridge",
-        state: "MD",
-        country: "USA",
-        lattitude: 38.563461,
-        longitude: -76.085251,
-        name: "Random Name",
-        description: "Looking for a place where you can not expect the expected? Well we have the perfect spot for you",
-        price: 500,
-      },
-      {
-        ownerId: 3,
-        address: "9537 Somerset Lane",
-        city: "West Bloomfield",
-        state: "MI",
-        country: "USA",
-        lattitude: 42.272665,
-        longitude: 83.585038,
-        name: "Seaside Serenity",
-        description: "This charming beach house is located just steps from the ocean and offers breathtaking views of the water. Relax in the cozy living room or on the sun-drenched patio and enjoy the tranquil sounds of the waves.",
-        price: 300,
-      },
-      {
-        ownerId: 1,
-        address: "17 Bedford Dr.",
-        city: "Palm Harbor",
-        state: "FL",
-        country: "USA",
-        lattitude: 43.384328,
-        longitude: -115.67683,
-        name: "Mountain Escape",
-        description: "Nestled in the heart of the mountains, this rustic cabin offers the perfect retreat from city life. Enjoy hiking, skiing, and other outdoor activities during the day and cozy up by the fire in the evenings.",
-        price: 223,
-      },
-      {
-        ownerId: 2,
-        address: "838 Hilldale St.",
-        city: "Brighton",
-        state: "MA",
-        country: "USA",
-        lattitude: 48.38533,
-        longitude: -112.55496,
-        name: "Lakeside Haven",
-        description: "This stunning lakeside home boasts panoramic views of the water and mountains. Spend your days fishing, boating, and swimming, and your nights enjoying a barbecue on the deck.",
-        price: 320,
-      },
-      {
-        ownerId: 3,
-        address: "86 Monroe Ave.",
-        city: "Miami Beach",
-        state: "FL",
-        country: "USA",
-        lattitude: 43.39430,
-        longitude: -88.51616,
-        name: "Sunset Retreat",
-        description: "Enjoy breathtaking sunsets over the ocean from this luxurious beach house. With an open floor plan and high-end finishes, this home offers the perfect blend of modern elegance and seaside charm.",
-        price: 167,
-      }
-    ], {});
+    return queryInterface.bulkInsert(options, spots, {});
   },
 
   down: async (queryInterface, Sequelize) => {
