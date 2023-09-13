@@ -139,6 +139,18 @@ let spots = [
     description: `Private 6000 sqt Wine Country estate with 360 degree view of Temecula Valley. On a Hill top in a great location in Wine Country with Incredible views! Awesome game room with Pool table, Ping Pong table, foosball table, shuffle board, corn hole and a bar area. Then you step outside and find a Rock water fall pool with a slide, grotto pool with a jacuzzi!! This home is a must see!!`,
     price: 1000,
   },
+  {
+    ownerId: 2,
+    address: "42280 Calle Contento",
+    city: "Springdale",
+    state: "UT",
+    country: "USA",
+    lattitude: 33.5099519,
+    longitude: -117.0642714,
+    name: "Zion Canyon BnB Room-4",
+    description: `Private 6000 sqt Wine Country estate with 360 degree view of Temecula Valley. On a Hill top in a great location in Wine Country with Incredible views! Awesome game room with Pool table, Ping Pong table, foosball table, shuffle board, corn hole and a bar area. Then you step outside and find a Rock water fall pool with a slide, grotto pool with a jacuzzi!! This home is a must see!!`,
+    price: 1000,
+  },
 ]
 module.exports = {
   up: async (queryInterface, Sequelize) => {

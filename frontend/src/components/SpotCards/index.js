@@ -1,9 +1,11 @@
 import { NavLink, Link } from "react-router-dom";
 import React from "react";
-import "./spot-card.css";
+
+
 import OpenModalMenuItem from "../Navigation/OpenModalMenuItem";
 import DeleteForm from "../DeleteForm";
 
+import "./spot-card.css";
 
 function SpotCards({ setDeleted, deleted, managing, spots }) {
   // console.log("Managing in the spotcard:", managing)

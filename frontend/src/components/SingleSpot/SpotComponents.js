@@ -11,7 +11,7 @@ const SpotComponent = ({ singleSpot }) => {
 
       for (let i = 0; i < 5; i++) {
         if (images[i]) urlArr.push(images[i].url)
-        else urlArr.push("https://s7200.pcdn.co/wp-content/uploads/2021/02/property-placeholder-1.jpg")
+        else urlArr.push("https://vacorphotobucket.s3.us-west-1.amazonaws.com/no_house.jpg")
       }
 
 
