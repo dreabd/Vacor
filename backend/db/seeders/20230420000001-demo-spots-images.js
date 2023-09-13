@@ -2,27 +2,27 @@
 
 /** @type {import('sequelize-cli').Migration} */
 
-function massProduceImageObjects(){
+function massProduceImageObjects() {
   let spotArr = []
   let idCounter = 1;
   let imageCounter = 1;
-
-  while(idCounter < 41){
+  // og is 40
+  while (idCounter <= 18) {
     // console.log(idCounter)
 
-    while(imageCounter < 6){
-      let spotObj ={
+    while (imageCounter < 6) {
+      let spotObj = {
         spotId: idCounter,
-        url: `https://vacorphotobucket.s3.us-west-1.amazonaws.com/h${idCounter}p${imageCounter-1}.jpg`,
+        url: `https://vacorphotobucket.s3.us-west-1.amazonaws.com/h${idCounter}p${imageCounter - 1}.jpg`,
         preview: false
       }
 
-      if(imageCounter === 1){
+      if (imageCounter === 1) {
         spotObj.url = `https://vacorphotobucket.s3.us-west-1.amazonaws.com/h${idCounter}m.jpg`
         spotObj.preview = true
         spotArr.push(spotObj)
         imageCounter++
-      }else{
+      } else {
         spotArr.push(spotObj)
         imageCounter++
       }
@@ -50,7 +50,7 @@ module.exports = {
     options.tableName = 'SpotImages';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      spotId: { [Op.in]: [1,2] }
+      spotId: { [Op.in]: [1, 2] }
     }, {});
   }
 };
