@@ -7,7 +7,7 @@ function massProduceImageObjects() {
   let idCounter = 1;
   let imageCounter = 1;
   // og is 40
-  while (idCounter <= 18) {
+  while (idCounter <= 25) {
     // console.log(idCounter)
 
     while (imageCounter < 6) {

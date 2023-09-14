@@ -178,7 +178,7 @@ let spots = [
   },
   // 14
   {
-    ownerId: 5,
+    ownerId: 4,
     address: "1515 Main St",
     city: "Saint Helena",
     state: "CA",
@@ -191,7 +191,7 @@ let spots = [
   },
   // 15
   {
-    ownerId: 1,
+    ownerId: 5,
     address: "1880 W 4640 N",
     city: "Helper",
     state: "UT",
@@ -208,7 +208,7 @@ let spots = [
   },
   // 16
   {
-    ownerId: 2,
+    ownerId: 1,
     address: "8940 Johnson Dr",
     city: "La Mesa",
     state: "CA",
@@ -221,7 +221,7 @@ let spots = [
   },
   // 17
   {
-    ownerId: 3,
+    ownerId: 2,
     address: "40852 Blossom Drive",
     city: "Three Rivers",
     state: "CA",
@@ -234,7 +234,7 @@ let spots = [
   },
   // 18
   {
-    ownerId: 4,
+    ownerId: 3,
     address: "40852 Blossom Drive",
     city: "Three Rivers",
     state: "CA",
@@ -245,6 +245,98 @@ let spots = [
     description: `The River Island was created as an homage to the love story of G&G, their wedding at an Italian Castle, and their dream to raise a river child. The house once served as settlement for Yokut tribes at the foothills of the National Sequoia and Mineral King Parks.`,
     price: 816,
   },
+  // 19
+  {
+    ownerId: 4,
+    address: "391 Duboise Ave",
+    city: "Nogal",
+    state: "NM",
+    country: "USA",
+    lattitude: 34.24876193451199,
+    longitude: -105.59830162879811,
+    name: "El Comalito",
+    description: `The house was designed by the singer Lila Downs and her husband, saxophonist Paul Cohen, who welcome people who are interested in experiencing the amazing culture of Oaxaca in a special setting.`,
+    price: 640,
+  },
+  // 20
+  {
+    ownerId: 5,
+    address: "21390 Rambla Vista",
+    city: "Malibu",
+    state: "CA",
+    country: "USA",
+    lattitude: 34.038692964780054,
+    longitude: -118.6407219818038,
+    name: "EAGLE'S WATCH MALIBU- Architectural w/ Ocean View",
+    description: `Eagle's Watch is one of Malibu's most famous houses, impossible to miss while driving the Pacific Coast Highway and designed by legendary architect Harry Gesner. Perched above the Pacific Ocean, Eagle's Watch has the best unobstructed panoramic view in Malibu. Perfect for entertaining with dramatic outdoor and indoor spaces, the views from every location are simply stunning. Stay in ultimate luxury in this one of a kind serene modern marvel.`,
+    price: 965,
+  },
+  // 21
+  {
+    ownerId: 1,
+    address: "41178 Camino Norte",
+    city: "Temecula",
+    state: "CA",
+    country: "USA",
+    lattitude: 33.52840734554109,
+    longitude: -117.03892591188755,
+    name: "Peaceful & Spacious Wine Country Oasis on Vineyard",
+    description: `We are pleased to introduce our Peaceful & Spacious Wine Country Oasis! The 5 acre country estate and vineyard is located in the rolling hills and heart of Temecula wine country, right in the center of Temecula's array of award winning wineries and vineyards. Temecula and its surrounding areas have so much to offer and our Oasis is a perfect home-base location.`,
+    price: 495,
+  },
+  // 22
+  {
+    ownerId: 2,
+    address: "4150 Rock Mountain Rd",
+    city: "Temecula",
+    state: "CA",
+    country: "USA",
+    lattitude: 33.445903641239305,
+    longitude: -117.24160839039756,
+    name: "Vineyard Vista: Modern • Renovated • Views",
+    description: `Set atop a hillside overlooking the vineyards and mountains with a private pool, hot tub, multiple outdoor lounging spaces, and no immediate neighbors. Premium finishes and a modern Mediterranean aesthetic, you'll enjoy a fully renovated, luxury home. 5 minutes to town in one direction and over 30 wineries in the other, with breathtaking views including our own private vineyards.`,
+    price: 788,
+  },
+  // 23
+  {
+    ownerId: 3,
+    address: "44473 Lakeview Dr",
+    city: "Shaver Lake",
+    state: "CA",
+    country: "USA",
+    lattitude: 37.13678156024397,
+    longitude: -119.30356711600157,
+    name: "Creekside Cabin Pup-Friendly with AC*",
+    description: `Shaver Lake is the perfect place to vacation. The climate is ideal with cool summers and mild winters. The list of activities is long and includes, hiking, fishing, skiing, sledding, boating, snowmobiling, horseback riding, and more!`,
+    price: 142,
+  },
+  // 24
+  {
+    ownerId: 4,
+    address: "22293 Gros Ventre St",
+    city: "Alcova",
+    state: "WY",
+    country: "USA",
+    lattitude: 42.5517425517274,
+    longitude: -106.71538497958844,
+    name: "Boatel in Alcova Reservoir",
+    description: `Experience the ultimate waterfront getaway at our unique Boat-el room in Alcova Reservoir. Unwind in style on the water, with a private room and bathroom. Immerse yourself in nature and indulge in breathtaking views.Your unforgettable floating retreat awaits!`,
+    price: 350,
+  },
+  // 25
+  {
+    ownerId: 4,
+    address: "25252 Piuma Rd",
+    city: "Calabasas",
+    state: "CA",
+    country: "USA",
+    lattitude: 34.07395094366695,
+    longitude: -118.68762101578285,
+    name: "*NEW* Rumps Ahead - Deluxe Coastal Cottage for 2",
+    description: `Created just-for-two, and ideal for pets, Rumps Ahead is the perfect bolt-hole for a relaxing and indulgent getaway. Privately situated within its own grounds, this single-storey barn conversion enjoys unobstructed views over open countryside and down to the sea at Port Quin, framed by 'The Rumps' headland and Doyden Castle. Fully equipped for an indulgent getaway, the property enjoys a log burning stove for cozy evenings and sea-facing terraces for al fresco dining in the sunshine.`,
+    price: 200,
+  },
+
 ]
 module.exports = {
   up: async (queryInterface, Sequelize) => {
