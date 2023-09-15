@@ -235,19 +235,6 @@ let spots = [
   // 18
   {
     ownerId: 3,
-    address: "40852 Blossom Drive",
-    city: "Three Rivers",
-    state: "CA",
-    country: "USA",
-    lattitude: 36.4162309,
-    longitude: -118.9091231,
-    name: "The River Island- Sequoia's Dream Property",
-    description: `The River Island was created as an homage to the love story of G&G, their wedding at an Italian Castle, and their dream to raise a river child. The house once served as settlement for Yokut tribes at the foothills of the National Sequoia and Mineral King Parks.`,
-    price: 816,
-  },
-  // 19
-  {
-    ownerId: 4,
     address: "391 Duboise Ave",
     city: "Nogal",
     state: "NM",
@@ -258,7 +245,7 @@ let spots = [
     description: `The house was designed by the singer Lila Downs and her husband, saxophonist Paul Cohen, who welcome people who are interested in experiencing the amazing culture of Oaxaca in a special setting.`,
     price: 640,
   },
-  // 20
+  // 19
   {
     ownerId: 5,
     address: "21390 Rambla Vista",
@@ -271,7 +258,7 @@ let spots = [
     description: `Eagle's Watch is one of Malibu's most famous houses, impossible to miss while driving the Pacific Coast Highway and designed by legendary architect Harry Gesner. Perched above the Pacific Ocean, Eagle's Watch has the best unobstructed panoramic view in Malibu. Perfect for entertaining with dramatic outdoor and indoor spaces, the views from every location are simply stunning. Stay in ultimate luxury in this one of a kind serene modern marvel.`,
     price: 965,
   },
-  // 21
+  // 20
   {
     ownerId: 1,
     address: "41178 Camino Norte",
@@ -284,7 +271,7 @@ let spots = [
     description: `We are pleased to introduce our Peaceful & Spacious Wine Country Oasis! The 5 acre country estate and vineyard is located in the rolling hills and heart of Temecula wine country, right in the center of Temecula's array of award winning wineries and vineyards. Temecula and its surrounding areas have so much to offer and our Oasis is a perfect home-base location.`,
     price: 495,
   },
-  // 22
+  // 21
   {
     ownerId: 2,
     address: "4150 Rock Mountain Rd",
@@ -297,7 +284,7 @@ let spots = [
     description: `Set atop a hillside overlooking the vineyards and mountains with a private pool, hot tub, multiple outdoor lounging spaces, and no immediate neighbors. Premium finishes and a modern Mediterranean aesthetic, you'll enjoy a fully renovated, luxury home. 5 minutes to town in one direction and over 30 wineries in the other, with breathtaking views including our own private vineyards.`,
     price: 788,
   },
-  // 23
+  // 22
   {
     ownerId: 3,
     address: "44473 Lakeview Dr",
@@ -310,7 +297,7 @@ let spots = [
     description: `Shaver Lake is the perfect place to vacation. The climate is ideal with cool summers and mild winters. The list of activities is long and includes, hiking, fishing, skiing, sledding, boating, snowmobiling, horseback riding, and more!`,
     price: 142,
   },
-  // 24
+  // 23
   {
     ownerId: 4,
     address: "22293 Gros Ventre St",
@@ -323,7 +310,7 @@ let spots = [
     description: `Experience the ultimate waterfront getaway at our unique Boat-el room in Alcova Reservoir. Unwind in style on the water, with a private room and bathroom. Immerse yourself in nature and indulge in breathtaking views.Your unforgettable floating retreat awaits!`,
     price: 350,
   },
-  // 25
+  // 24
   {
     ownerId: 4,
     address: "25252 Piuma Rd",
