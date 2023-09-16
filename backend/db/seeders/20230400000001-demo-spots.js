@@ -247,7 +247,7 @@ let spots = [
   },
   // 19
   {
-    ownerId: 5,
+    ownerId: 4,
     address: "21390 Rambla Vista",
     city: "Malibu",
     state: "CA",
@@ -260,7 +260,7 @@ let spots = [
   },
   // 20
   {
-    ownerId: 1,
+    ownerId: 5,
     address: "41178 Camino Norte",
     city: "Temecula",
     state: "CA",
@@ -273,7 +273,7 @@ let spots = [
   },
   // 21
   {
-    ownerId: 2,
+    ownerId: 1,
     address: "4150 Rock Mountain Rd",
     city: "Temecula",
     state: "CA",
@@ -286,7 +286,7 @@ let spots = [
   },
   // 22
   {
-    ownerId: 3,
+    ownerId: 2,
     address: "44473 Lakeview Dr",
     city: "Shaver Lake",
     state: "CA",
@@ -299,7 +299,7 @@ let spots = [
   },
   // 23
   {
-    ownerId: 4,
+    ownerId: 3,
     address: "22293 Gros Ventre St",
     city: "Alcova",
     state: "WY",
@@ -323,6 +323,86 @@ let spots = [
     description: `Created just-for-two, and ideal for pets, Rumps Ahead is the perfect bolt-hole for a relaxing and indulgent getaway. Privately situated within its own grounds, this single-storey barn conversion enjoys unobstructed views over open countryside and down to the sea at Port Quin, framed by 'The Rumps' headland and Doyden Castle. Fully equipped for an indulgent getaway, the property enjoys a log burning stove for cozy evenings and sea-facing terraces for al fresco dining in the sunshine.`,
     price: 200,
   },
+  // 25
+  {
+    ownerId: 5,
+    address: "60819 Pueblo Trail",
+    city: "Joshua Tree",
+    state: "CA",
+    country: "USA",
+    lattitude: 34.11594381225153,
+    longitude: -116.33742729054973,
+    name: "Moon Camp: A Unique Joshua Tree Experience",
+    description: `Moon camp consists of three primary structures: the main dome house, a cozy and unique shipping container guest house and a newly renovated lounge shipping container. Between these two structures you will find a private outdoor space, with wooden reclining chairs, and a fire-pit. If you would like to use the fire-pit feel free to; however, there is a VERY HIGH RISK of wildfires. We ask that you please make sure to fully put out the fire with water when you are done with it for the night. We do not provide firewood so please come prepared! There is a Walmart 5-7 minutes down the road for firewood and anything else you may need. A newly constructed courtyard area equipped with two posh hammocks and lounge chairs face West for stunning sunset views.`,
+    price: 98,
+  },
+  // 26
+  {
+    ownerId: 1,
+    address: "355 W Squawberry Cir",
+    city: "Orderville",
+    state: "UT",
+    country: "USA",
+    lattitude: 37.25661464642628,
+    longitude: -112.6454312603234,
+    name: "Tiny FarmHouse Shipping Container #3 @ Cliffside",
+    description: `Cliffside is centrally located between Zion National Park and Bryce Canyon. Our unique location makes it easy to visit both parks without having to find lodging in two separate places. Cliffside is located on 5 acres of property with a massive pink and grey sandstone ledge as it;s backdrop. (It looks amazing when the sun sets on it.) We want our guest to have the best experience possible so we situated the tiny homes on the back of the property to ensure privacy and seclusion. Cliffside property also touches highway 89 so it;s easy to access. Cliffside is the perfect place to stay while visiting Southern Utah.`,
+    price: 69,
+  },
+  // 27
+  {
+    ownerId: 1,
+    address: "1237 E Cactus Dr",
+    city: "Apple Valley",
+    state: "UT",
+    country: "USA",
+    lattitude: 37.04251979832243,
+    longitude: -113.07871924059138,
+    name: "Mod Pod Designer Modern Tiny Home w All Amenities!",
+    description: `The Mod Pod is an ultra modern, high-end and high-tech retreat with all the amenities! It has a private queen bedroom with a floating bed, LED mood lighting, large skylight, many windows, and TV. Floating stairs lead to a queen loft with skylight. Spacious family room with fireplace and TV. Open chefś kitchen. The dining area opens to an outdoor party bar. Large SPA bathroom. Large lower deck with fireplace, BBQ, & rocking chairs. Large rooftop deck for star gazing on zero gravity chairs. Enjoy!.`,
+    price: 99,
+  },
+  // 27
+  {
+    ownerId: 1,
+    address: "B-21 S Pacific Ave.",
+    city: "Seal Beach",
+    state: "CA",
+    country: "USA",
+    lattitude: 33.72535332222672,
+    longitude: -118.08001417051183,
+    name: "87-ft Water Tower with Elevator and 360 Pano Views",
+    description: `This Iconic 4 Story, 87-foot Water Tower House now offers an unforgettable vacation rental experience with easy access to great shopping, dining, and local beaches. Take the elevator up to the main level which features large panoramic windows that open outward. There is also a wraparound deck with unobstructed 360-degree views of beaches, the ocean, and mountains. Vacation at the second tallest residential home in the United States and make lasting memories at this one-of-a-kind historic home!!`,
+    price: 819,
+  },
+  // 27
+  {
+    ownerId: 1,
+    address: "346 Mira Mar Ave",
+    city: "Long Beach",
+    state: "CA",
+    country: "USA",
+    lattitude: 33.76977002799081,
+    longitude: -118.14695327551146,
+    name: "NEW Belmont Bungalow - Beautiful",
+    description: `Enjoy this new elegant bungalow in a charming Belmont Heights neighborhood. Beautifully decorated with all new furniture featuring a patio retreat surrounded by a lush garden and a cozy living space with contemporary-retro décor. The location is ideal as it's centrally located to all things Long Beach has to offer. Beach access is just a short walk a few blocks away. Walking distance to 2nd St. where you can enjoy upscale restaurants and unique local shopping. Private lot, entrance, & laundry.`,
+    price: 129,
+  },
+  // 27
+  {
+    ownerId: 1,
+    address: "346 Mira Mar Ave",
+    city: "Newport Beach",
+    state: "CA",
+    country: "USA",
+    lattitude: 33.76977002799081,
+    longitude: -118.14695327551146,
+    name: "Olive Beach Bungalow",
+    description: `Stunning remodeled bungalow that is only steps to the sand (one house off the beach). The open layout is perfect for families. Home comes with surf/body boards, bikes, beach chairs and anything else you would need to enjoy the incredible beach out front. The home has been remodeled top to bottom with no expense spared. Enjoy a morning coffee on the patio while gazing at spectacular ocean and sunset views. Walkable to amazing cafes/restaurants. Dogs are allowed with pet fee - please inquire.`,
+    price: 271,
+  },
+
+
 
 ]
 module.exports = {
