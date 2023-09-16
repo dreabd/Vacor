@@ -12,7 +12,7 @@ function massProduceImageObjects() {
     while (imageCounter < 6) {
       let spotObj = {
         spotId: idCounter,
-        url: `https://vacorphotobucket.s3.us-west-1.amazonaws.com/h${idCounter === 33 ? idCounter+=1 : idCounter}p${imageCounter - 1}.jpg`,
+        url: `https://vacorphotobucket.s3.us-west-1.amazonaws.com/h${idCounter}p${imageCounter - 1}.jpg`,
         preview: false
       }
 

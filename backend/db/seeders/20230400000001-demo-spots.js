@@ -427,9 +427,23 @@ let spots = [
     description: `Meticulously designer-renovated cabin surrounded by mature evergreens and nestled behind a charming seasonal creek. Whether you're looking to spend time with loved ones or work remotely outside of the city, this is the place to do it all. Relax by the fireplace while light pours in from the wall of windows, grill and chill on the deck, and explore nature right outside your front door. Conveniently located near everything Lake Arrowhead has to offer. You'll never want to leave!`,
     price: 191,
   },
-  // 33
+
+  // 33 images missing (need to add another 33)
   {
     ownerId: 3,
+    address: "28592 Sycamore Dr",
+    city: "Skyforest",
+    state: "CA",
+    country: "USA",
+    lattitude: 34.23654940114871, 
+    longitude: -117.1796084269254,
+    name: "Pet Friendly Modern Cozy Cottage with Hot Tub",
+    description: `Escape to the mountains and be immersed in the majesty of ancient trees that cocoon this century old cottage with modern amenities that the whole family can enjoy.`,
+    price: 229,
+  },
+  // 34
+  {
+    ownerId: 4,
     address: "27753 Alpen Dr",
     city: "Lake Arrowhead",
     state: "CA",
@@ -440,9 +454,23 @@ let spots = [
     description: `Alpen Adventures has an awesome location for exploring all the best of Lake Arrowhead, but there's fun to be had right at home too! An enclosed trampoline offers hours of outdoor play for young travelers, while the indoor game room boasts a poker table, large sectional couch, and smart tv. Whether it's movie night or poker night, this cozy room promises an awesome time! Back upstairs, the fully equipped kitchen has all the appliances, cookware, and space you'll need to whip up delicious meals at home. Gather to share quality time and yummy food at the dining table set for 8.`,
     price: 200,
   },
-  // 34
+  // 35 Apparently does not exist
   {
-    ownerId: 4,
+    ownerId: 5,
+    address: "2427 Astral Dr",
+    city: "West Hollywood",
+    state: "CA",
+    country: "USA",
+    lattitude: 34.11534291568807, 
+    longitude: -118.35759115837601,
+    name: "1920s home in the Hwood Hills adjacent to Runyon    ",
+    description: `1920s Hollywood Hills home just steps away from the Largest City hiking park, Runyon Canyon. All the amenities of home and then some. Quiet, peaceful, residential neighborhood, prefer small families to people looking to party, its not that house. The home is situated as a 2 bedroom however the 3rd bedroom is a comfy delight...its set up as a streaming/gaming room but has a queen blow up bed if space is needed for sleeping.`,
+    price: 375,
+  },
+  
+  // 36
+  {
+    ownerId: 1,
     address: "348 CA-173",
     city: "Lake Arrowhead",
     state: "CA",
@@ -453,9 +481,9 @@ let spots = [
     description: `Welcome to the Emerald Lodge, 3022sq/ft of Lake Arrowhead bliss. Fully updated with views throughout, you will not miss the lake view or sunset top to bottom. Featuring a fully renovated interior, hottub, level access garage, new furnishings, smart TVs & WiFi - all modern conveniences are elegantly provided. This home is exceptional for multi-family groups; as there is a separate entrance and space on the 3rd level, for proximity yet privacy. Fully heated and cooled for 4-season tranquility.`,
     price: 700,
   },
-  // 35
+  // 37
   {
-    ownerId: 5,
+    ownerId: 2,
     address: "9872 Oak Grove Dr",
     city: "Descanso",
     state: "CA",
@@ -466,57 +494,31 @@ let spots = [
     description: `This gem of a property has been kept a secret for over 50 years and now is available for your enjoyment. This exceptional home is monitored currently by the owner that lives across the lake, so if you are thinking of doing a party or wedding of any kind or event not approved by the owner it is very highly discouraged. If you have a special gathering request please send inquiry we might be able to accomadate.`,
     price: 752,
   },
-  // 36
+  // 38
   {
-    ownerId: 1,
+    ownerId: 3,
     address: "211 Orion Way",
     city: "Big Bear Lake",
     state: "CA",
     country: "USA",
     lattitude: 34.253019647571605,
-    longitude:  -116.87238331439819,
+    longitude: -116.87238331439819,
     name: "Castle Rock. Spa, BBQ, and the Best Views.",
     description: `Castle Glen Estates - As soon as you get to this home you will be set into a state of relaxation. When you pass through the front door you will be greeted by a two-story wall of windows with spectacular views of the mountains and ski resorts. Enjoy the large deck for your outdoor entertaining, dining & hot tub! This gorgeous home backs to Eagle Preserve and US Forestry Land. Plenty of parking for you and your guests with the circular driveway.`,
     price: 401,
   },
-  // 37
+  // 39
   {
-    ownerId: 2,
+    ownerId: 4,
     address: "39950 De Portola Rd",
     city: "Temecula",
     state: "CA",
     country: "USA",
     lattitude: 33.543854970668875,
-    longitude:  -117.00765510439068,
+    longitude: -117.00765510439068,
     name: "De Portola Vineyard and Retreat House",
     description: `Located on De Portola Wine Trail in the heart of Temecula Wine Country with 8 acres of Italian varietal mature grape.`,
     price: 693,
-  },
-  // 38
-  {
-    ownerId: 3,
-    address: "315 W 1175 N",
-    city: "Cedar City",
-    state: "UT",
-    country: "USA",
-    lattitude: 37.69793893077679,
-    longitude:   -113.06611279795989,
-    name: "Hobbit Cottage",
-    description: `Perfectly located between Zion NP, Bryce Canyon, Kannarra Falls and Brian Head ski resort this unique custom built cottage is a Lord of the Rings hot spot! Whether you are a fan or not, this is a safe, cozy spot to rest from your adventures. Plenty of close hiking, dining, events, Shakespeare festivals, night life, coffee shops, yoga, lakes, streams and the beauty of all 4 seasons.`,
-    price: 82,
-  },
-  // 39
-  {
-    ownerId: 4,
-    address: "315 W 1175 N",
-    city: "Cedar City",
-    state: "UT",
-    country: "USA",
-    lattitude: 37.69793893077619,
-    longitude:   -113.06611279795989,
-    name: "Hobbit Cottage",
-    description: `Perfectly located between Zion NP, Bryce Canyon, Kannarra Falls and Brian Head ski resort this unique custom built cottage is a Lord of the Rings hot spot! Whether you are a fan or not, this is a safe, cozy spot to rest from your adventures. Plenty of close hiking, dining, events, Shakespeare festivals, night life, coffee shops, yoga, lakes, streams and the beauty of all 4 seasons.`,
-    price: 82,
   },
   // 40
   {
@@ -525,13 +527,12 @@ let spots = [
     city: "Cedar City",
     state: "UT",
     country: "USA",
-    lattitude: 37.69793892077619,
-    longitude:   -113.06911279795989,
+    lattitude: 37.69793893077679,
+    longitude: -113.06611279795989,
     name: "Hobbit Cottage",
     description: `Perfectly located between Zion NP, Bryce Canyon, Kannarra Falls and Brian Head ski resort this unique custom built cottage is a Lord of the Rings hot spot! Whether you are a fan or not, this is a safe, cozy spot to rest from your adventures. Plenty of close hiking, dining, events, Shakespeare festivals, night life, coffee shops, yoga, lakes, streams and the beauty of all 4 seasons.`,
     price: 82,
   },
-
 
 ]
 module.exports = {
