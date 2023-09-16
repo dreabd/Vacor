@@ -362,7 +362,7 @@ let spots = [
     description: `The Mod Pod is an ultra modern, high-end and high-tech retreat with all the amenities! It has a private queen bedroom with a floating bed, LED mood lighting, large skylight, many windows, and TV. Floating stairs lead to a queen loft with skylight. Spacious family room with fireplace and TV. Open chefś kitchen. The dining area opens to an outdoor party bar. Large SPA bathroom. Large lower deck with fireplace, BBQ, & rocking chairs. Large rooftop deck for star gazing on zero gravity chairs. Enjoy!.`,
     price: 99,
   },
-  // 27
+  // 28
   {
     ownerId: 1,
     address: "B-21 S Pacific Ave.",
@@ -375,7 +375,7 @@ let spots = [
     description: `This Iconic 4 Story, 87-foot Water Tower House now offers an unforgettable vacation rental experience with easy access to great shopping, dining, and local beaches. Take the elevator up to the main level which features large panoramic windows that open outward. There is also a wraparound deck with unobstructed 360-degree views of beaches, the ocean, and mountains. Vacation at the second tallest residential home in the United States and make lasting memories at this one-of-a-kind historic home!!`,
     price: 819,
   },
-  // 27
+  // 29
   {
     ownerId: 1,
     address: "346 Mira Mar Ave",
@@ -388,7 +388,7 @@ let spots = [
     description: `Enjoy this new elegant bungalow in a charming Belmont Heights neighborhood. Beautifully decorated with all new furniture featuring a patio retreat surrounded by a lush garden and a cozy living space with contemporary-retro décor. The location is ideal as it's centrally located to all things Long Beach has to offer. Beach access is just a short walk a few blocks away. Walking distance to 2nd St. where you can enjoy upscale restaurants and unique local shopping. Private lot, entrance, & laundry.`,
     price: 129,
   },
-  // 27
+  // 30
   {
     ownerId: 1,
     address: "346 Mira Mar Ave",
