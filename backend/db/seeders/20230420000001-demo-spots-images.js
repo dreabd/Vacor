@@ -7,16 +7,16 @@ function massProduceImageObjects() {
   let idCounter = 1;
   let imageCounter = 1;
   // og is 40
-  while (idCounter <= 30) {
-    // console.log(idCounter)
+  while (idCounter <= 40) {
 
     while (imageCounter < 6) {
       let spotObj = {
         spotId: idCounter,
-        url: `https://vacorphotobucket.s3.us-west-1.amazonaws.com/h${idCounter}p${imageCounter - 1}.jpg`,
+        url: `https://vacorphotobucket.s3.us-west-1.amazonaws.com/h${idCounter === 33 ? idCounter+=1 : idCounter}p${imageCounter - 1}.jpg`,
         preview: false
       }
 
+      console.log(idCounter)
       if (imageCounter === 1) {
         spotObj.url = `https://vacorphotobucket.s3.us-west-1.amazonaws.com/h${idCounter}m.jpg`
         spotObj.preview = true

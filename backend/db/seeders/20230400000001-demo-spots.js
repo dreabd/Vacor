@@ -351,7 +351,7 @@ let spots = [
   },
   // 27
   {
-    ownerId: 1,
+    ownerId: 2,
     address: "1237 E Cactus Dr",
     city: "Apple Valley",
     state: "UT",
@@ -364,7 +364,7 @@ let spots = [
   },
   // 28
   {
-    ownerId: 1,
+    ownerId: 3,
     address: "B-21 S Pacific Ave.",
     city: "Seal Beach",
     state: "CA",
@@ -377,7 +377,7 @@ let spots = [
   },
   // 29
   {
-    ownerId: 1,
+    ownerId: 4,
     address: "346 Mira Mar Ave",
     city: "Long Beach",
     state: "CA",
@@ -390,7 +390,7 @@ let spots = [
   },
   // 30
   {
-    ownerId: 1,
+    ownerId: 5,
     address: "346 Mira Mar Ave",
     city: "Newport Beach",
     state: "CA",
@@ -401,7 +401,136 @@ let spots = [
     description: `Stunning remodeled bungalow that is only steps to the sand (one house off the beach). The open layout is perfect for families. Home comes with surf/body boards, bikes, beach chairs and anything else you would need to enjoy the incredible beach out front. The home has been remodeled top to bottom with no expense spared. Enjoy a morning coffee on the patio while gazing at spectacular ocean and sunset views. Walkable to amazing cafes/restaurants. Dogs are allowed with pet fee - please inquire.`,
     price: 271,
   },
-
+  // 31
+  {
+    ownerId: 1,
+    address: "173 Bay Shore Ave",
+    city: "Long Beach",
+    state: "CA",
+    country: "USA",
+    lattitude: 33.75766323037084,
+    longitude: -118.13082998509148,
+    name: "Stroll to the Beach in Belmont Shore from a Bohemian Getaway",
+    description: `Enjoy coffee at daybreak or a sip of wine at sunset while lounging in our adirondack chairs. Our recently renovated front patio comes equipped with an outdoor charcoal grill, gas fire pit, lounge chairs, and an outdoor dining table.The cottage is nestled in the quieter, residential area of Belmont Shore and close to Bay Shore Beach. The town's main street, 2nd Street, is a short walk away with buzzing restaurants, coffee shops, and small boutiques.`,
+    price: 173,
+  },
+  // 32
+  {
+    ownerId: 2,
+    address: "27325 Pinewood Dr",
+    city: "Lake Arrowhead",
+    state: "CA",
+    country: "USA",
+    lattitude: 34.25237964752824,
+    longitude: -117.20839181469309,
+    name: "Designer A-Frame Cabin in the Trees",
+    description: `Meticulously designer-renovated cabin surrounded by mature evergreens and nestled behind a charming seasonal creek. Whether you're looking to spend time with loved ones or work remotely outside of the city, this is the place to do it all. Relax by the fireplace while light pours in from the wall of windows, grill and chill on the deck, and explore nature right outside your front door. Conveniently located near everything Lake Arrowhead has to offer. You'll never want to leave!`,
+    price: 191,
+  },
+  // 33
+  {
+    ownerId: 3,
+    address: "27753 Alpen Dr",
+    city: "Lake Arrowhead",
+    state: "CA",
+    country: "USA",
+    lattitude: 34.26989830965276,
+    longitude: -117.1978310278204,
+    name: "Alpen Adventures | Stunning Sunset Views",
+    description: `Alpen Adventures has an awesome location for exploring all the best of Lake Arrowhead, but there's fun to be had right at home too! An enclosed trampoline offers hours of outdoor play for young travelers, while the indoor game room boasts a poker table, large sectional couch, and smart tv. Whether it's movie night or poker night, this cozy room promises an awesome time! Back upstairs, the fully equipped kitchen has all the appliances, cookware, and space you'll need to whip up delicious meals at home. Gather to share quality time and yummy food at the dining table set for 8.`,
+    price: 200,
+  },
+  // 34
+  {
+    ownerId: 4,
+    address: "348 CA-173",
+    city: "Lake Arrowhead",
+    state: "CA",
+    country: "USA",
+    lattitude: 34.25707901651686,
+    longitude: -117.16928062477828,
+    name: "Emerald Lodge-3022sqft w Glorious Views, Hottub AC",
+    description: `Welcome to the Emerald Lodge, 3022sq/ft of Lake Arrowhead bliss. Fully updated with views throughout, you will not miss the lake view or sunset top to bottom. Featuring a fully renovated interior, hottub, level access garage, new furnishings, smart TVs & WiFi - all modern conveniences are elegantly provided. This home is exceptional for multi-family groups; as there is a separate entrance and space on the 3rd level, for proximity yet privacy. Fully heated and cooled for 4-season tranquility.`,
+    price: 700,
+  },
+  // 35
+  {
+    ownerId: 5,
+    address: "9872 Oak Grove Dr",
+    city: "Descanso",
+    state: "CA",
+    country: "USA",
+    lattitude: 32.862945435204495,
+    longitude: -116.62385077808243,
+    name: "Stylish Lakefront home near Julian",
+    description: `This gem of a property has been kept a secret for over 50 years and now is available for your enjoyment. This exceptional home is monitored currently by the owner that lives across the lake, so if you are thinking of doing a party or wedding of any kind or event not approved by the owner it is very highly discouraged. If you have a special gathering request please send inquiry we might be able to accomadate.`,
+    price: 752,
+  },
+  // 36
+  {
+    ownerId: 1,
+    address: "211 Orion Way",
+    city: "Big Bear Lake",
+    state: "CA",
+    country: "USA",
+    lattitude: 34.253019647571605,
+    longitude:  -116.87238331439819,
+    name: "Castle Rock. Spa, BBQ, and the Best Views.",
+    description: `Castle Glen Estates - As soon as you get to this home you will be set into a state of relaxation. When you pass through the front door you will be greeted by a two-story wall of windows with spectacular views of the mountains and ski resorts. Enjoy the large deck for your outdoor entertaining, dining & hot tub! This gorgeous home backs to Eagle Preserve and US Forestry Land. Plenty of parking for you and your guests with the circular driveway.`,
+    price: 401,
+  },
+  // 37
+  {
+    ownerId: 2,
+    address: "39950 De Portola Rd",
+    city: "Temecula",
+    state: "CA",
+    country: "USA",
+    lattitude: 33.543854970668875,
+    longitude:  -117.00765510439068,
+    name: "De Portola Vineyard and Retreat House",
+    description: `Located on De Portola Wine Trail in the heart of Temecula Wine Country with 8 acres of Italian varietal mature grape.`,
+    price: 693,
+  },
+  // 38
+  {
+    ownerId: 3,
+    address: "315 W 1175 N",
+    city: "Cedar City",
+    state: "UT",
+    country: "USA",
+    lattitude: 37.69793893077679,
+    longitude:   -113.06611279795989,
+    name: "Hobbit Cottage",
+    description: `Perfectly located between Zion NP, Bryce Canyon, Kannarra Falls and Brian Head ski resort this unique custom built cottage is a Lord of the Rings hot spot! Whether you are a fan or not, this is a safe, cozy spot to rest from your adventures. Plenty of close hiking, dining, events, Shakespeare festivals, night life, coffee shops, yoga, lakes, streams and the beauty of all 4 seasons.`,
+    price: 82,
+  },
+  // 39
+  {
+    ownerId: 4,
+    address: "315 W 1175 N",
+    city: "Cedar City",
+    state: "UT",
+    country: "USA",
+    lattitude: 37.69793893077619,
+    longitude:   -113.06611279795989,
+    name: "Hobbit Cottage",
+    description: `Perfectly located between Zion NP, Bryce Canyon, Kannarra Falls and Brian Head ski resort this unique custom built cottage is a Lord of the Rings hot spot! Whether you are a fan or not, this is a safe, cozy spot to rest from your adventures. Plenty of close hiking, dining, events, Shakespeare festivals, night life, coffee shops, yoga, lakes, streams and the beauty of all 4 seasons.`,
+    price: 82,
+  },
+  // 40
+  {
+    ownerId: 5,
+    address: "315 W 1175 N",
+    city: "Cedar City",
+    state: "UT",
+    country: "USA",
+    lattitude: 37.69793892077619,
+    longitude:   -113.06911279795989,
+    name: "Hobbit Cottage",
+    description: `Perfectly located between Zion NP, Bryce Canyon, Kannarra Falls and Brian Head ski resort this unique custom built cottage is a Lord of the Rings hot spot! Whether you are a fan or not, this is a safe, cozy spot to rest from your adventures. Plenty of close hiking, dining, events, Shakespeare festivals, night life, coffee shops, yoga, lakes, streams and the beauty of all 4 seasons.`,
+    price: 82,
+  },
 
 
 ]
