@@ -19,7 +19,7 @@ function Navigation({ isLoaded }) {
         </li>
         {isLoaded && (
           <li className='newSpot-profile-container'>
-            {sessionUser &&  <NavLink style={{textDecoration:"none",cursor:"pointer"}} exact to="/spots/new"> Create New Spot</NavLink>}
+            {sessionUser &&  <NavLink className="create-new-spot" exact to="/spots/new"> Create New Spot</NavLink>}
             <ProfileButton user={sessionUser} />
           </li>
         )}

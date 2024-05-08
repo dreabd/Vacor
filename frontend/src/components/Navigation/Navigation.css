@@ -57,3 +57,12 @@
 .log-out-button:hover {
   background: #FF5A5F;
 }
+
+.create-new-spot{
+  text-decoration: none;
+  color: gray;
+}
+
+.create-new-spot:hover{
+  text-decoration: underline
+}

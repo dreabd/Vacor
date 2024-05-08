@@ -435,7 +435,7 @@ let spots = [
     city: "Skyforest",
     state: "CA",
     country: "USA",
-    lattitude: 34.23654940114871, 
+    lattitude: 34.23654940114871,
     longitude: -117.1796084269254,
     name: "Pet Friendly Modern Cozy Cottage with Hot Tub",
     description: `Escape to the mountains and be immersed in the majesty of ancient trees that cocoon this century old cottage with modern amenities that the whole family can enjoy.`,
@@ -461,13 +461,13 @@ let spots = [
     city: "West Hollywood",
     state: "CA",
     country: "USA",
-    lattitude: 34.11534291568807, 
+    lattitude: 34.11534291568807,
     longitude: -118.35759115837601,
     name: "1920s home in the Hwood Hills adjacent to Runyon    ",
     description: `1920s Hollywood Hills home just steps away from the Largest City hiking park, Runyon Canyon. All the amenities of home and then some. Quiet, peaceful, residential neighborhood, prefer small families to people looking to party, its not that house. The home is situated as a 2 bedroom however the 3rd bedroom is a comfy delight...its set up as a streaming/gaming room but has a queen blow up bed if space is needed for sleeping.`,
     price: 375,
   },
-  
+
   // 36
   {
     ownerId: 1,
@@ -545,7 +545,7 @@ module.exports = {
     options.tableName = 'Spots';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      ownerId: { [Op.in]: [1, 2] }
+      ownerId: { [Op.in]: [1, 2, 3, 4, 5] }
     }, {});
   }
 };
