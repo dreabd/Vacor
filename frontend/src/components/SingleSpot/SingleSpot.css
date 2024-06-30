@@ -1,6 +1,7 @@
 .single-spot-container, .spot-reviews-container{
   padding: 1rem 2rem;
 }
+
 .single-spot-image-container{
   display: grid;
   width: 100%;
