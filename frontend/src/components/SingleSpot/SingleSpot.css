@@ -16,7 +16,7 @@
   overflow: hidden;
 }
 .mainImage{
-  max-width: 100%;
+  /* max-width: 100%; */
   width: 35rem;
   height: 340px;
   object-fit: cover;
